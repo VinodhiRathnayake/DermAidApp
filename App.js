@@ -1,20 +1,23 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import SigninDetailsScreen from './app/screens/SigninDetailsScreen';
+import SigninScreen from './app/screens/SigninScreen';
+import SignupScreen from './app/screens/SignupScreen';
+import WelcomeScreen from './app/screens/WelcomeScreen';
+import SignupDetailsScreen from './app/screens/SignupDetailsScreen';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>DermAid hello World</Text>
-      <StatusBar style="auto" />
-    </View>
+    < WelcomeScreen/>
+
+    // < SigninScreen/>
+
+    // < SignupScreen/>
+
+    // <SigninDetailsScreen/>
+
+    // < SignupDetailsScreen/>
+    
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
