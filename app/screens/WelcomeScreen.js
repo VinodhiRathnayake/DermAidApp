@@ -1,38 +1,34 @@
-import React from 'react';
-import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
-import colors from '../config/colors';
+import React from "react";
+import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
+import colors from "../config/colors";
 
 import { Platform } from "react-native";
-import Screen from '../components/Screen';
-
+import Screen from "../components/Screen";
 
 function WelcomeScreen(props) {
   return (
     <Screen>
-    <View style={styles.container}>
-      
+      <View style={styles.container}>
         <Image
-        style={[styles.image]}
-        source={require("../assets/DermAidlogo.jpg")}
-      />
-     
+          style={[styles.image]}
+          source={require("../assets/DermAidlogo.jpg")}
+        />
+
         <Text style={styles.welcomeText}>Your Skin Journey Starts Here!</Text>
         <TouchableOpacity
-        style={styles.buttonContainer}
-        onPress={() => console.log('Button Pressed')}
-      >
-        <Text style={styles.buttonText}>Get Started</Text>
-      </TouchableOpacity>
-
-    </View>
+          style={styles.buttonContainer}
+          onPress={() => console.log("Button Pressed")}
+        >
+          <Text style={styles.buttonText}>Get Started</Text>
+        </TouchableOpacity>
+      </View>
     </Screen>
-    
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   image: {
     width: 350,
@@ -42,23 +38,23 @@ const styles = StyleSheet.create({
   welcomeText: {
     color: colors.white,
     marginTop: 70,
-    fontSize:38,
-    textAlign: 'center',
-    fontWeight:'bold',
+    fontSize: 38,
+    textAlign: "center",
+    fontWeight: "bold",
   },
   buttonContainer: {
     marginTop: 90,
     backgroundColor: colors.white,
-    width: 330, 
+    width: 330,
     height: 65,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 15,
   },
   buttonText: {
-    color: 'orange', 
+    color: "orange",
     fontSize: 28,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
   },
 });

@@ -3,7 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import colors from "../config/colors";
 
-function Button({ title, onPress, color = "white" , children}) {
+function Button({ title, onPress, color = "white", children }) {
   return (
     <TouchableOpacity
       style={[styles.button, { backgroundColor: colors[color] }]}
@@ -35,9 +35,9 @@ const styles = StyleSheet.create({
     // fontWeight: "bold",
   },
   buttonContent: {
-    flexDirection: "row", 
-    alignItems: "center", 
-    justifyContent: "center", 
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 
