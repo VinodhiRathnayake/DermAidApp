@@ -12,9 +12,9 @@ export default function App() {
 
     // <SignupScreen />
 
-    <SigninDetailsScreen />
+    // <SigninDetailsScreen />
 
-    // <SignupDetailsScreen />
+    <SignupDetailsScreen />
   );
 }
 

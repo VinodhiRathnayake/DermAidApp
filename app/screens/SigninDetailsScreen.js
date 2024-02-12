@@ -2,11 +2,9 @@ import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import Screen from "../components/Screen";
 import LogoText from "../components/LogoText";
-import AppTextInput from "../components/AppTextInput";
-import Button from "../components/Button";
-import { Formik } from 'formik';
 import * as Yup from 'yup';
-import AppText from "../components/AppText";
+import {AppForm, AppFormField, SubmitButton} from '../components/Forms'
+
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -19,42 +17,35 @@ function SigninDetailsScreen(props) {
       <LogoText />
       <View style={styles.container}>
         <View style={styles.inputContainer}>
-          <Formik
+          <AppForm
             initialValues={{ email: '', password: '' }}
             onSubmit={values => console.log(values)}
             validationSchema = {validationSchema}
           >
-        {({handleChange, handleSubmit, errors}) => (
-          <>
-          <AppTextInput
+         <AppFormField
             autocapitalize="none"
             autocorrect={false}
             icon="email"
             keyboardType="email-address"
-            onChangeText={handleChange("email")}
+            name="email"
             placeholder="Email"
           />
-          <AppText style={{color: 'red'}}>{errors.email}</AppText>
 
-          <AppTextInput
+          <AppFormField
             autocapitalize="none"
             autocorrect={false}
             icon="lock"
             secureTextEntry
-            onChangeText={handleChange("password")}
+            name="password"
             placeholder="Password"
           />
-          <AppText style={{color: 'red'}}>{errors.password}</AppText>
           <View style={styles.buttonContainer}>
-            <Button 
+            <SubmitButton 
             title="Sign in"
-            onPress={handleSubmit}
-            ></Button>
+            ></SubmitButton>
           </View>
-  </>
-)}
 
-          </Formik>
+          </AppForm>
           
           
           <Text style={styles.text}>Forgot Password</Text>
