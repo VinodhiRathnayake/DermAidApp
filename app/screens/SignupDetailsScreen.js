@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import Screen from "../components/Screen";
 import LogoText from "../components/LogoText";
-import AppTextInput from "../components/lists/AppTextInput";
+import AppTextInput from "../components/AppTextInput";
 import Button from "../components/Button";
 
 function SignupDetailsScreen(props) {
