@@ -1,5 +1,5 @@
-import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import React, { useState } from "react";
+import { View, StyleSheet, Text, KeyboardAvoidingView, Platform } from "react-native";
 import Screen from "../components/Screen";
 import LogoText from "../components/LogoText";
 import * as Yup from "yup";
@@ -14,9 +14,15 @@ const validationSchema = Yup.object().shape({
 });
 
 function SignupDetailsScreen(props) {
+  const [isInputFocused, setIsInputFocused] = useState(false);
   return (
     <Screen>
-      <LogoText />
+      {!isInputFocused && <LogoText />}
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : null}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 50 : 200}
+      >
       <View style={styles.container}>
         <View style={styles.inputContainer}>
         <AppForm
@@ -30,6 +36,8 @@ function SignupDetailsScreen(props) {
             icon="account"
             name="firstname"
             placeholder="First Name"
+            onFocus={() => setIsInputFocused(true)}
+            onBlur={() => setIsInputFocused(false)}
           />
 
         <AppFormField
@@ -37,6 +45,8 @@ function SignupDetailsScreen(props) {
             icon="account"
             name="lastname"
             placeholder="Last Name"
+            onFocus={() => setIsInputFocused(true)}
+            onBlur={() => setIsInputFocused(false)}
           />
 
       <AppFormField
@@ -47,6 +57,8 @@ function SignupDetailsScreen(props) {
           name="email"
           placeholder="Email"
           textContentType="emailAddress"
+          onFocus={() => setIsInputFocused(true)}
+          onBlur={() => setIsInputFocused(false)}
         />
 
 <AppFormField
@@ -57,6 +69,8 @@ function SignupDetailsScreen(props) {
           placeholder="Password"
           secureTextEntry
           textContentType="password"
+          onFocus={() => setIsInputFocused(true)}
+          onBlur={() => setIsInputFocused(false)}
         />
           <View style={styles.buttonContainer}>
             <SubmitButton title="Sign up"></SubmitButton>
@@ -65,6 +79,7 @@ function SignupDetailsScreen(props) {
           </AppForm>
         </View>
       </View>
+      </KeyboardAvoidingView>
     </Screen>
   );
 }

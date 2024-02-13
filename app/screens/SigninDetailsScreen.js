@@ -1,5 +1,5 @@
-import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import React, { useState } from "react";
+import { View, StyleSheet, Text, KeyboardAvoidingView, Platform } from "react-native";
 import Screen from "../components/Screen";
 import LogoText from "../components/LogoText";
 import * as Yup from 'yup';
@@ -12,9 +12,17 @@ const validationSchema = Yup.object().shape({
 })
 
 function SigninDetailsScreen(props) {
+  const [isInputFocused, setIsInputFocused] = useState(false);
+
   return (
+    
     <Screen>
-      <LogoText />
+      {!isInputFocused && <LogoText />}
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : null}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 50 : 200}
+      >
       <View style={styles.container}>
         <View style={styles.inputContainer}>
           <AppForm
@@ -29,6 +37,8 @@ function SigninDetailsScreen(props) {
             keyboardType="email-address"
             name="email"
             placeholder="Email"
+            onFocus={() => setIsInputFocused(true)}
+            onBlur={() => setIsInputFocused(false)}
           />
 
           <AppFormField
@@ -38,6 +48,8 @@ function SigninDetailsScreen(props) {
             secureTextEntry
             name="password"
             placeholder="Password"
+            onFocus={() => setIsInputFocused(true)}
+            onBlur={() => setIsInputFocused(false)}
           />
           <View style={styles.buttonContainer}>
             <SubmitButton 
@@ -51,7 +63,9 @@ function SigninDetailsScreen(props) {
           <Text style={styles.text}>Forgot Password</Text>
         </View>
       </View>
+      </KeyboardAvoidingView>
     </Screen>
+    
   );
 }
 
