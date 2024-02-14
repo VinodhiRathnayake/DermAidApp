@@ -3,6 +3,7 @@ import SigninScreen from "./app/screens/SigninScreen";
 import SignupScreen from "./app/screens/SignupScreen";
 import WelcomeScreen from "./app/screens/WelcomeScreen";
 import SignupDetailsScreen from "./app/screens/SignupDetailsScreen";
+import AboutUs from "./app/screens/AboutUs";
 
 export default function App() {
   return (
@@ -14,7 +15,8 @@ export default function App() {
 
     // <SigninDetailsScreen />
 
-    <SignupDetailsScreen />
+    // <SignupDetailsScreen />
+    <AboutUs/>
   );
 }
 
