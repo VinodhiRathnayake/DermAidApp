@@ -3,12 +3,13 @@ import { View, StyleSheet, Text, Image } from 'react-native';
 import Screen from '../components/Screen';
 import AppText from '../components/AppText';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import AppHeader from '../components/AppHeader';
 
 function AboutUs(props) {
   return (
     <Screen>
-        
-<Text>About us</Text>
+      <Text>About us</Text>
+        {/* <AppHeader title="About Us" /> */}
 
 <AppText style={styles.text}>Skin diseases are a major global health concern, 
     affecting millions of people worldwide. Early diagnosis
