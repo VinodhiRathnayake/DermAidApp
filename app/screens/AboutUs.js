@@ -8,8 +8,8 @@ import AppHeader from '../components/AppHeader';
 function AboutUs(props) {
   return (
     <Screen>
-      <Text>About us</Text>
-        {/* <AppHeader title="About Us" /> */}
+     
+        <AppHeader title="About Us" />
 
 <AppText style={styles.text}>Skin diseases are a major global health concern, 
     affecting millions of people worldwide. Early diagnosis
@@ -49,7 +49,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold', 
     textAlign: 'center', 
     lineHeight: 27,
-    marginBottom:30,
+    marginBottom:20,
+    fontSize: 16,
   },
   contactContainer: {
     flexDirection: 'row',

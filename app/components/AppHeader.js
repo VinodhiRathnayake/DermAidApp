@@ -14,7 +14,7 @@ function AppHeader({title}) {
     </View>
 
     <View style={styles.titleContainer}>
-        <MaterialCommunityIcons name="arrow-left" color="black" size={45} style={styles.icon}/>
+        <MaterialCommunityIcons name="arrow-left" color="black" size={45} />
         <Text style={styles.headerTitle}>{title}</Text>
        
 
@@ -26,7 +26,7 @@ function AppHeader({title}) {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: -40,
+    marginTop: -50,
     flexDirection: 'row',
      
   },
@@ -42,19 +42,20 @@ const styles = StyleSheet.create({
   redText: {
     color: 'red',
   },
+  
   titleContainer: {
-    marginTop: 15,
+    marginTop: 10,
     flexDirection: 'row',
-  },
-  titleContainer: {
-    marginTop: 15,
-    flexDirection: 'row',
-    alignItems: 'center', 
+    marginBottom:15,
   },
   headerTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-   alignItems:"center",
+    marginLeft:120,
+    fontSize: 30,
+
+   
+
   },
 });
 
