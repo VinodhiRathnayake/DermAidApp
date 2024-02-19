@@ -1,17 +1,24 @@
-import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AppText from './AppText';
+import Menu from './Menu';
 
 function AppHeader({title}) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
+  
     <View>
     <View style={styles.container}>
+    
+    <TouchableOpacity onPress={() => setIsMenuOpen(!isMenuOpen)}>
         <MaterialCommunityIcons name="menu" color="black" size={35} style={styles.icon}/>
+        </TouchableOpacity>
         <AppText style={styles.text}>
         Derm< Text style={styles.redText}>Aid</Text>
         </AppText>
     </View>
+    
 
     <View style={styles.titleContainer}>
         <MaterialCommunityIcons name="arrow-left" color="black" size={45} />
@@ -19,7 +26,11 @@ function AppHeader({title}) {
        
 
     </View>
+    {isMenuOpen && <Menu />}
     </View>
+    
+    
+   
         
   );
 }

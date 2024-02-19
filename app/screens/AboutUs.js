@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
 import Screen from '../components/Screen';
 import AppText from '../components/AppText';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AppHeader from '../components/AppHeader';
 
+
 function AboutUs(props) {
+
   return (
     <Screen>
      
         <AppHeader title="About Us" />
+       
 
-<AppText style={styles.text}>Skin diseases are a major global health concern, 
+<AppText style={styles.text} >Skin diseases are a major global health concern, 
     affecting millions of people worldwide. Early diagnosis
     and treatement of skin diseases are crucial in preventing 
     complications and improving patient outcomes. However, traditional
