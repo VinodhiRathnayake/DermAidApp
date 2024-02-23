@@ -6,6 +6,9 @@ import SignupDetailsScreen from "./app/screens/SignupDetailsScreen";
 import AboutUs from "./app/screens/AboutUs";
 import AppHeader from "./app/components/AppHeader";
 import MenuScreen from "./app/screens/MenuScreen";
+import ProfileScreen from "./app/screens/ProfileScreen";
+import PredictionRecordsScreen from "./app/screens/PredictionRecordsScreen";
+import EditProfileScreen from "./app/screens/EditProfileScreen";
 
 export default function App() {
   return (
@@ -19,7 +22,10 @@ export default function App() {
 
     // <SignupDetailsScreen />
     // <AboutUs/>
-    <MenuScreen/>
+    // <MenuScreen/>
+    // <ProfileScreen/>
+    // <PredictionRecordsScreen/>
+    <EditProfileScreen/>
    
   );
 }

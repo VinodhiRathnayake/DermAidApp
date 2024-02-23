@@ -60,10 +60,13 @@ const styles = StyleSheet.create({
     marginBottom:15,
   },
   headerTitle: {
+    flex: 1,
     fontSize: 20,
     fontWeight: 'bold',
-    marginLeft:120,
     fontSize: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
 
    
 
