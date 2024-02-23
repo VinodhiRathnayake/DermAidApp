@@ -5,6 +5,7 @@ import WelcomeScreen from "./app/screens/WelcomeScreen";
 import SignupDetailsScreen from "./app/screens/SignupDetailsScreen";
 import AboutUs from "./app/screens/AboutUs";
 import AppHeader from "./app/components/AppHeader";
+import MenuScreen from "./app/screens/MenuScreen";
 
 export default function App() {
   return (
@@ -17,9 +18,9 @@ export default function App() {
     // <SigninDetailsScreen />
 
     // <SignupDetailsScreen />
-    <AboutUs/>
-    
-    // <AppHeader/>
+    // <AboutUs/>
+    <MenuScreen/>
+   
   );
 }
 
