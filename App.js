@@ -9,6 +9,7 @@ import MenuScreen from "./app/screens/MenuScreen";
 import ProfileScreen from "./app/screens/ProfileScreen";
 import PredictionRecordsScreen from "./app/screens/PredictionRecordsScreen";
 import EditProfileScreen from "./app/screens/EditProfileScreen";
+import ImageInput from "./app/components/ImageInput";
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
     // <ProfileScreen/>
     // <PredictionRecordsScreen/>
     <EditProfileScreen/>
+    // <ImageInput/>
    
   );
 }
