@@ -24,6 +24,8 @@ const styles = StyleSheet.create({
   },
   view: {
     flex: 1,
+    
+    marginBottom: 50
   },
 });
 

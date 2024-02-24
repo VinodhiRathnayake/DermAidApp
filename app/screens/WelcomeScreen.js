@@ -4,8 +4,9 @@ import colors from "../config/colors";
 
 import { Platform } from "react-native";
 import Screen from "../components/Screen";
+import Button from "../components/Button";
 
-function WelcomeScreen(props) {
+function WelcomeScreen({navigation}) {
   return (
     <Screen>
       <View style={styles.container}>
@@ -15,12 +16,9 @@ function WelcomeScreen(props) {
         />
 
         <Text style={styles.welcomeText}>Your Skin Journey Starts Here!</Text>
-        <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={() => console.log("Button Pressed")}
-        >
-          <Text style={styles.buttonText}>Get Started</Text>
-        </TouchableOpacity>
+        <View style={styles.buttonContainer}>
+          <Button title="Get Started" onPress={() => navigation.navigate("Sign up")}/>
+        </View>
       </View>
     </Screen>
   );
