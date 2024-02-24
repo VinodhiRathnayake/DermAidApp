@@ -11,6 +11,7 @@ import PredictionRecordsScreen from "./app/screens/PredictionRecordsScreen";
 import EditProfileScreen from "./app/screens/EditProfileScreen";
 import ImageInput from "./app/components/ImageInput";
 import PredictionScreen from "./app/screens/PredictionScreen";
+import ResultScreen from "./app/screens/ResultScreen";
 
 export default function App() {
   return (
@@ -28,7 +29,8 @@ export default function App() {
     // <ProfileScreen/>
     // <PredictionRecordsScreen/>
     // <EditProfileScreen/>
-    <PredictionScreen/>
+    // <PredictionScreen/>
+    <ResultScreen/>
  
    
   );
