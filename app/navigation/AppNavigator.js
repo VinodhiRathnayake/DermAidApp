@@ -4,17 +4,11 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import MenuScreen from "../screens/MenuScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import PredictionScreen from "../screens/PredictionScreen";
-import AppHeader from "../components/AppHeader";
-import colors from "../config/colors";
 import PredictionRecordsScreen from "../screens/PredictionRecordsScreen";
 import AboutUs from "../screens/AboutUs";
-import { View } from "react-native";
+import MenuNavigator from "./MenuNavigator";
 
-// import AccountNavigator from "./AccountNavigator";
-// import FeedNavigator from "./FeedNavigator";
-// import ListingEditScreen from "../screens/ListingEditScreen";
-// import NewListingButton from "./NewListingButton";
-// import routes from "./routes";
+
 
 const Tab = createBottomTabNavigator();
 
@@ -42,7 +36,7 @@ const AppNavigator = () => (
   >
     <Tab.Screen
    name="Home"
-      component={MenuScreen}
+   component={MenuNavigator}
       options={{
         tabBarIcon: ({ color, size }) => (
           <MaterialCommunityIcons name="home" color="black" size={size} />
