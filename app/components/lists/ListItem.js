@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   },
   title: {
     // fontWeight: "500",
-    color: colors.white,
+    color: colors.black,
     fontWeight:"bold",
     
   },

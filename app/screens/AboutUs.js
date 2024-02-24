@@ -4,6 +4,7 @@ import Screen from '../components/Screen';
 import AppText from '../components/AppText';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AppHeader from '../components/AppHeader';
+import ImageInput from '../components/ImageInput';
 
 
 function AboutUs(props) {
@@ -12,6 +13,7 @@ function AboutUs(props) {
     <Screen>
      
         <AppHeader title="About Us" />
+     
        
 
 <AppText style={styles.text} >Skin diseases are a major global health concern, 

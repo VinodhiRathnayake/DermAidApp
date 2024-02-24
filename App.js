@@ -27,7 +27,7 @@ export default function App() {
     // <ProfileScreen/>
     // <PredictionRecordsScreen/>
     <EditProfileScreen/>
-    // <ImageInput/>
+ 
    
   );
 }
