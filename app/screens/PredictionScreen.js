@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView, Button, Image } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Image } from 'react-native';
 import { useEffect, useRef, useState } from 'react';
 import { Camera } from 'expo-camera';
 import { shareAsync } from 'expo-sharing';
@@ -7,6 +7,8 @@ import * as MediaLibrary from 'expo-media-library';
 import * as Sharing from 'expo-sharing';
 import Screen from '../components/Screen';
 import AppHeader from '../components/AppHeader';
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import Button from '../components/Button';
 
 
 
@@ -60,9 +62,11 @@ function PredictionScreen(props) {
             <Screen style={styles.container}>
             <SafeAreaView style={styles.container}>
               <Image style={styles.preview} source={{ uri: "data:image/jpg;base64," + photo.base64 }} />
+              <View style={styles.buttons}>
               <Button title="Share" onPress={sharePic} />
               {hasMediaLibraryPermission ? <Button title="Save" onPress={savePhoto} /> : undefined}
               <Button title="Discard" onPress={() => setPhoto(undefined)} />
+              </View>
             </SafeAreaView>
             </Screen>
           );
@@ -73,9 +77,9 @@ function PredictionScreen(props) {
                  <AppHeader title="NEW PREDICTION" />
             <Camera style={styles.container} ref={cameraRef}>
               <View style={styles.buttonContainer}>
-                <Button title="Take Pic" onPress={takePic} />
+                <MaterialCommunityIcons name="camera" size={35} onPress={takePic} />
               </View>
-              <StatusBar style="auto" />
+              <StatusBar style="auto" backgroundColor="transparent" translucent={true} />
             </Camera>
             </Screen>
           );
@@ -85,16 +89,33 @@ function PredictionScreen(props) {
         const styles = StyleSheet.create({
             container: {
               flex: 1,
-              alignItems: 'center',
+              // alignItems: 'center',
               justifyContent: 'center',
+             
             },
             buttonContainer: {
               backgroundColor: '#fff',
-              alignSelf: 'flex-end'
+              position: 'absolute',
+              bottom: 20, 
+              alignSelf: 'center',
+              padding: 10,
+              borderRadius: 50,
+            },
+            buttons: {
+           
+              paddingVertical: -50, // Adjust the vertical padding to reduce the height
+    paddingHorizontal: 10, // Adjust the horizontal padding if needed
+    borderRadius: 10,
+              justifyContent: 'center',
+            
+
+
             },
             preview: {
               alignSelf: 'stretch',
-              flex: 1
+              flex: 1,
+             
+
             }
           });
 export default PredictionScreen;
