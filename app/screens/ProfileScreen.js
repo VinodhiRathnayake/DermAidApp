@@ -6,6 +6,7 @@ import Screen from '../components/Screen';
 import AppHeader from '../components/AppHeader';
 import colors from '../config/colors';
 import Icon from '../components/Icon';
+import { useNavigation } from '@react-navigation/native'; 
 
 const menuItems = [
     {
@@ -14,6 +15,7 @@ const menuItems = [
         name: "account-edit",
         backgroundColor: colors.primary,
       },
+      targetScreen: 'EditProfile', 
     },
     {
       title: "NEW PREDICTION",
@@ -21,6 +23,7 @@ const menuItems = [
         name: "stethoscope",
         backgroundColor: colors.secondary,
       },
+      targetScreen: 'NewPrediction',
     },
     {
         title: "PREDICTION RECORDS",
@@ -28,6 +31,7 @@ const menuItems = [
           name: "clipboard-list",
           backgroundColor: colors.primary,
         },
+        targetScreen: 'PredictionRecords',
       },
       {
         title: "ABOUT US",
@@ -35,11 +39,19 @@ const menuItems = [
           name: "information-variant",
           backgroundColor: colors.secondary,
         },
+        targetScreen: 'AboutUs',
       },
   ];
   
 
+
 function ProfileScreen(props) {
+
+  const navigation = useNavigation(); // Get navigation object using useNavigation hook
+
+  const handleMenuItemPress = (screenName) => {
+    navigation.navigate(screenName); // Navigate to the target screen
+  };
 
 
   return (
@@ -71,6 +83,7 @@ function ProfileScreen(props) {
                   backgroundColor={item.icon.backgroundColor}
                 />
               }
+              onPress={() => handleMenuItemPress(item.targetScreen)} 
             />
           )}
         />

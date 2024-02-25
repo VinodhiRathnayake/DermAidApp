@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useNavigation } from '@react-navigation/native';
 import AppText from './AppText';
 import Menu from './Menu';
 
 function AppHeader({title}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigation = useNavigation();
   return (
   
     <View>
@@ -21,7 +23,9 @@ function AppHeader({title}) {
     
 
     <View style={styles.titleContainer}>
+    <TouchableOpacity onPress={() => navigation.goBack()}> 
         <MaterialCommunityIcons name="arrow-left" color="black" size={45} />
+        </TouchableOpacity>
         <Text style={styles.headerTitle}>{title}</Text>
        
 

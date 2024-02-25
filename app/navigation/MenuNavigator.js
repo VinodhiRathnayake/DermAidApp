@@ -10,6 +10,7 @@ import PredictionScreen from "../screens/PredictionScreen";
 import PredictionRecordsScreen from "../screens/PredictionRecordsScreen";
 import AboutUs from "../screens/AboutUs";
 import Menu from "../components/Menu";
+import AppHeader from "../components/AppHeader";
 
 const Stack = createStackNavigator();
 
@@ -19,6 +20,7 @@ const MenuNavigator = () => (
       name="Menu"
       component={MenuScreen}
       options={{ headerShown: false }}
+    
     />
     <Stack.Screen name="EditProfile" component={EditProfileScreen} options={{ headerShown: false }}/>
     <Stack.Screen name="NewPrediction" component={PredictionScreen} options={{ headerShown: false }}/>
