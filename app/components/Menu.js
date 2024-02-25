@@ -33,6 +33,9 @@ function Menu({ onClose }) {
 const styles = StyleSheet.create({
   container: {
     top: 0,
+    justifyContent: 'flex-start',
+    zIndex: 1000,
+    position:"absolute",
   
   },
   

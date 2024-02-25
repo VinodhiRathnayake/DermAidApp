@@ -20,10 +20,10 @@ function MenuButton({ title, onPress, color = "white", children }) {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor:colors.blue,
+    backgroundColor: colors.blue,
     
     padding: 10,
-    width: "60%",
+    width: "100%",
     position: "relative", 
 
   
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   },
   strip: {
     position: "absolute",
-    backgroundColor: "black",
+    backgroundColor: "#D2B48C",
     height: 4,
     width: "100%", 
     bottom: -7, 

@@ -32,11 +32,12 @@ function MenuScreen(props) {
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
+    marginTop:180,
   },
   text: {
-    marginTop: -20,
+    marginTop: -40,
     fontSize: 27,
-    color:'grey',
+    color:'#3b3b3b',
     fontWeight: 'bold',
     textAlign: 'right',
     marginRight: 20,

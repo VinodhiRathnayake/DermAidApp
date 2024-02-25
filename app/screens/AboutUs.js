@@ -15,7 +15,7 @@ function AboutUs(props) {
         <AppHeader title="About Us" />
      
        
-
+<View style={styles.container}>
 <AppText style={styles.text} >Skin diseases are a major global health concern, 
     affecting millions of people worldwide. Early diagnosis
     and treatement of skin diseases are crucial in preventing 
@@ -31,6 +31,7 @@ function AboutUs(props) {
     underserved areas and those with limited financial resources. The app could also help
     to detect skin diseases at an earlier stage when they are more likely to be treatable.
 </AppText>
+</View>
 <View style={styles.contactContainer}>
 <MaterialCommunityIcons name="email" color="black" size={23} style={styles.icon}/>
 <Text style={styles.email}>supportdermaid@gmail.com</Text>
@@ -49,7 +50,10 @@ function AboutUs(props) {
 }
 
 const styles = StyleSheet.create({
-  
+  container:{
+    padding:15,
+
+  },
   text: {
     fontWeight: 'bold', 
     textAlign: 'center', 

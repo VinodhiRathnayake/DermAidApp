@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
 import ListItem from '../components/lists/ListItem';
 import ListItemSeparator from '../components/lists/ListItemSeparator';
@@ -6,7 +6,8 @@ import Screen from '../components/Screen';
 import AppHeader from '../components/AppHeader';
 import colors from '../config/colors';
 import Icon from '../components/Icon';
-import { useNavigation } from '@react-navigation/native'; 
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
+
 
 const menuItems = [
     {
@@ -47,16 +48,26 @@ const menuItems = [
 
 function ProfileScreen(props) {
 
-  const navigation = useNavigation(); // Get navigation object using useNavigation hook
+  const [isMenuOpen, setIsMenuOpen] = useState(true);
+  const navigation = useNavigation();
 
-  const handleMenuItemPress = (screenName) => {
-    navigation.navigate(screenName); // Navigate to the target screen
+  // Close the menu when navigating to another screen
+  const handleMenuItemPress = (targetScreen) => {
+    setIsMenuOpen(false);
+    navigation.navigate(targetScreen);
   };
 
+  // Reset menu state when the screen gains focus
+  useFocusEffect(() => {
+    setIsMenuOpen(true);
+    return () => {
+      // Cleanup code here (if needed)
+    };
+  });
 
   return (
-    <Screen>
-        <AppHeader/>
+    <Screen onFocus={() => setIsMenuOpen(false)}>
+       <AppHeader />
         <View style={styles.container}>
         <ListItem
           title="Peter Parker"
@@ -68,6 +79,7 @@ function ProfileScreen(props) {
           
         />
       </View>
+    
       <View style={styles.container}>
         <FlatList
           data={menuItems}
@@ -83,11 +95,12 @@ function ProfileScreen(props) {
                   backgroundColor={item.icon.backgroundColor}
                 />
               }
-              onPress={() => handleMenuItemPress(item.targetScreen)} 
+              onPress={() => handleMenuItemPress(item.targetScreen) }
             />
           )}
         />
       </View>
+  
       
     </Screen>
   );
@@ -102,7 +115,7 @@ const styles = StyleSheet.create({
   },
   infoContainer:{
  
-     backgroundColor: colors.blue, 
+    backgroundColor: 'rgba(70, 130, 180, 0.6)',
      paddingVertical: 20,
      width: 380,
      height:180,

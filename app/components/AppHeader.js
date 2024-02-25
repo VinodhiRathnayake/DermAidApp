@@ -1,19 +1,31 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import AppText from './AppText';
 import Menu from './Menu';
 
 function AppHeader({title}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigation = useNavigation();
+
+  const handleMenuPress = () => {
+    setIsMenuOpen(!isMenuOpen); // Toggle menu open/close
+  };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      // Close the menu when the profile screen is focused
+      setIsMenuOpen(false);
+    }, [])
+  );
+
   return (
   
     <View>
     <View style={styles.container}>
     
-    <TouchableOpacity onPress={() => setIsMenuOpen(!isMenuOpen)}>
+    <TouchableOpacity onPress={handleMenuPress}>
         <MaterialCommunityIcons name="menu" color="black" size={35} style={styles.icon}/>
         </TouchableOpacity>
         <AppText style={styles.text}>
@@ -30,7 +42,7 @@ function AppHeader({title}) {
        
 
     </View>
-    {isMenuOpen && <Menu />}
+    {isMenuOpen && <Menu onClose={() => setIsMenuOpen(false)} />}
     </View>
     
     
@@ -51,7 +63,7 @@ const styles = StyleSheet.create({
   text: {
     marginTop: 5,
     fontSize: 27,
-    color:'grey',
+    color:'#3b3b3b',
     fontWeight: 'bold',
   },
   redText: {
