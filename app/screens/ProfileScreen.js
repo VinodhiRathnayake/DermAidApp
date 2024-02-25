@@ -129,10 +129,10 @@ const styles = StyleSheet.create({
   },
   buttons:{
    marginTop:30,
-backgroundColor:colors.white,
-width:300,
-height:70,
-borderRadius:28,
+  backgroundColor:colors.white,
+  width:300,
+  height:70,
+  borderRadius:28,
   },
   image: {
     width: 110,

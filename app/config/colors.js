@@ -8,5 +8,7 @@ export default {
     dark: "#0c0c0c",
     red: "#ff0000",
     blue: "#6495ED",
+    orange:"#FA5F55"
+    
 
   };

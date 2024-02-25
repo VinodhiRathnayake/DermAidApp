@@ -32,13 +32,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonContainer: {
-    marginTop: 40,
+    marginTop: 100,
     width: "90%",
     justifyContent: "center",
     alignItems: "center",
   },
   text: {
-    color: colors.white,
+    color: "blue",
+    fontWeight:"bold"
   },
 });
 

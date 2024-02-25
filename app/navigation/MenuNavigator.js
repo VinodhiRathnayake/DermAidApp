@@ -11,6 +11,7 @@ import PredictionRecordsScreen from "../screens/PredictionRecordsScreen";
 import AboutUs from "../screens/AboutUs";
 import Menu from "../components/Menu";
 import AppHeader from "../components/AppHeader";
+import ResultScreen from "../screens/ResultScreen";
 
 const Stack = createStackNavigator();
 
@@ -26,6 +27,7 @@ const MenuNavigator = () => (
     <Stack.Screen name="NewPrediction" component={PredictionScreen} options={{ headerShown: false }}/>
     <Stack.Screen name="PredictionRecords" component={PredictionRecordsScreen} options={{ headerShown: false }}/>
     <Stack.Screen name="AboutUs" component={AboutUs} options={{ headerShown: false }}/>
+    <Stack.Screen name="Result" component={ResultScreen} options={{ headerShown: false }}/>
   </Stack.Navigator>
 );
 

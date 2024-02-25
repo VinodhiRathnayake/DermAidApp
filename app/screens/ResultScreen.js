@@ -4,6 +4,7 @@ import AppHeader from '../components/AppHeader';
 import Screen from '../components/Screen';
 import AppText from '../components/AppText';
 import Button from '../components/Button';
+import colors from '../config/colors';
 
 function ResultScreen(props) {
   return (
@@ -15,10 +16,11 @@ function ResultScreen(props) {
 
         <AppText>Date: 20-12-2023</AppText>
         <AppText>Time: 9.40pm</AppText>
+
         <View style={styles.buttonContainer}>
-            <Button title="Learn More About the Disease.." color= "red"></Button>
-            <Button title="SAVE" color= "red"></Button>
-            <Button title="DON'T SAVE" color= "red"></Button>
+            <Button title="Learn More About the Disease.."  color="orange" ></Button>
+            <Button title="SAVE" color="orange" ></Button>
+            <Button title="DON'T SAVE" color="orange" ></Button>
           </View>
 
 
@@ -40,13 +42,18 @@ const styles = StyleSheet.create({
    
   },
   buttonContainer: {
+    
+     marginTop: 40,
+     width:360,
+     borderRadius: 25,
 
-    justifyContent:"center",
-     marginTop: 20,
-     width:350,
-     
+    
+  
+    justifyContent: "center",
+    alignItems: "center",
  
-   }
+   },
+  
 });
 
 export default ResultScreen;

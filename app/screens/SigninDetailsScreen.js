@@ -3,7 +3,8 @@ import { View, StyleSheet, Text, KeyboardAvoidingView, Platform } from "react-na
 import Screen from "../components/Screen";
 import LogoText from "../components/LogoText";
 import * as Yup from 'yup';
-import {AppForm, AppFormField, SubmitButton} from '../components/Forms'
+import {AppForm, AppFormField, SubmitButton} from '../components/Forms';
+import colors from "../config/colors";
 
 
 const validationSchema = Yup.object().shape({
@@ -82,6 +83,8 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: "100%",
+    backgroundColor:colors.orange,
+    borderRadius: 25,
   },
   text: {
     color: "blue",

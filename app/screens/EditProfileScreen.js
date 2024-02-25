@@ -28,7 +28,7 @@ function EditProfileScreen(props) {
       <AppText>Phone</AppText>
       <View style={styles.container}>
       <View style={styles.buttonContainer}>
-            <Button title="Save" color= "red"></Button>
+            <Button title="Save" color= "orange"></Button>
           </View>
           </View>
     </Screen>
@@ -47,10 +47,11 @@ const styles = StyleSheet.create({
     fontSize:25,
   },
   buttonContainer: {
-
+    backgroundColor: colors.orange,
    justifyContent:"center",
-    marginTop: 20,
-    width:350,
+    marginTop: 30,
+    width:360,
+    borderRadius: 25,
     
 
   }

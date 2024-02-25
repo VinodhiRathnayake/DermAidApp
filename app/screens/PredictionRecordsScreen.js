@@ -70,7 +70,7 @@ function PredictionRecordsScreen(props) {
             image={item.image}
             imageStyle={styles.image}
             style={styles.infoContainer}
-            onPress={() => console.log("Message selected", item)}
+            // onPress={() => console.log("Message selected", item)}
             renderRightActions={() => (
               <ListItemDeleteAction onPress={() => handleDelete(item)} />
             )}

@@ -4,6 +4,9 @@ import Screen from "../components/Screen";
 import LogoText from "../components/LogoText";
 import * as Yup from "yup";
 import { AppForm, AppFormField, SubmitButton } from "../components/Forms";
+import { useNavigation } from "@react-navigation/native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import colors from "../config/colors";
 
 
 const validationSchema = Yup.object().shape({
@@ -15,6 +18,7 @@ const validationSchema = Yup.object().shape({
 
 function SignupDetailsScreen(props) {
   const [isInputFocused, setIsInputFocused] = useState(false);
+  const navigation = useNavigation();
   return (
     <Screen>
       {!isInputFocused && <LogoText />}
@@ -73,9 +77,11 @@ function SignupDetailsScreen(props) {
           onBlur={() => setIsInputFocused(false)}
         />
           <View style={styles.buttonContainer}>
-            <SubmitButton title="Sign up"></SubmitButton>
+            <SubmitButton title="Sign up" ></SubmitButton>
           </View>
-          <Text style={styles.text}> Already have an account? Log in</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Sign in")}>
+                <Text style={styles.text}> Already have an account? Log in</Text>
+              </TouchableOpacity>
           </AppForm>
         </View>
       </View>
@@ -95,6 +101,9 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: "100%",
+    backgroundColor:colors.orange,
+    borderRadius: 25,
+
   },
   text: {
     color: "blue",

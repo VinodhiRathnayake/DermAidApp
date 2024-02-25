@@ -17,6 +17,7 @@ const LogoText = ({ source, style }) => {
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
+    marginTop:-20,
   },
   image: {
     width: 350,
@@ -25,7 +26,8 @@ const styles = StyleSheet.create({
   },
   welcomeText: {
     color: colors.white,
-    marginTop: 50,
+    marginTop: 20,
+    marginBottom:10,
     fontSize: 26,
     textAlign: "center",
     fontWeight: "bold",

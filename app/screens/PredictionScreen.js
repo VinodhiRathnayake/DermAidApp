@@ -9,6 +9,7 @@ import Screen from '../components/Screen';
 import AppHeader from '../components/AppHeader';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Button from '../components/Button';
+import { useNavigation } from '@react-navigation/native'; 
 
 
 
@@ -17,6 +18,7 @@ function PredictionScreen(props) {
     const [hasCameraPermission, setHasCameraPermission] = useState();
     const [hasMediaLibraryPermission, setHasMediaLibraryPermission] = useState();
     const [photo, setPhoto] = useState();
+    const navigation = useNavigation();
 
 
     useEffect(() => {
@@ -46,12 +48,13 @@ function PredictionScreen(props) {
       };
     
       if (photo) {
-        let sharePic = () => {
-          shareAsync(photo.uri).then(() => {
-            setPhoto(undefined);
-          });
+        let scanPic = () => {
+          // Navigate to result screen after scanning
+          navigation.navigate('Result');
+          setPhoto(undefined);
         };
-    
+
+
         let savePhoto = () => {
           MediaLibrary.saveToLibraryAsync(photo.uri).then(() => {
             setPhoto(undefined);
@@ -63,7 +66,7 @@ function PredictionScreen(props) {
             <SafeAreaView style={styles.container}>
               <Image style={styles.preview} source={{ uri: "data:image/jpg;base64," + photo.base64 }} />
               <View style={styles.buttons}>
-              <Button title="Share" onPress={sharePic} />
+              <Button title="Scan" onPress={scanPic} />
               {hasMediaLibraryPermission ? <Button title="Save" onPress={savePhoto} /> : undefined}
               <Button title="Discard" onPress={() => setPhoto(undefined)} />
               </View>
