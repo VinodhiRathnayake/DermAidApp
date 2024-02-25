@@ -9,7 +9,8 @@ import Screen from '../components/Screen';
 import AppHeader from '../components/AppHeader';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Button from '../components/Button';
-import { useNavigation } from '@react-navigation/native'; 
+import { useNavigation } from '@react-navigation/native';
+import colors from '../config/colors'; 
 
 
 
@@ -63,14 +64,15 @@ function PredictionScreen(props) {
 
         return (
             <Screen style={styles.container}>
-            <SafeAreaView style={styles.container}>
+               <AppHeader />
+            {/* <SafeAreaView style={styles.container}> */}
               <Image style={styles.preview} source={{ uri: "data:image/jpg;base64," + photo.base64 }} />
               <View style={styles.buttons}>
-              <Button title="Scan" onPress={scanPic} />
-              {hasMediaLibraryPermission ? <Button title="Save" onPress={savePhoto} /> : undefined}
-              <Button title="Discard" onPress={() => setPhoto(undefined)} />
+              <Button title="Scan" onPress={scanPic} color="orange"/>
+              {hasMediaLibraryPermission ? <Button title="Save" onPress={savePhoto} color="orange"/> : undefined}
+              <Button title="Discard" onPress={() => setPhoto(undefined)} color="orange"/>
               </View>
-            </SafeAreaView>
+            {/* </SafeAreaView> */}
             </Screen>
           );
         }
@@ -107,9 +109,12 @@ function PredictionScreen(props) {
             buttons: {
            
               paddingVertical: -50, // Adjust the vertical padding to reduce the height
-    paddingHorizontal: 10, // Adjust the horizontal padding if needed
-    borderRadius: 10,
+              paddingHorizontal: 10, // Adjust the horizontal padding if needed
+              borderRadius: 10,
               justifyContent: 'center',
+              alignItems: "center",
+              marginTop:10,
+             
             
 
 

@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   },
   strip: {
     position: "absolute",
-    backgroundColor: "#D2B48C",
+    backgroundColor: "#deaa88",
     height: 4,
     width: "100%", 
     bottom: -7, 

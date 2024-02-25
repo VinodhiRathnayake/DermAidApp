@@ -50,6 +50,7 @@ import colors from "../config/colors";
 function PredictionRecordsScreen(props) {
     const [messages, setMessages] = useState(initialMessages);
     const [refreshing, setRefreshing] = useState(false);
+
   
     const handleDelete = (message) => {
       // Delete the message from messages
