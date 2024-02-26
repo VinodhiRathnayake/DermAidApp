@@ -7,7 +7,7 @@ export default {
     light: "#f8f4f4",
     dark: "#0c0c0c",
     red: "#ff0000",
-    blue: "#6699CC",
+    blue: "#5072A7",
     orange:"#FA5F55"
     
 
