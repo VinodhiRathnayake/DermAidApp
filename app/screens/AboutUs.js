@@ -16,13 +16,7 @@ function AboutUs(props) {
      
        
 <View style={styles.container}>
-<AppText style={styles.text} >Skin diseases are a major global health concern, 
-    affecting millions of people worldwide. Early diagnosis
-    and treatement of skin diseases are crucial in preventing 
-    complications and improving patient outcomes. However, traditional
-    diagnostic methods such as clinical examinations and biopsies,
-    can be time-consuming, expensive, and invasive.
-    </AppText>
+
 
     <AppText style={styles.text}>
     Derm< Text style={styles.redText}>Aid</Text> app has the potential to revolutionize the diagnosis and management of skin
@@ -31,19 +25,21 @@ function AboutUs(props) {
     underserved areas and those with limited financial resources. The app could also help
     to detect skin diseases at an earlier stage when they are more likely to be treatable.
 </AppText>
+<AppText style={styles.nameText} >
+  Developers:
+    </AppText>
+    <AppText style={styles.nameText} >Jehan Fernando</AppText>
+    <AppText style={styles.nameText} >Vinodhi Rathnayake</AppText>
+    <AppText style={styles.nameText} >Dinushi Kolambathantri</AppText>
+    <AppText style={styles.nameText} >Amindee De Alwis</AppText>
+    <AppText style={styles.nameText} >Uvindu Ayshcharya</AppText>
 </View>
 <View style={styles.contactContainer}>
 <MaterialCommunityIcons name="email" color="black" size={23} style={styles.icon}/>
 <Text style={styles.email}>supportdermaid@gmail.com</Text>
 </View>
-<View style={styles.contactContainer}>
-<MaterialCommunityIcons name="phone" color="black" size={23} style={styles.icon}/>
-<Text style={styles.email}>+94 7700000000</Text>
-</View>
-<Image
-          style={[styles.image]}
-          source={require("../assets/DermAidlogo.jpg")}
-        />
+
+
 
     </Screen>
   );
@@ -51,21 +47,22 @@ function AboutUs(props) {
 
 const styles = StyleSheet.create({
   container:{
-    padding:15,
+    padding:18,
+    position:"relative",
 
   },
   text: {
     fontWeight: 'bold', 
     textAlign: 'center', 
-    lineHeight: 27,
-    marginBottom:20,
-    fontSize: 16,
+    lineHeight: 29,
+    marginBottom:40,
+    fontSize: 18,
   },
   contactContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom:15,
+   marginTop:30,
   },
   icon: {
     marginRight: 12, 
@@ -73,15 +70,17 @@ const styles = StyleSheet.create({
   email: {
     fontSize: 15,
   },
-  image: {
-    width: 170,
-    height: 70,
-    alignSelf: 'center',
-    
-  },
+
   redText: {
     color: 'red',
     fontWeight: 'bold',
+  },
+  nameText: {
+    fontWeight: 'bold', 
+    textAlign: 'center', 
+    // lineHeight: 10,
+    marginBottom:5,
+    fontSize: 18,
   },
  
 });

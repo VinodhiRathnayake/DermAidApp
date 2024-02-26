@@ -17,7 +17,10 @@ function ListItem({
   style,
   titleStyle, 
   imageStyle,
+  subStyle,
+  
 }) {
+  
   return (
     <GestureHandlerRootView>
     <Swipeable renderRightActions={renderRightActions}>
@@ -30,7 +33,7 @@ function ListItem({
                 {title}
               </AppText>
               {subTitle && (
-                <AppText style={styles.subTitle} numberOfLines={2}>
+                <AppText style={[styles.subTitle, subStyle]} numberOfLines={2}>
                   {subTitle}
                 </AppText>
               )}

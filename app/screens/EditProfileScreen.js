@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, FlatList } from 'react-native';
 import Screen from '../components/Screen';
 import AppHeader from '../components/AppHeader';
 import ImageInput from '../components/ImageInput';
@@ -13,8 +13,36 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ImageSelectionModal from '../components/ImageSelectionModal';
 import placeholder from "../assets/DermAidlogo.jpg";
 import { Image } from 'react-native';
+import ListItem from "../components/lists/ListItem";
+import ListItemDeleteAction from "../components/lists/ListItemDeleteAction";
+
+
+const initialMessages = [
+  {
+    id: 1,
+    title: "First Name",
+    description: "Peter",
+  },
+  {
+    id: 2,
+    title: "Last Name",
+    description: "Parker",
+  },
+  {
+    id: 3,
+    title: "Email",
+    description: "user123@gmail.com",
+  },
+  {
+    id: 4,
+    title: "Phone",
+    description: "(+94)12345678",
+  },
+];
+
 
 function EditProfileScreen(props) {
+  const [messages, setMessages] = useState(initialMessages);
   const [imageUri, setImageUri] = useState(null);
   const [image, setImage] =useState();
   const [modalVisible, setModalVisible] = useState(false);
@@ -98,11 +126,21 @@ let result ={};
         </TouchableOpacity>
       </View>
       <AppText style={styles.text}>User Information</AppText>
-      <AppText>First Name</AppText>
-      <AppText>Last Name</AppText>
-      <AppText>Email</AppText>
-      <AppText>Gender</AppText>
-      <AppText>Phone</AppText>
+      <FlatList
+        data={messages}
+        keyExtractor={(message) => message.id.toString()}
+        renderItem={({ item }) => (
+          <ListItem
+            title= {item.title}
+            subTitle={item.description}
+            titleStyle={styles.titleName}
+            subStyle={styles.subTitle}
+          
+          />
+        )}
+
+       
+      />
       <View style={styles.container}>
       <View style={styles.buttonContainer}>
             <Button title="Save" color= "orange" ></Button>
@@ -123,20 +161,22 @@ let result ={};
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
+    padding:15,
   },
   text:{
-    marginTop: 10,
+    marginTop: 5,
+    marginBottom:20,
     paddingLeft:10,
     fontWeight:"bold",
-    color: colors.white,
-    fontSize:25,
+    color: colors.medium,
+    fontSize:30,
   },
   buttonContainer: {
     backgroundColor: colors.orange,
    justifyContent:"center",
-    marginTop: 30,
     width:360,
     borderRadius: 25,
+   
   },
   imageContainer: {
     width: 150,
@@ -161,6 +201,19 @@ const styles = StyleSheet.create({
     height: 140,
     borderRadius: 70,
   },
+  titleName:{
+    fontSize:22,
+    paddingLeft:8,
+    marginBottom:5,
+    color:colors.light,
+  },
+  subTitle:{
+    fontSize:20,
+    fontWeight:"bold",
+    paddingLeft:8,
+    color:colors.black,
+   
+  }
 });
 
 export default EditProfileScreen;
