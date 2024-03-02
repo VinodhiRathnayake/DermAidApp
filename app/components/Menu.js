@@ -6,8 +6,6 @@ import { useNavigation } from '@react-navigation/native';
 import MenuScreen from '../screens/MenuScreen';
 
 
-
-
 function Menu({ onClose }) {
   const navigation = useNavigation(); 
 
@@ -16,14 +14,12 @@ function Menu({ onClose }) {
     // onClose(); // Close the menu after navigating
   };
 
-  //   const handleMenuItemClick = () => {
-  //       onClose();
-  // };
+ 
   return (
     <View style={styles.container}>
         <MenuButton title="HOME"  onPress={() => handleMenuItemClick("Menu")}/>
-        <MenuButton title="EDIT PROFILE"  onPress={() => handleMenuItemClick("EditProfile")}/>
-        <MenuButton title="NEW PREDICTION" onPress={() => handleMenuItemClick("NewPrediction")}/>
+        <MenuButton title="EDIT PROFILE"  onPress={() => handleMenuItemClick("EditProfile")} />
+        <MenuButton title="NEW PREDICTION" onPress={() => handleMenuItemClick("NewPrediction")} />
         <MenuButton title="PREDICTION RECORDS" onPress={() => handleMenuItemClick("PredictionRecords")}/>
         <MenuButton title="ABOUT US"  onPress={() => handleMenuItemClick("AboutUs")}/>
     </View>

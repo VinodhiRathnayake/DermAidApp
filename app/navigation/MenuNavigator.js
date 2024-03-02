@@ -23,11 +23,11 @@ const MenuNavigator = () => (
       options={{ headerShown: false }}
     
     />
-    <Stack.Screen name="EditProfile" component={EditProfileScreen} options={{ headerShown: false }}/>
+    <Stack.Screen name="EditProfile" component={EditProfileScreen} options={{ headerShown: false }} />
     <Stack.Screen name="NewPrediction" component={PredictionScreen} options={{ headerShown: false }}/>
     <Stack.Screen name="PredictionRecords" component={PredictionRecordsScreen} options={{ headerShown: false }}/>
     <Stack.Screen name="AboutUs" component={AboutUs} options={{ headerShown: false }}/>
-    <Stack.Screen name="Result" component={ResultScreen} options={{ headerShown: false }}/>
+    <Stack.Screen name="Result" component={ResultScreen} options={{ headerShown: false }} />
   </Stack.Navigator>
 );
 

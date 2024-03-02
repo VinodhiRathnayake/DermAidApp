@@ -72,7 +72,7 @@ function ProfileScreen(props) {
         <ListItem
           title="Peter Parker"
           subTitle="user123@gmail.com"
-          image={require("../assets/DermAidlogo.jpg")}
+          image={require("../assets/profile1.jpeg")}
           style={styles.infoContainer}
           titleStyle={styles.name}
           imageStyle={styles.image}
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 110,
-    height: 150,
+    height: 130,
     
   },
 });

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import MenuScreen from "../screens/MenuScreen";
@@ -7,13 +7,21 @@ import PredictionScreen from "../screens/PredictionScreen";
 import PredictionRecordsScreen from "../screens/PredictionRecordsScreen";
 import AboutUs from "../screens/AboutUs";
 import MenuNavigator from "./MenuNavigator";
+import { Text } from "react-native";
+import Menu from "../components/Menu";
 
 
 
 const Tab = createBottomTabNavigator();
 
-const AppNavigator = () => (
+const AppNavigator = () => {
+  const [activeTab, setActiveTab] = useState("Home");
 
+  const handleTabChange = (tabName) => {
+    setActiveTab(tabName);
+  };
+
+  return (
     <Tab.Navigator
     screenOptions={{
         headerShown: false,
@@ -30,16 +38,21 @@ const AppNavigator = () => (
             color: "black", // Set the text color to white
             fontWeight: "bold",
           },
-          
+
       }}
+    
     
   >
     <Tab.Screen
    name="Home"
    component={MenuNavigator}
       options={{
-        tabBarIcon: ({ color, size }) => (
-          <MaterialCommunityIcons name="home" color="black" size={size} />
+        tabBarIcon: ({ color, size, focused }) => (
+          <MaterialCommunityIcons
+            name="home"
+            color={focused ? "red" : "black"} // Change color when focused
+            size={size}
+          />
         ),
       }}
     />
@@ -48,8 +61,11 @@ const AppNavigator = () => (
       name="Profile"
       component={ProfileScreen}
       options={{
-        tabBarIcon: ({ color, size }) => (
-          <MaterialCommunityIcons name="account" color="black" size={size} />
+        tabBarIcon: ({ color, size, focused }) => (
+          <MaterialCommunityIcons 
+          name="account" 
+          color={focused ? "red" : "black"}
+          size={size} />
         ),
       }}
     />
@@ -58,8 +74,11 @@ const AppNavigator = () => (
   name= "Scan"
       component={PredictionScreen}
       options={{
-        tabBarIcon: ({ color, size }) => (
-          <MaterialCommunityIcons name="camera" color="black" size={size} />
+        tabBarIcon: ({ color, size, focused }) => (
+          <MaterialCommunityIcons 
+          name="camera" 
+          color={focused ? "red" : "black"}
+          size={size} />
         ),
       }}
     />
@@ -69,8 +88,11 @@ const AppNavigator = () => (
   name= "Records"
       component={PredictionRecordsScreen}
       options={{
-        tabBarIcon: ({ color, size }) => (
-          <MaterialCommunityIcons name="notebook" color="black" size={size} />
+        tabBarIcon: ({ color, size, focused }) => (
+          <MaterialCommunityIcons 
+          name="notebook" 
+          color={focused ? "red" : "black"}
+          size={size} />
         ),
       }}
     />
@@ -80,8 +102,11 @@ const AppNavigator = () => (
   name= "About"
       component={AboutUs}
       options={{
-        tabBarIcon: ({ color, size }) => (
-          <MaterialCommunityIcons name="compass" color="black" size={size} />
+        tabBarIcon: ({ color, size, focused }) => (
+          <MaterialCommunityIcons 
+          name="compass" 
+          color={focused ? "red" : "black"}
+          size={size} />
         ),
       }}
     />
@@ -89,5 +114,6 @@ const AppNavigator = () => (
   </Tab.Navigator>
 
 );
+};
 
 export default AppNavigator;

@@ -15,7 +15,7 @@ function MenuScreen(props) {
      <AppText style={styles.text}>
         Derm< Text style={styles.redText}>Aid</Text>
         </AppText>
-    <Menu />
+ 
     <View style={styles.container}>
     <Text style={styles.welcomeText}>Your Skin Journey Starts Here!</Text>
     <Image
@@ -32,7 +32,7 @@ function MenuScreen(props) {
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    marginTop:180,
+    marginTop:0,
   },
   text: {
     marginTop: -40,
