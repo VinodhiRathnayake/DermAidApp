@@ -5,23 +5,20 @@ import AppNavigator from "./app/navigation/AppNavigator";
 import AuthNavigator from "./app/navigation/AuthNavigator";
 import SigninScreen from "./app/screens/SigninScreen";
 import SignupScreen from "./app/screens/SignupScreen";
-
+import LoginScreen from "./app/screens/LoginScreen";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  
- 
   return (
-
-    <NavigationContainer theme={NavigationTheme}>
-        <AppNavigator/>
-        {/* <AuthNavigator/> */}
-      </NavigationContainer>
+    // <NavigationContainer theme={NavigationTheme}>
+    //     <AppNavigator/>
+    //     {/* <AuthNavigator/> */}
+    //   </NavigationContainer>
 
     // <WelcomeScreen />
+    <LoginScreen />
 
-  
     // <SigninScreen/>
     // <SignupScreen/>
 
@@ -35,8 +32,5 @@ export default function App() {
     // <EditProfileScreen/>
     // <PredictionScreen/>
     // <ResultScreen/>
- 
-   
   );
 }
-

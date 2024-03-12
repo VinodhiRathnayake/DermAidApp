@@ -1,21 +1,20 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
-import Screen from '../components/Screen';
-import AppHeader from '../components/AppHeader';
-import ImageInput from '../components/ImageInput';
-import AppText from '../components/AppText';
-import colors from '../config/colors';
-import Button from '../components/Button';
-import { SubmitButton } from '../components/Forms';
+import React, { useState } from "react";
+import { View, StyleSheet, FlatList } from "react-native";
+import Screen from "../components/Screen";
+import AppHeader from "../components/AppHeader";
+import ImageInput from "../components/ImageInput";
+import AppText from "../components/AppText";
+import colors from "../config/colors";
+import Button from "../components/Button";
+import { SubmitButton } from "../components/Forms";
 import * as ImagePicker from "expo-image-picker";
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import ImageSelectionModal from '../components/ImageSelectionModal';
-import placeholder from "../assets/DermAidlogo.jpg";
-import { Image } from 'react-native';
+import ImageSelectionModal from "../components/ImageSelectionModal";
+import placeholder from "../assets/logo.jpg";
+import { Image } from "react-native";
 import ListItem from "../components/lists/ListItem";
 import ListItemDeleteAction from "../components/lists/ListItemDeleteAction";
-
 
 const initialMessages = [
   {
@@ -40,22 +39,21 @@ const initialMessages = [
   },
 ];
 
-
 function EditProfileScreen(props) {
   const [messages, setMessages] = useState(initialMessages);
   const [imageUri, setImageUri] = useState(null);
-  const [image, setImage] =useState();
+  const [image, setImage] = useState();
   const [modalVisible, setModalVisible] = useState(false);
 
-  const handleChangeImage = uri => {
+  const handleChangeImage = (uri) => {
     setImageUri(uri);
   };
 
-  const uploadImage = async(mode) => {
-    try{
-let result ={};
+  const uploadImage = async (mode) => {
+    try {
+      let result = {};
 
-      if(mode=== "gallery"){
+      if (mode === "gallery") {
         await ImagePicker.requestMediaLibraryPermissionsAsync();
         result = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -63,8 +61,7 @@ let result ={};
           aspect: [1, 1],
           quality: 1,
         });
-
-      }else{
+      } else {
         await ImagePicker.requestCameraPermissionsAsync();
         result = await ImagePicker.launchCameraAsync({
           cameraType: ImagePicker.CameraType.front,
@@ -74,35 +71,29 @@ let result ={};
         });
       }
 
-
-      
-      if(!result.canceled){
-          await saveImage(result.assets[0].uri);
-          setModalVisible(false); 
+      if (!result.canceled) {
+        await saveImage(result.assets[0].uri);
+        setModalVisible(false);
       }
-    }catch(error){
+    } catch (error) {
       alert("Error uploading image:" + error.message);
       setModalVisible(false);
-
     }
   };
 
-
-  const saveImage = async (image) =>{
-    try{
+  const saveImage = async (image) => {
+    try {
       setImage(image);
       setModalVisible(false);
-
-    }catch(error){
+    } catch (error) {
       throw error;
     }
   };
 
-  const removeImage = async() => {
-    try{
+  const removeImage = async () => {
+    try {
       saveImage(null);
-
-    }catch({message}){
+    } catch ({ message }) {
       alert(message);
       setModalVisible(false);
     }
@@ -111,16 +102,22 @@ let result ={};
   // onCameraPress={() => uploadImage()}
   return (
     <Screen>
-      <AppHeader title="EDIT PROFILE"/>
-      <View style= {styles.container}>
-      <TouchableOpacity onPress={() => setModalVisible(true)}>
+      <AppHeader title="EDIT PROFILE" />
+      <View style={styles.container}>
+        <TouchableOpacity onPress={() => setModalVisible(true)}>
           <View style={styles.imageContainer}>
-            {imageUri ? 
-              <Image source={{ uri: imageUri }} style={styles.image} /> :
+            {imageUri ? (
+              <Image source={{ uri: imageUri }} style={styles.image} />
+            ) : (
               <Image source={placeholder} style={styles.image} />
-            }
+            )}
             <View style={styles.cameraIconContainer}>
-              <MaterialCommunityIcons name="camera" size={30} color="black" style={styles.cameraIcon} />
+              <MaterialCommunityIcons
+                name="camera"
+                size={30}
+                color="black"
+                style={styles.cameraIcon}
+              />
             </View>
           </View>
         </TouchableOpacity>
@@ -131,29 +128,25 @@ let result ={};
         keyExtractor={(message) => message.id.toString()}
         renderItem={({ item }) => (
           <ListItem
-            title= {item.title}
+            title={item.title}
             subTitle={item.description}
             titleStyle={styles.titleName}
             subStyle={styles.subTitle}
-          
           />
         )}
-
-       
       />
       <View style={styles.container}>
-      <View style={styles.buttonContainer}>
-            <Button title="Save" color= "orange" ></Button>
-          </View>
-          </View>
-          <ImageSelectionModal 
-  visible={modalVisible}
-  onSelectOption={uploadImage} 
-  onCancel={() => removeImage()} 
-  onCameraPress={() => uploadImage()}
-  onGalleryPress={() => uploadImage("gallery")}
-/>
-
+        <View style={styles.buttonContainer}>
+          <Button title="Save" color="orange"></Button>
+        </View>
+      </View>
+      <ImageSelectionModal
+        visible={modalVisible}
+        onSelectOption={uploadImage}
+        onCancel={() => removeImage()}
+        onCameraPress={() => uploadImage()}
+        onGalleryPress={() => uploadImage("gallery")}
+      />
     </Screen>
   );
 }
@@ -161,59 +154,57 @@ let result ={};
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    padding:15,
+    padding: 15,
   },
-  text:{
+  text: {
     marginTop: 5,
-    marginBottom:20,
-    paddingLeft:10,
-    fontWeight:"bold",
+    marginBottom: 20,
+    paddingLeft: 10,
+    fontWeight: "bold",
     color: colors.medium,
-    fontSize:30,
+    fontSize: 30,
   },
   buttonContainer: {
     backgroundColor: colors.orange,
-   justifyContent:"center",
-    width:360,
+    justifyContent: "center",
+    width: 360,
     borderRadius: 25,
-   
   },
   imageContainer: {
     width: 150,
     height: 150,
     borderRadius: 75,
     backgroundColor: colors.light,
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'relative',
+    justifyContent: "center",
+    alignItems: "center",
+    position: "relative",
   },
   cameraIconContainer: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 5,
     right: 5,
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    backgroundColor: "rgba(255, 255, 255, 0.8)",
     borderRadius: 15,
     padding: 5,
   },
-  
+
   image: {
     width: 140,
     height: 140,
     borderRadius: 70,
   },
-  titleName:{
-    fontSize:22,
-    paddingLeft:8,
-    marginBottom:5,
-    color:colors.light,
+  titleName: {
+    fontSize: 22,
+    paddingLeft: 8,
+    marginBottom: 5,
+    color: colors.light,
   },
-  subTitle:{
-    fontSize:20,
-    fontWeight:"bold",
-    paddingLeft:8,
-    color:colors.black,
-   
-  }
+  subTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    paddingLeft: 8,
+    color: colors.black,
+  },
 });
 
 export default EditProfileScreen;

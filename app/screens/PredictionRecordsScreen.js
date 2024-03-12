@@ -1,66 +1,64 @@
 import React, { useState } from "react";
-import { View, StyleSheet, FlatList } from 'react-native';
-import Screen from '../components/Screen';
-import AppHeader from '../components/AppHeader';
+import { View, StyleSheet, FlatList } from "react-native";
+import Screen from "../components/Screen";
+import AppHeader from "../components/AppHeader";
 import ListItem from "../components/lists/ListItem";
 import ListItemDeleteAction from "../components/lists/ListItemDeleteAction";
 import ListItemSeparator from "../components/lists/ListItemSeparator";
 import colors from "../config/colors";
 
-  const initialMessages = [
-    {
-      id: 1,
-      title: "ECZEMA",
-      description: "20-12-2023",
-      time: "9.40 pm",
+const initialMessages = [
+  {
+    id: 1,
+    title: "ECZEMA",
+    description: "20-12-2023",
+    time: "9.40 pm",
 
-      image: require("../assets/DermAidlogo.jpg"),
-    },
-    {
-      id: 2,
-      title: "HIVES",
-      description: "20-12-2023",
-      time: "9.40 pm",
-      image: require("../assets/DermAidlogo.jpg"),
-    },
-    {
-        id: 3,
-        title: "aaa",
-        description: "20-12-2023",
-        time: "9.40 pm",
-        image: require("../assets/DermAidlogo.jpg"),
-      },
-      {
-        id: 4,
-        title: "Skin",
-        description: "20-12-2023",
-        time: "9.40 pm",
-        image: require("../assets/DermAidlogo.jpg"),
-      },
-      {
-        id: 5,
-        title: "Pox",
-        description: "20-12-2023",
-        time: "9.40 pm",
-        image: require("../assets/DermAidlogo.jpg"),
-      },
-  ];
-  
+    image: require("../assets/logo.jpg"),
+  },
+  {
+    id: 2,
+    title: "HIVES",
+    description: "20-12-2023",
+    time: "9.40 pm",
+    image: require("../assets/logo.jpg"),
+  },
+  {
+    id: 3,
+    title: "aaa",
+    description: "20-12-2023",
+    time: "9.40 pm",
+    image: require("../assets/logo.jpg"),
+  },
+  {
+    id: 4,
+    title: "Skin",
+    description: "20-12-2023",
+    time: "9.40 pm",
+    image: require("../assets/logo.jpg"),
+  },
+  {
+    id: 5,
+    title: "Pox",
+    description: "20-12-2023",
+    time: "9.40 pm",
+    image: require("../assets/logo.jpg"),
+  },
+];
 
 function PredictionRecordsScreen(props) {
-    const [messages, setMessages] = useState(initialMessages);
-    const [refreshing, setRefreshing] = useState(false);
+  const [messages, setMessages] = useState(initialMessages);
+  const [refreshing, setRefreshing] = useState(false);
 
-  
-    const handleDelete = (message) => {
-      // Delete the message from messages
-      setMessages(messages.filter((m) => m.id !== message.id));
-    };
-  
+  const handleDelete = (message) => {
+    // Delete the message from messages
+    setMessages(messages.filter((m) => m.id !== message.id));
+  };
+
   return (
     <Screen>
-        <AppHeader title="PREDICTION RECORDS"/>
-        <FlatList
+      <AppHeader title="PREDICTION RECORDS" />
+      <FlatList
         data={messages}
         keyExtractor={(message) => message.id.toString()}
         renderItem={({ item }) => (
@@ -77,26 +75,21 @@ function PredictionRecordsScreen(props) {
             )}
           />
         )}
-
-       
       />
-
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
   container: {},
-  infoContainer:{
+  infoContainer: {
     paddingVertical: 20,
-    borderRadius:25,
-    
- },
- imageStyle:{
-    width:200,
-    height:200,
- 
- }
+    borderRadius: 25,
+  },
+  imageStyle: {
+    width: 200,
+    height: 200,
+  },
 });
 
 export default PredictionRecordsScreen;
