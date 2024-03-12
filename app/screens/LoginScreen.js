@@ -90,7 +90,7 @@ const LoginScreen = () => {
                 </ButtonText>
               </StyledButton>
               <ExtraView>
-                <ExtraText>Don't have an account already?</ExtraText>
+                <ExtraText>Don't have an account?</ExtraText>
                 <TextLink style={{ paddingLeft: 5 }}>
                   <TextLinkContent>Signup</TextLinkContent>
                 </TextLink>

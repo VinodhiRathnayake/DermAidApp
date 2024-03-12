@@ -17,10 +17,11 @@ export default function App() {
     //   </NavigationContainer>
 
     // <WelcomeScreen />
+
     <LoginScreen />
+    // <SignupScreen />
 
     // <SigninScreen/>
-    // <SignupScreen/>
 
     // <SigninDetailsScreen />
 
