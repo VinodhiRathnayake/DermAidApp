@@ -26,7 +26,7 @@ import {
   TextLinkContent,
 } from "../components/styles";
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const [isHidden, setHidden] = useState(true);
   return (
     <StyledContainer>
@@ -40,6 +40,7 @@ const LoginScreen = () => {
           initialValues={{ email: "", password: "" }}
           onSubmit={(values) => {
             console.log(values);
+            navigation.navigate("SignUp");
           }}
         >
           {({ handleChange, handleBlur, handleSubmit, values }) => (
@@ -91,7 +92,12 @@ const LoginScreen = () => {
               </StyledButton>
               <ExtraView>
                 <ExtraText>Don't have an account?</ExtraText>
-                <TextLink style={{ paddingLeft: 5 }}>
+                <TextLink
+                  onPress={() => {
+                    navigation.navigate("SignUp");
+                  }}
+                  style={{ paddingLeft: 5 }}
+                >
                   <TextLinkContent>Signup</TextLinkContent>
                 </TextLink>
               </ExtraView>

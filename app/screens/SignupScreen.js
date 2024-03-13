@@ -26,7 +26,7 @@ import {
   TextLinkContent,
 } from "../components/styles";
 
-const SignUpScreen = () => {
+const SignUpScreen = ({ navigation }) => {
   const [isHidden, setHidden] = useState(true);
   const [show, setShow] = useState(false);
   const [date, setDate] = useState(new Date(2024, 0, 1));
@@ -72,6 +72,7 @@ const SignUpScreen = () => {
           }}
           onSubmit={(values) => {
             console.log(values);
+            navigation.navigate("Login");
           }}
         >
           {({ handleChange, handleBlur, handleSubmit, values }) => (
@@ -135,12 +136,17 @@ const SignUpScreen = () => {
               />
               <MsgBox>...</MsgBox>
               <StyledButton onPress={handleSubmit}>
-                <ButtonText>Login</ButtonText>
+                <ButtonText>SignUp</ButtonText>
               </StyledButton>
               <Line />
               <ExtraView>
                 <ExtraText>Alreaqdy have an account?</ExtraText>
-                <TextLink style={{ paddingLeft: 5 }}>
+                <TextLink
+                  onPress={() => {
+                    navigation.navigate("Login");
+                  }}
+                  style={{ paddingLeft: 5 }}
+                >
                   <TextLinkContent>Login</TextLinkContent>
                 </TextLink>
               </ExtraView>
