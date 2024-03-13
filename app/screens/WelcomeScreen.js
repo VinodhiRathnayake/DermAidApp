@@ -6,18 +6,18 @@ import { Platform } from "react-native";
 import Screen from "../components/Screen";
 import Button from "../components/Button";
 
-function WelcomeScreen({navigation}) {
+function WelcomeScreen({ navigation }) {
   return (
     <Screen>
       <View style={styles.container}>
-        <Image
-          style={[styles.image]}
-          source={require("../assets/DermAidlogo.jpg")}
-        />
+        <Image style={[styles.image]} source={require("../assets/logo.jpg")} />
 
         <Text style={styles.welcomeText}>Your Skin Journey Starts Here!</Text>
         <View style={styles.buttonContainer}>
-          <Button title="Get Started" onPress={() => navigation.navigate("Sign up")}/>
+          <Button
+            title="Get Started"
+            onPress={() => navigation.navigate("Sign up")}
+          />
         </View>
       </View>
     </Screen>

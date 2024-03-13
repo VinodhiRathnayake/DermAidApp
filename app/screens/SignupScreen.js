@@ -1,46 +1,190 @@
-import React from "react";
-import { View, StyleSheet, Text } from "react-native";
-import Screen from "../components/Screen";
-import LogoText from "../components/LogoText";
-import Button from "../components/Button";
-import colors from "../config/colors";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import React, { useState } from "react";
+import { StatusBar } from "expo-status-bar";
+import { Formik } from "formik";
+import { View, TouchableOpacity } from "react-native";
+import { Octicons, Entypo } from "@expo/vector-icons";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
-function SignupScreen(props) {
+import {
+  StyledContainer,
+  InnerContainer,
+  PageTitle,
+  SubTitle,
+  StyledFormArea,
+  LeftIcon,
+  RightIcon,
+  StyledInputLabel,
+  StyledButton,
+  ButtonText,
+  StyledTextInput,
+  Colors,
+  MsgBox,
+  Line,
+  ExtraText,
+  ExtraView,
+  TextLink,
+  TextLinkContent,
+} from "../components/styles";
+
+const SignUpScreen = () => {
+  const [isHidden, setHidden] = useState(true);
+  const [show, setShow] = useState(false);
+  const [date, setDate] = useState(new Date(2024, 0, 1));
+
+  const [dob, setDob] = useState();
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(false);
+    setDate(currentDate);
+    setDob(currentDate);
+  };
+
+  const showDateTimePicker = () => {
+    console.log("Opening the picker");
+    setShow(true);
+  };
+
   return (
-    <Screen>
-      <LogoText />
-      <View style={styles.container}>
-        <View style={styles.buttonContainer}>
-          <Button title="Sign up with Google">
-            <MaterialCommunityIcons name="google" size={23} />
-          </Button>
+    <StyledContainer>
+      <StatusBar style="dark" />
+      <InnerContainer>
+        <PageTitle>Derm Aid</PageTitle>
+        <SubTitle>Account Signup</SubTitle>
 
-          <Button title="Sign up with Email">
-            <MaterialCommunityIcons name="email" color="black" size={23} />
-          </Button>
-        </View>
-        <Text style={styles.text}>Already have an account? Sign in here</Text>
-      </View>
-    </Screen>
+        {show && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={date}
+            mode="date"
+            is24Hour={true}
+            onChange={onChange}
+          />
+        )}
+
+        <Formik
+          initialValues={{
+            fullName: "",
+            email: "",
+            dateOfBirth: "",
+            password: "",
+            confirmPassword: "",
+          }}
+          onSubmit={(values) => {
+            console.log(values);
+          }}
+        >
+          {({ handleChange, handleBlur, handleSubmit, values }) => (
+            <StyledFormArea>
+              <MyTextInput
+                label="Full Name"
+                icon="person"
+                placeholder="Jehan Fernando"
+                placeholderTextColor={Colors.darklight}
+                onChangeText={handleChange("fullName")}
+                onBlur={handleBlur("fullName")}
+                value={values.fullName}
+              />
+              <MyTextInput
+                label="Email Address"
+                icon="mail"
+                placeholder="andyj@gmail.com"
+                placeholderTextColor={Colors.darklight}
+                onChangeText={handleChange("email")}
+                onBlur={handleBlur("email")}
+                value={values.email}
+                keyboardType="email-address"
+              />
+              <MyTextInput
+                label="Date of Birth"
+                icon="calendar"
+                placeholder="YYYY - MM - DD"
+                placeholderTextColor={Colors.darklight}
+                onChangeText={handleChange("dateOfBirth")}
+                onBlur={handleBlur("dateOfBirth")}
+                value={dob ? dob.toDateString() : ""}
+                isDate={true}
+                // editable={false}
+                showDateTimePicker={showDateTimePicker}
+              />
+              <MyTextInput
+                label="Password"
+                icon="lock"
+                placeholder="*****"
+                placeholderTextColor={Colors.darklight}
+                onChangeText={handleChange("password")}
+                onBlur={handleBlur("password")}
+                value={values.password}
+                secureTextEntry={isHidden}
+                isPassword={true}
+                isHidden={isHidden}
+                setHidden={setHidden}
+              />
+              <MyTextInput
+                label="Confirm Password"
+                icon="lock"
+                placeholder="*****"
+                placeholderTextColor={Colors.darklight}
+                onChangeText={handleChange("confirmPassword")}
+                onBlur={handleBlur("confirmPassword")}
+                value={values.confirmPassword}
+                secureTextEntry={isHidden}
+                isPassword={true}
+                isHidden={isHidden}
+                setHidden={setHidden}
+              />
+              <MsgBox>...</MsgBox>
+              <StyledButton onPress={handleSubmit}>
+                <ButtonText>Login</ButtonText>
+              </StyledButton>
+              <Line />
+              <ExtraView>
+                <ExtraText>Alreaqdy have an account?</ExtraText>
+                <TextLink style={{ paddingLeft: 5 }}>
+                  <TextLinkContent>Login</TextLinkContent>
+                </TextLink>
+              </ExtraView>
+            </StyledFormArea>
+          )}
+        </Formik>
+      </InnerContainer>
+    </StyledContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  buttonContainer: {
-    marginTop: 100,
-    width: "90%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  text: {
-    color: "blue",
-    fontWeight:"bold"
-  },
-});
+const MyTextInput = ({
+  label,
+  icon,
+  isPassword,
+  isHidden,
+  setHidden,
+  isDate,
+  showDateTimePicker,
+  ...props
+}) => {
+  return (
+    <View>
+      <LeftIcon>
+        <Octicons name={icon} size={30} color={Colors.brand} />
+      </LeftIcon>
+      <StyledInputLabel>{label}</StyledInputLabel>
+      {!isDate && <StyledTextInput {...props} />}
+      {isDate && (
+        <TouchableOpacity onPress={showDateTimePicker}>
+          <StyledTextInput {...props} />
+        </TouchableOpacity>
+      )}
+      {isPassword && (
+        <RightIcon onPress={() => setHidden(!isHidden)}>
+          <Entypo
+            name={isHidden ? "eye-with-line" : "eye"}
+            size={30}
+            color={Colors.darklight}
+          />
+        </RightIcon>
+      )}
+    </View>
+  );
+};
 
-export default SignupScreen;
+export default SignUpScreen;

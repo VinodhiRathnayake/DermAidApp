@@ -7,7 +7,7 @@ const LogoText = ({ source, style }) => {
     <View style={styles.container}>
       <Image
         style={[styles.image, style]}
-        source={require("../assets/DermAidlogo.jpg")}
+        source={require("../assets/logo.jpg")}
       />
       <Text style={styles.welcomeText}>Your Skin Journey Starts Here!</Text>
     </View>
@@ -17,7 +17,7 @@ const LogoText = ({ source, style }) => {
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    marginTop:-20,
+    marginTop: -20,
   },
   image: {
     width: 350,
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   welcomeText: {
     color: colors.white,
     marginTop: 20,
-    marginBottom:10,
+    marginBottom: 10,
     fontSize: 26,
     textAlign: "center",
     fontWeight: "bold",
