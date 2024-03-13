@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import MenuScreen from '../screens/MenuScreen';
 
 
-function Menu({ onClose }) {
+function Menu({ onClose, activeTab }) {
   const navigation = useNavigation(); 
 
   const handleMenuItemClick = (screenName) => {

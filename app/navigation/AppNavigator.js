@@ -38,9 +38,11 @@ const AppNavigator = () => {
             color: "black", // Set the text color to white
             fontWeight: "bold",
           },
-
+      //     tabBarActiveTintColor: "white", 
+      // tabBarInactiveTintColor: "black",
+          
       }}
-    
+
     
   >
     <Tab.Screen
