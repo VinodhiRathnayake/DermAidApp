@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
-import { View } from "react-native";
+import { View, ActivityIndicator } from "react-native";
 import { Octicons, Entypo, Fontisto } from "@expo/vector-icons";
+import axios from "axios";
 
 import {
   StyledContainer,
@@ -28,6 +29,39 @@ import {
 
 const LoginScreen = ({ navigation }) => {
   const [isHidden, setHidden] = useState(true);
+  const [message, setMessage] = useState();
+  const [messageType, setMessageType] = useState();
+
+  const handleLogin = (credentials, setSubmitting) => {
+    handleMessage(null);
+    const url =
+      "https://polar-inlet-39847-1b8c485839ae.herokuapp.com/user/signin";
+
+    axios
+      .post(url, credentials)
+      .then((response) => {
+        const result = response.data;
+        const { message, data, status } = result;
+
+        if (status !== "SUCCESS") {
+          handleMessage(message, status);
+        } else {
+          navigation.navigate("SignUp", { ...data[0] });
+        }
+        setSubmitting(false);
+      })
+      .catch((err) => {
+        console.log(err.JSON());
+        setSubmitting(false);
+        handleMessage("An error occured. Check your internet connection");
+      });
+  };
+
+  const handleMessage = (message, type = "FAILED") => {
+    setMessage(message);
+    setMessageType(type);
+  };
+
   return (
     <StyledContainer>
       <StatusBar style="dark" />
@@ -38,12 +72,22 @@ const LoginScreen = ({ navigation }) => {
 
         <Formik
           initialValues={{ email: "", password: "" }}
-          onSubmit={(values) => {
-            console.log(values);
-            navigation.navigate("SignUp");
+          onSubmit={(values, { setSubmitting }) => {
+            if (values.email == "" || values.password == "") {
+              handleMessage("Please fill all the fields");
+              setSubmitting(false);
+            } else {
+              handleLogin(values, setSubmitting);
+            }
           }}
         >
-          {({ handleChange, handleBlur, handleSubmit, values }) => (
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            isSubmitting,
+          }) => (
             <StyledFormArea>
               <MyTextInput
                 label="Email Address"
@@ -68,10 +112,17 @@ const LoginScreen = ({ navigation }) => {
                 isHidden={isHidden}
                 setHidden={setHidden}
               />
-              <MsgBox>...</MsgBox>
-              <StyledButton onPress={handleSubmit}>
-                <ButtonText>Login</ButtonText>
-              </StyledButton>
+              <MsgBox type={messageType}>{message}</MsgBox>
+              {!isSubmitting && (
+                <StyledButton onPress={handleSubmit}>
+                  <ButtonText>Login</ButtonText>
+                </StyledButton>
+              )}
+              {isSubmitting && (
+                <StyledButton disabled={true}>
+                  <ActivityIndicator size="large" color={Colors.primary} />
+                </StyledButton>
+              )}
               <Line />
               <StyledButton
                 style={{
