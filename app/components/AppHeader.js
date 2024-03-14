@@ -23,21 +23,9 @@ function AppHeader({title}) {
   return (
   
     <View>
-    <View style={styles.container}>
-    
-    <TouchableOpacity onPress={handleMenuPress}>
-        <MaterialCommunityIcons name="menu" color="black" size={35} style={styles.icon}/>
-        </TouchableOpacity>
-        <AppText style={styles.text}>
-        Derm< Text style={styles.redText}>Aid</Text>
-        </AppText>
-    </View>
-    
 
     <View style={styles.titleContainer}>
-    <TouchableOpacity onPress={() => navigation.goBack()}> 
-        <MaterialCommunityIcons name="arrow-left" color="black" size={45} />
-        </TouchableOpacity>
+ 
         <Text style={styles.headerTitle}>{title}</Text>
        
 
@@ -57,21 +45,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
      
   },
-  icon: {
-    marginRight:260,
-  },
-  text: {
-    marginTop: 5,
-    fontSize: 27,
-    color:'#3b3b3b',
-    fontWeight: 'bold',
-  },
+ 
   redText: {
     color: 'red',
   },
   
   titleContainer: {
-    marginTop: 10,
+    // marginTop: 10,
     flexDirection: 'row',
     marginBottom:15,
   },

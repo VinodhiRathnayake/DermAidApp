@@ -10,9 +10,7 @@ import colors from "../config/colors";
 function MenuScreen(props) {
   return (
     <Screen>
-      <AppText style={styles.text}>
-        Derm<Text style={styles.redText}>Aid</Text>
-      </AppText>
+     
 
       <View style={styles.container}>
         <Text style={styles.welcomeText}>Your Skin Journey Starts Here!</Text>
@@ -27,18 +25,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 0,
   },
-  text: {
-    marginTop: -40,
-    fontSize: 27,
-    color: "#3b3b3b",
-    fontWeight: "bold",
-    textAlign: "right",
-    marginRight: 20,
-    marginBottom: 15,
-  },
-  redText: {
-    color: "red",
-  },
+  
+  
   image: {
     width: 250,
     height: 250,
