@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import React, { useState } from "react";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import AppText from './AppText';
-import Menu from './Menu';
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import AppText from "./AppText";
+import Menu from "./Menu";
 
-function AppHeader({title}) {
+function AppHeader({ title }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigation = useNavigation();
 
@@ -21,51 +21,38 @@ function AppHeader({title}) {
   );
 
   return (
-  
     <View>
-
-    <View style={styles.titleContainer}>
- 
+      <View style={styles.titleContainer}>
         <Text style={styles.headerTitle}>{title}</Text>
-       
-
+      </View>
+      {isMenuOpen && <Menu onClose={() => setIsMenuOpen(false)} />}
     </View>
-    {isMenuOpen && <Menu onClose={() => setIsMenuOpen(false)} />}
-    </View>
-    
-    
-   
-        
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     marginTop: -50,
-    flexDirection: 'row',
-     
+    flexDirection: "row",
   },
- 
+
   redText: {
-    color: 'red',
+    color: "red",
   },
-  
+
   titleContainer: {
     // marginTop: 10,
-    flexDirection: 'row',
-    marginBottom:15,
+    flexDirection: "row",
+    marginBottom: 15,
   },
   headerTitle: {
     flex: 1,
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
-    textAlign: 'center',
-
-   
-
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
   },
 });
 

@@ -105,7 +105,7 @@ const SignUpScreen = ({ navigation }) => {
                 onBlur={handleBlur("dateOfBirth")}
                 value={dob ? dob.toDateString() : ""}
                 isDate={true}
-                // editable={false}
+                editable={true}
                 showDateTimePicker={showDateTimePicker}
               />
               <MyTextInput
