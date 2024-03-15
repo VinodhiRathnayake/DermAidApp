@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
 import { View, TouchableOpacity, ActivityIndicator } from "react-native";
@@ -26,10 +26,20 @@ import {
   TextLinkContent,
 } from "../components/styles";
 
+// Async Storage
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+// Credentials Context
+import { CredentialsContext } from "../components/CredentialsContext";
+
 const SignUpScreen = ({ navigation }) => {
   const [isHidden, setHidden] = useState(true);
   const [message, setMessage] = useState();
   const [messageType, setMessageType] = useState();
+
+  // Context
+  const { storedCredentials, setStoredCredentials } =
+    useContext(CredentialsContext);
 
   const handleSignUp = (credentials, setSubmitting) => {
     handleMessage(null);
@@ -45,7 +55,7 @@ const SignUpScreen = ({ navigation }) => {
         if (status !== "SUCCESS") {
           handleMessage(message, status);
         } else {
-          navigation.navigate("Welcome", { ...data });
+          persistLogin({ ...data }, message, status);
         }
         setSubmitting(false);
       })
@@ -60,6 +70,19 @@ const SignUpScreen = ({ navigation }) => {
     setMessage(message);
     setMessageType(type);
   };
+
+  const persistLogin = (credentials, message, status) => {
+    AsyncStorage.setItem("dermAidCredentials", JSON.stringify(credentials))
+      .then(() => {
+        handleMessage(message, status);
+        setStoredCredentials(credentials);
+      })
+      .catch((err) => {
+        console.log(err);
+        handleMessage("Persisting login failed");
+      });
+  };
+
   return (
     <StyledContainer>
       <StatusBar style="dark" />

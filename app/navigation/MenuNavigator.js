@@ -3,7 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import SigninDetailsScreen from "../screens/SigninDetailsScreen";
 import SignupDetailsScreen from "../screens/SignupDetailsScreen";
-import MenuScreen from "../screens/WelcomeScreen";
+import WelcomeScreen from "../screens/WelcomeScreen";
 import EditProfileScreen from "../screens/EditProfileScreen";
 import PredictionScreen from "../screens/PredictionScreen";
 import PredictionRecordsScreen from "../screens/PredictionRecordsScreen";
@@ -18,7 +18,7 @@ const MenuNavigator = () => (
   <Stack.Navigator>
     <Stack.Screen
       name="Menu"
-      component={MenuScreen}
+      component={WelcomeScreen}
       options={{ headerShown: false }}
     />
     <Stack.Screen

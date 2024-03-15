@@ -3,7 +3,7 @@ import { View, StyleSheet } from "react-native";
 import MenuButton from "./MenuButton";
 import EditProfileScreen from "../screens/EditProfileScreen";
 import { useNavigation } from "@react-navigation/native";
-import MenuScreen from "../screens/WelcomeScreen";
+import WelcomeScreen from "../screens/WelcomeScreen";
 
 function Menu({ onClose, activeTab }) {
   const navigation = useNavigation();

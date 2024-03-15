@@ -3,23 +3,35 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import LoginScreen from "../screens/LoginScreen";
 import SignUpScreen from "../screens/SignupScreen";
-import AppNavigator from "./AppNavigator";
 import WelcomeScreen from "../screens/WelcomeScreen";
+import AppNavigator from "./AppNavigator";
+
+// Credentials Context
+import { CredentialsContext } from "../components/CredentialsContext";
 
 const Stack = createNativeStackNavigator();
 
 const RootStack = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{ headerShown: false }}
-        initialRouteName="Login"
-      >
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="SignUp" component={SignUpScreen} />
-        <Stack.Screen name="Welcome" component={WelcomeScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <CredentialsContext.Consumer>
+      {({ storedCredentials }) => (
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{ headerShown: false }}
+            initialRouteName="Login"
+          >
+            {storedCredentials ? (
+              <Stack.Screen name="AppNavigator" component={AppNavigator} />
+            ) : (
+              <>
+                <Stack.Screen name="Login" component={LoginScreen} />
+                <Stack.Screen name="SignUp" component={SignUpScreen} />
+              </>
+            )}
+          </Stack.Navigator>
+        </NavigationContainer>
+      )}
+    </CredentialsContext.Consumer>
   );
 };
 

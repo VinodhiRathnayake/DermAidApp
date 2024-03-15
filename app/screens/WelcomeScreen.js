@@ -1,14 +1,9 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Text, TouchableOpacity, Image } from "react-native";
+import React, { useContext } from "react";
+import { View, StyleSheet, Text, Image } from "react-native";
 import Screen from "../components/Screen";
-import AppHeader from "../components/AppHeader";
-import AppText from "../components/AppText";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import Menu from "../components/Menu";
 import colors from "../config/colors";
 
 import {
-  InnerContainer,
   PageTitle,
   SubTitle,
   StyledFormArea,
@@ -18,8 +13,26 @@ import {
   WelcomeContainer,
 } from "../components/styles";
 
-function MenuScreen({ navigation, route }) {
-  const result = route.params;
+// Async Storage
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+// Credentials Context
+import { CredentialsContext } from "../components/CredentialsContext";
+
+function WelcomeScreen() {
+  // Context
+  const { storedCredentials, setStoredCredentials } =
+    useContext(CredentialsContext);
+  const { name, email } = storedCredentials;
+
+  const clearLogin = () => {
+    AsyncStorage.removeItem("dermAidCredentials")
+      .then(() => {
+        setStoredCredentials("");
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <Screen>
       <View style={styles.container}>
@@ -27,15 +40,11 @@ function MenuScreen({ navigation, route }) {
         <Image style={[styles.image]} source={require("../assets/logo.jpg")} />
         <WelcomeContainer>
           <PageTitle>Welcome!!!</PageTitle>
-          <SubTitle>{result.name}</SubTitle>
-          <SubTitle>{result.email}</SubTitle>
+          <SubTitle>{name}</SubTitle>
+          <SubTitle>{email}</SubTitle>
           <StyledFormArea>
             <Line />
-            <StyledButton
-              onPress={() => {
-                navigation.navigate("Login");
-              }}
-            >
+            <StyledButton onPress={clearLogin}>
               <ButtonText>Logout</ButtonText>
             </StyledButton>
           </StyledFormArea>
@@ -67,4 +76,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MenuScreen;
+export default WelcomeScreen;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import MenuScreen from "../screens/WelcomeScreen";
+import WelcomeScreen from "../screens/WelcomeScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import PredictionScreen from "../screens/PredictionScreen";
 import PredictionRecordsScreen from "../screens/PredictionRecordsScreen";
