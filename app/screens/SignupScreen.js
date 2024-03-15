@@ -3,6 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
 import { View, TouchableOpacity, ActivityIndicator } from "react-native";
 import { Octicons, Entypo } from "@expo/vector-icons";
+import axios from "axios";
 
 import {
   StyledContainer,
@@ -63,7 +64,7 @@ const SignUpScreen = ({ navigation }) => {
     <StyledContainer>
       <StatusBar style="dark" />
       <InnerContainer>
-        <PageTitle>Derm Aid</PageTitle>
+        <PageTitle>Flower Crib</PageTitle>
         <SubTitle>Account Signup</SubTitle>
 
         <Formik
@@ -105,9 +106,9 @@ const SignUpScreen = ({ navigation }) => {
                 icon="person"
                 placeholder="Jehan Fernando"
                 placeholderTextColor={Colors.darklight}
-                onChangeText={handleChange("fullName")}
-                onBlur={handleBlur("fullName")}
-                value={values.fullName}
+                onChangeText={handleChange("name")}
+                onBlur={handleBlur("name")}
+                value={values.name}
               />
               <MyTextInput
                 label="Email Address"
@@ -120,9 +121,9 @@ const SignUpScreen = ({ navigation }) => {
                 keyboardType="email-address"
               />
               <MyTextInput
-                label="Full Name"
-                icon="person"
-                placeholder="Jehan Fernando"
+                label="Date of Birth"
+                icon="calendar"
+                placeholder="YYYY - MM - DD"
                 placeholderTextColor={Colors.darklight}
                 onChangeText={handleChange("dateOfBirth")}
                 onBlur={handleBlur("dateOfBirth")}
