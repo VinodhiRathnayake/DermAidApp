@@ -13,14 +13,14 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer theme={NavigationTheme}>
-     <AppNavigator/>
-       {/* <AuthNavigator/> */}
-      </NavigationContainer>
+    // <NavigationContainer theme={NavigationTheme}>
+    //  <AppNavigator/>
+      // <AuthNavigator/> 
+      //  <NavigationContainer/> 
 
     // <WelcomeScreen />
 
-    // <RootStack />
+    <RootStack />
     // <LoginScreen />
     // <SignupScreen />
 
