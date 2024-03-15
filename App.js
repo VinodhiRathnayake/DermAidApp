@@ -7,7 +7,7 @@ import SigninScreen from "./app/screens/SigninScreen";
 import SignupScreen from "./app/screens/SignupScreen";
 import LoginScreen from "./app/screens/LoginScreen";
 import RootStack from "./app/navigation/RootStack";
-import MenuScreen from "./app/screens/MenuScreen";
+import MenuScreen from "./app/screens/WelcomeScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -15,8 +15,8 @@ export default function App() {
   return (
     // <NavigationContainer theme={NavigationTheme}>
     //  <AppNavigator/>
-      // <AuthNavigator/> 
-      //  <NavigationContainer/> 
+    // <AuthNavigator/>
+    //  <NavigationContainer/>
 
     // <WelcomeScreen />
 

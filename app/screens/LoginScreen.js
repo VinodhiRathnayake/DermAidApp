@@ -4,7 +4,7 @@ import { Formik } from "formik";
 import { View, ActivityIndicator } from "react-native";
 import { Octicons, Entypo, Fontisto } from "@expo/vector-icons";
 import axios from "axios";
-import MenuScreen from "./MenuScreen";
+import MenuScreen from "./WelcomeScreen";
 
 import {
   StyledContainer,
@@ -47,7 +47,7 @@ const LoginScreen = ({ navigation }) => {
         if (status !== "SUCCESS") {
           handleMessage(message, status);
         } else {
-          navigation.navigate("AppNavigator", { ...data[0] });
+          navigation.navigate("Welcome", { ...data[0] });
         }
         setSubmitting(false);
       })
