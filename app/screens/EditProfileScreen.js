@@ -19,23 +19,23 @@ import ListItemDeleteAction from "../components/lists/ListItemDeleteAction";
 const initialMessages = [
   {
     id: 1,
-    title: "First Name",
+    title: "Name",
     description: "Peter",
   },
   {
     id: 2,
-    title: "Last Name",
-    description: "Parker",
-  },
-  {
-    id: 3,
     title: "Email",
     description: "user123@gmail.com",
   },
   {
-    id: 4,
+    id: 3,
     title: "Phone",
     description: "(+94)12345678",
+  },
+  {
+    id: 4,
+    title: "Date Of Birth",
+    description: "2000-05-30",
   },
 ];
 

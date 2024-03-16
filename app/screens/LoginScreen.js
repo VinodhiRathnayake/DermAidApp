@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
 import { View, ActivityIndicator } from "react-native";
 import { Octicons, Entypo, Fontisto } from "@expo/vector-icons";
 import axios from "axios";
-import MenuScreen from "./MenuScreen";
 
 import {
   StyledContainer,
@@ -28,10 +27,20 @@ import {
   TextLinkContent,
 } from "../components/styles";
 
+// Async Storage
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+// Credentials Context
+import { CredentialsContext } from "../components/CredentialsContext";
+
 const LoginScreen = ({ navigation }) => {
   const [isHidden, setHidden] = useState(true);
   const [message, setMessage] = useState();
   const [messageType, setMessageType] = useState();
+
+  // Context
+  const { storedCredentials, setStoredCredentials } =
+    useContext(CredentialsContext);
 
   const handleLogin = (credentials, setSubmitting) => {
     handleMessage(null);
@@ -47,7 +56,7 @@ const LoginScreen = ({ navigation }) => {
         if (status !== "SUCCESS") {
           handleMessage(message, status);
         } else {
-          navigation.navigate("AppNavigator", { ...data[0] });
+          persistLogin({ ...data[0] }, message, "SUCCESS");
         }
         setSubmitting(false);
       })
@@ -61,6 +70,18 @@ const LoginScreen = ({ navigation }) => {
   const handleMessage = (message, type = "FAILED") => {
     setMessage(message);
     setMessageType(type);
+  };
+
+  const persistLogin = (credentials, message, status) => {
+    AsyncStorage.setItem("dermAidCredentials", JSON.stringify(credentials))
+      .then(() => {
+        handleMessage(message, status);
+        setStoredCredentials(credentials);
+      })
+      .catch((err) => {
+        console.log(err);
+        handleMessage("Persisting login failed");
+      });
   };
 
   return (

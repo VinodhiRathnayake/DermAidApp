@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import MenuScreen from "../screens/MenuScreen";
+import WelcomeScreen from "../screens/WelcomeScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import PredictionScreen from "../screens/PredictionScreen";
 import PredictionRecordsScreen from "../screens/PredictionRecordsScreen";
@@ -9,8 +9,6 @@ import AboutUs from "../screens/AboutUs";
 import MenuNavigator from "./MenuNavigator";
 import { Text } from "react-native";
 import Menu from "../components/Menu";
-
-
 
 const Tab = createBottomTabNavigator();
 
@@ -23,99 +21,96 @@ const AppNavigator = () => {
 
   return (
     <Tab.Navigator
-    screenOptions={{
+      screenOptions={{
         headerShown: false,
         tabBarStyle: {
-            position: "absolute",
-          backgroundColor: "transparent", 
-          bottom: 0, 
+          position: "absolute",
+          backgroundColor: "transparent",
+          bottom: 0,
           left: 0,
           right: 0,
           elevation: 0,
-          borderTopWidth: 0, 
+          borderTopWidth: 0,
         },
         tabBarLabelStyle: {
-            color: "black", // Set the text color to white
-            fontWeight: "bold",
-          },
-      //     tabBarActiveTintColor: "white", 
-      // tabBarInactiveTintColor: "black",
-          
+          color: "black", // Set the text color to white
+          fontWeight: "bold",
+        },
+        //     tabBarActiveTintColor: "white",
+        // tabBarInactiveTintColor: "black",
       }}
+    >
+      <Tab.Screen
+        name="Home"
+        component={MenuNavigator}
+        options={{
+          tabBarIcon: ({ color, size, focused }) => (
+            <MaterialCommunityIcons
+              name="home"
+              color={focused ? "red" : "black"} // Change color when focused
+              size={size}
+            />
+          ),
+        }}
+      />
 
-    
-  >
-    <Tab.Screen
-   name="Home"
-   component={MenuNavigator}
-      options={{
-        tabBarIcon: ({ color, size, focused }) => (
-          <MaterialCommunityIcons
-            name="home"
-            color={focused ? "red" : "black"} // Change color when focused
-            size={size}
-          />
-        ),
-      }}
-    />
+      <Tab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          tabBarIcon: ({ color, size, focused }) => (
+            <MaterialCommunityIcons
+              name="account"
+              color={focused ? "red" : "black"}
+              size={size}
+            />
+          ),
+        }}
+      />
 
-<Tab.Screen
-      name="Profile"
-      component={ProfileScreen}
-      options={{
-        tabBarIcon: ({ color, size, focused }) => (
-          <MaterialCommunityIcons 
-          name="account" 
-          color={focused ? "red" : "black"}
-          size={size} />
-        ),
-      }}
-    />
+      <Tab.Screen
+        name="Scan"
+        component={PredictionScreen}
+        options={{
+          tabBarIcon: ({ color, size, focused }) => (
+            <MaterialCommunityIcons
+              name="camera"
+              color={focused ? "red" : "black"}
+              size={size}
+            />
+          ),
+        }}
+      />
 
-<Tab.Screen
-  name= "Scan"
-      component={PredictionScreen}
-      options={{
-        tabBarIcon: ({ color, size, focused }) => (
-          <MaterialCommunityIcons 
-          name="camera" 
-          color={focused ? "red" : "black"}
-          size={size} />
-        ),
-      }}
-    />
+      <Tab.Screen
+        name="Records"
+        component={PredictionRecordsScreen}
+        options={{
+          tabBarIcon: ({ color, size, focused }) => (
+            <MaterialCommunityIcons
+              name="notebook"
+              color={focused ? "red" : "black"}
+              size={size}
+            />
+          ),
+        }}
+      />
 
-    
-<Tab.Screen
-  name= "Records"
-      component={PredictionRecordsScreen}
-      options={{
-        tabBarIcon: ({ color, size, focused }) => (
-          <MaterialCommunityIcons 
-          name="notebook" 
-          color={focused ? "red" : "black"}
-          size={size} />
-        ),
-      }}
-    />
-
-    
-<Tab.Screen
-  name= "About"
-      component={AboutUs}
-      options={{
-        tabBarIcon: ({ color, size, focused }) => (
-          <MaterialCommunityIcons 
-          name="compass" 
-          color={focused ? "red" : "black"}
-          size={size} />
-        ),
-      }}
-    />
-   
-  </Tab.Navigator>
-
-);
+      <Tab.Screen
+        name="About"
+        component={AboutUs}
+        options={{
+          tabBarIcon: ({ color, size, focused }) => (
+            <MaterialCommunityIcons
+              name="compass"
+              color={focused ? "red" : "black"}
+              size={size}
+            />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
 };
 
 export default AppNavigator;

@@ -6,35 +6,53 @@ import AuthNavigator from "./app/navigation/AuthNavigator";
 import SigninScreen from "./app/screens/SigninScreen";
 import SignupScreen from "./app/screens/SignupScreen";
 import LoginScreen from "./app/screens/LoginScreen";
-import RootStack from "./app/navigation/RootStack";
-import MenuScreen from "./app/screens/MenuScreen";
+import WelcomeScreen from "./app/screens/WelcomeScreen";
 
-const Stack = createNativeStackNavigator();
+import React, { useState } from "react";
+
+// React Navigation Stack
+import RootStack from "./app/navigation/RootStack";
+
+// AppLoading
+import AppLoading from "expo-app-loading";
+
+// Async Storage
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+// Credentials Context
+import { CredentialsContext } from "./app/components/CredentialsContext";
 
 export default function App() {
+  const [appReady, setAppReady] = useState(false);
+  const [storedCredentials, setStoredCredentials] = useState();
+
+  const checkLoginCredentials = () => {
+    AsyncStorage.getItem("dermAidCredentials")
+      .then((result) => {
+        if (result !== null) {
+          setStoredCredentials(JSON.parse(result));
+        } else {
+          setStoredCredentials(null);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  if (!appReady) {
+    return (
+      <AppLoading
+        startAsync={checkLoginCredentials}
+        onFinish={() => setAppReady(true)}
+        onError={console.warn}
+      />
+    );
+  }
+
   return (
-    // <NavigationContainer theme={NavigationTheme}>
-    //  <AppNavigator/>
-      // <AuthNavigator/> 
-      //  <NavigationContainer/> 
-
-    // <WelcomeScreen />
-
-    <RootStack />
-    // <LoginScreen />
-    // <SignupScreen />
-
-    // <SigninScreen/>
-
-    // <SigninDetailsScreen />
-
-    // <SignupDetailsScreen />
-    // <AboutUs/>
-    // <MenuScreen/>
-    // <ProfileScreen/>
-    // <PredictionRecordsScreen/>
-    // <EditProfileScreen/>
-    // <PredictionScreen/>
-    // <ResultScreen/>
+    <CredentialsContext.Provider
+      value={{ storedCredentials, setStoredCredentials }}
+    >
+      <RootStack />
+    </CredentialsContext.Provider>
   );
 }
