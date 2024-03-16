@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
 import Screen from "../components/Screen";
 import AppHeader from "../components/AppHeader";
-import ImageInput from "../components/ImageInput";
 import AppText from "../components/AppText";
 import colors from "../config/colors";
 import Button from "../components/Button";
-import { SubmitButton } from "../components/Forms";
 import * as ImagePicker from "expo-image-picker";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -14,7 +12,6 @@ import ImageSelectionModal from "../components/ImageSelectionModal";
 import placeholder from "../assets/logo.jpg";
 import { Image } from "react-native";
 import ListItem from "../components/lists/ListItem";
-import ListItemDeleteAction from "../components/lists/ListItemDeleteAction";
 
 const initialMessages = [
   {

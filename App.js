@@ -1,20 +1,11 @@
-import NavigationTheme from "./app/navigation/NavigationTheme";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { NavigationContainer } from "@react-navigation/native";
-import AppNavigator from "./app/navigation/AppNavigator";
-import AuthNavigator from "./app/navigation/AuthNavigator";
-import SigninScreen from "./app/screens/SigninScreen";
-import SignupScreen from "./app/screens/SignupScreen";
-import LoginScreen from "./app/screens/LoginScreen";
-import WelcomeScreen from "./app/screens/WelcomeScreen";
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { View, StyleSheet, Text } from "react-native";
 
 // React Navigation Stack
 import RootStack from "./app/navigation/RootStack";
 
-// AppLoading
-import AppLoading from "expo-app-loading";
+// Splash Screen
+import * as SplashScreen from "expo-splash-screen";
 
 // Async Storage
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -38,13 +29,26 @@ export default function App() {
       .catch((err) => console.log(err));
   };
 
+  useEffect(() => {
+    async function prepare() {
+      try {
+        checkLoginCredentials();
+        await SplashScreen.hideAsync(); // Hide the splash screen
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setAppReady(true);
+      }
+    }
+
+    prepare();
+  }, []);
+
   if (!appReady) {
     return (
-      <AppLoading
-        startAsync={checkLoginCredentials}
-        onFinish={() => setAppReady(true)}
-        onError={console.warn}
-      />
+      <View style={styles.splashContainer}>
+        <Text>Loading...</Text>
+      </View>
     );
   }
 
@@ -56,3 +60,11 @@ export default function App() {
     </CredentialsContext.Provider>
   );
 }
+
+const styles = StyleSheet.create({
+  splashContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
