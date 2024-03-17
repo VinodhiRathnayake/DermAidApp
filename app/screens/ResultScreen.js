@@ -4,7 +4,6 @@ import AppHeader from "../components/AppHeader";
 import Screen from "../components/Screen";
 import AppText from "../components/AppText";
 import Button from "../components/Button";
-import colors from "../config/colors";
 
 function ResultScreen(props) {
   return (
