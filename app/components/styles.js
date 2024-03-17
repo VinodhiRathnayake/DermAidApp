@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Constants from "expo-constants";
+import { Text, View, Image, TextInput, TouchableOpacity } from "react-native";
 
 //colors
 export const Colors = {
@@ -10,13 +11,52 @@ export const Colors = {
   brand: "#6d28d9",
   green: "#10b981",
   red: "#ef4444",
+  gray: "#6b7280",
+  lightGreen: `rgba(16, 185, 129, 0.1)`,
 };
 
 export const StyledContainer = styled.View`
   flex: 1;
   padding: 25px;
-  padding-top: ${Constants.statusBarHeight + 10}px;
+  padding-top: ${Constants.statusBarHeight + 30}px;
   background-color: ${Colors.primary};
+`;
+// otp screen
+export const TopHalf = styled.View`
+  flex: 1;
+  justify-content: center;
+  padding: 20px;
+`;
+
+export const BottomHalf = styled(TopHalf)`
+  justify-content: space-around;
+`;
+
+export const InfoText = styled.Text`
+  color: ${Colors.gray};
+  font-size: 15px;
+  text-align: center;
+`;
+
+export const EmphasizeText = styled.Text`
+  font-weight: bold;
+  font-style: italic;
+`;
+
+export const InlineGroup = styled.View`
+  flex-direction: row;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const IconBG = styled.View`
+  width: 250px;
+  height: 250px;
+  background-color: ${Colors.lightGreen};
+  border-radius: 250px;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const InnerContainer = styled.View`
@@ -155,4 +195,74 @@ export const TextLink = styled.TouchableOpacity`
 export const TextLinkContent = styled.Text`
   color: ${Colors.brand};
   font-size: 15px;
+
+  ${(props) => {
+    const { resendStatus } = props;
+    if (resendStatus === "Failed!") {
+      return `color: ${Colors.red}`;
+    } else if (resendStatus === "Sent!") {
+      return `color: ${Colors.green}`;
+    }
+  }}
+`;
+
+// pin input styles
+export const CodeInputSection = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  margin-vertical: 30px;
+`;
+
+export const HiddenTextInput = styled.TextInput`
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+`;
+
+export const CodeInputContainer = styled.Pressable`
+  width: 70%;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+export const CodeInput = styled.View`
+  border-color: ${Colors.lightGreen};
+  min-width: 15%;
+  border-width: 2px;
+  border-radius: 5px;
+  padding: 12px;
+`;
+
+export const CodeInputText = styled.Text`
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+  color: ${Colors.brand};
+`;
+
+export const CodeInputFocused = styled(CodeInput)`
+  border-color: ${Colors.green};
+`;
+
+// modal styles
+export const ModalContainer = styled(StyledContainer)`
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+`;
+
+export const ModalView = styled.View`
+  margin: 20px;
+  background-color: white;
+  border-radius: 20px;
+  padding: 35px;
+  align-items: center;
+  elevation: 5;
+  shadow-color: #000;
+  shadow-offset: 0px 2px;
+  shadow-opacity: 0.25;
+  shadow-radius: 4px;
+  width: 100%;
 `;

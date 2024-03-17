@@ -31,6 +31,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Credentials Context
 import { CredentialsContext } from "../components/CredentialsContext";
+import { baseAPIURL } from "../components/shared";
 
 const SignUpScreen = ({ navigation }) => {
   const [isHidden, setHidden] = useState(true);
@@ -41,10 +42,9 @@ const SignUpScreen = ({ navigation }) => {
   const { storedCredentials, setStoredCredentials } =
     useContext(CredentialsContext);
 
-  const handleSignUp = (credentials, setSubmitting) => {
+  const handleSignUp = async (credentials, setSubmitting) => {
     handleMessage(null);
-    const url =
-      "https://polar-inlet-39847-1b8c485839ae.herokuapp.com/user/signup";
+    const url = `${baseAPIURL}/user/signup`;
 
     axios
       .post(url, credentials)
@@ -52,10 +52,11 @@ const SignUpScreen = ({ navigation }) => {
         const result = response.data;
         const { message, data, status } = result;
 
-        if (status !== "SUCCESS") {
+        if (status !== "PENDING") {
           handleMessage(message, status);
         } else {
-          persistLogin({ ...data }, message, status);
+          temporaryUserPersist(({ email, name, dateOfBirth } = credentials));
+          navigation.navigate("Verification", { ...data });
         }
         setSubmitting(false);
       })
@@ -64,6 +65,14 @@ const SignUpScreen = ({ navigation }) => {
         setSubmitting(false);
         handleMessage("An error occured. Check your internet connection");
       });
+  };
+
+  const temporaryUserPersist = async (credentials) => {
+    try {
+      await AsyncStorage.setItem("tempUser", JSON.stringify(credentials));
+    } catch (error) {
+      handleMessage("Error with initial data handling.");
+    }
   };
 
   const handleMessage = (message, type = "FAILED") => {
@@ -87,7 +96,7 @@ const SignUpScreen = ({ navigation }) => {
     <StyledContainer>
       <StatusBar style="dark" />
       <InnerContainer>
-        <PageTitle>Flower Crib</PageTitle>
+        <PageTitle>Derm Aid</PageTitle>
         <SubTitle>Account Signup</SubTitle>
 
         <Formik

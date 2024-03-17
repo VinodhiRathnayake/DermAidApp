@@ -12,6 +12,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Credentials Context
 import { CredentialsContext } from "./app/components/CredentialsContext";
+import ProfileScreen from "./app/screens/ProfileScreen";
 
 export default function App() {
   const [appReady, setAppReady] = useState(false);
