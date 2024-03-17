@@ -114,7 +114,7 @@ const LoginScreen = ({ navigation }) => {
               <MyTextInput
                 label="Email Address"
                 icon="mail"
-                placeholder="andyj@gmail.com"
+                placeholder="user@example.com"
                 placeholderTextColor={Colors.darklight}
                 onChangeText={handleChange("email")}
                 onBlur={handleBlur("email")}

@@ -39,8 +39,7 @@ function WelcomeScreen() {
         <Text style={styles.welcomeText}>Your Skin Journey Starts Here!</Text>
         <Image style={[styles.image]} source={require("../assets/logo.jpg")} />
         <WelcomeContainer>
-          <PageTitle>Welcome!!!</PageTitle>
-          <SubTitle>{name}</SubTitle>
+          <PageTitle>Welcome {name}</PageTitle>
           <SubTitle>{email}</SubTitle>
           <StyledFormArea>
             <Line />
