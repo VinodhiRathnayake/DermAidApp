@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import KeyBoardAvoidingWrapper from "../components/KeyBoardAvoidingWrapper";
 import CodeInputField from "../components/CodeInputField";
-import { StyleSheet } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import {
   StyledContainer,
   TopHalf,
@@ -142,6 +142,7 @@ const OTPVerificationScreen = ({ route }) => {
   };
 
   return (
+    <ScrollView>
     <KeyBoardAvoidingWrapper>
       <StyledContainer style={styles.StyledContainer}>
         <TopHalf>
@@ -217,6 +218,7 @@ const OTPVerificationScreen = ({ route }) => {
         />
       </StyledContainer>
     </KeyBoardAvoidingWrapper>
+    </ScrollView>
   );
 
   const styles = StyleSheet.create({

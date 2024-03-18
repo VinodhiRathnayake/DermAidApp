@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, SafeAreaView } from 'react-native';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import AppText from './AppText';
@@ -22,7 +22,7 @@ function AppHeader({title}) {
 
   return (
   
-    <View>
+    <SafeAreaView>
 
     <View style={styles.titleContainer}>
  
@@ -31,7 +31,7 @@ function AppHeader({title}) {
 
     </View>
     {isMenuOpen && <Menu onClose={() => setIsMenuOpen(false)} />}
-    </View>
+    </SafeAreaView>
     
     
    
@@ -41,7 +41,7 @@ function AppHeader({title}) {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: -50,
+  
     flexDirection: 'row',
      
   },
@@ -51,9 +51,9 @@ const styles = StyleSheet.create({
   },
   
   titleContainer: {
-    // marginTop: 10,
+  
     flexDirection: 'row',
-    marginBottom:15,
+    // marginBottom:15,
   },
   headerTitle: {
     flex: 1,

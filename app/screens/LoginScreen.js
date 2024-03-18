@@ -9,6 +9,7 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
+  ScrollView,
 } from "react-native";
 import { Octicons, Entypo, Fontisto } from "@expo/vector-icons";
 import axios from "axios";
@@ -74,6 +75,7 @@ const LoginScreen = ({ navigation }) => {
   };
 
   return (
+    <ScrollView>
     <View style={styles.StyledContainer}>
       <StatusBar style="dark" />
       <View style={styles.InnerContainer}>
@@ -175,6 +177,7 @@ const LoginScreen = ({ navigation }) => {
         </Formik>
       </View>
     </View>
+    </ScrollView>
   );
 };
 
