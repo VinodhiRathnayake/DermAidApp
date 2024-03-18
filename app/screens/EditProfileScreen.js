@@ -4,7 +4,7 @@ import Screen from "../components/Screen";
 import AppHeader from "../components/AppHeader";
 import AppText from "../components/AppText";
 import colors from "../config/colors";
-import Button from "../components/Button";
+import AppButton from "../components/Button";
 import * as ImagePicker from "expo-image-picker";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -134,7 +134,7 @@ function EditProfileScreen(props) {
       />
       <View style={styles.container}>
         <View style={styles.buttonContainer}>
-          <Button title="Save" color="orange"></Button>
+          <AppButton title="Save" color="orange"></AppButton>
         </View>
       </View>
       <ImageSelectionModal

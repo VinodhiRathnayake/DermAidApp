@@ -1,9 +1,15 @@
 import React, { useState, useContext } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
-import { View, TouchableOpacity, ActivityIndicator } from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  ActivityIndicator,
+  StyleSheet,
+} from "react-native";
 import { Octicons, Entypo } from "@expo/vector-icons";
 import axios from "axios";
+import Constants from "expo-constants";
 
 import {
   StyledContainer,
@@ -93,7 +99,7 @@ const SignUpScreen = ({ navigation }) => {
   };
 
   return (
-    <StyledContainer>
+    <StyledContainer style={styles.StyledContainer}>
       <StatusBar style="dark" />
       <InnerContainer>
         <PageTitle>Derm Aid</PageTitle>
@@ -252,5 +258,14 @@ const MyTextInput = ({
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  StyledContainer: {
+    flex: 1,
+    padding: 25,
+    paddingTop: Constants.statusBarHeight + 30,
+    backgroundColor: Colors.primary,
+  },
+});
 
 export default SignUpScreen;

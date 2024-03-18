@@ -3,7 +3,7 @@ import { View, StyleSheet, Image } from "react-native";
 import AppHeader from "../components/AppHeader";
 import Screen from "../components/Screen";
 import AppText from "../components/AppText";
-import Button from "../components/Button";
+import AppButton from "../components/Button";
 
 function ResultScreen(props) {
   return (
@@ -17,9 +17,12 @@ function ResultScreen(props) {
       <AppText>Time: 9.40pm</AppText>
 
       <View style={styles.buttonContainer}>
-        <Button title="Learn More About the Disease.." color="orange"></Button>
-        <Button title="SAVE" color="orange"></Button>
-        <Button title="DON'T SAVE" color="orange"></Button>
+        <AppButton
+          title="Learn More About the Disease.."
+          color="orange"
+        ></AppButton>
+        <AppButton title="SAVE" color="orange"></AppButton>
+        <AppButton title="DON'T SAVE" color="orange"></AppButton>
       </View>
     </Screen>
   );

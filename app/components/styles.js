@@ -15,12 +15,7 @@ export const Colors = {
   lightGreen: `rgba(16, 185, 129, 0.1)`,
 };
 
-export const StyledContainer = styled.View`
-  flex: 1;
-  padding: 25px;
-  padding-top: ${Constants.statusBarHeight + 30}px;
-  background-color: ${Colors.primary};
-`;
+export const StyledContainer = styled.View``;
 // otp screen
 export const TopHalf = styled.View`
   flex: 1;
@@ -247,7 +242,11 @@ export const CodeInputFocused = styled(CodeInput)`
 `;
 
 // modal styles
-export const ModalContainer = styled(StyledContainer)`
+export const ModalContainer = styled.View`
+  flex: 1;
+  padding: 25px;
+  padding-top: ${Constants.statusBarHeight + 30}px;
+  background-color: ${Colors.primary};
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.7);

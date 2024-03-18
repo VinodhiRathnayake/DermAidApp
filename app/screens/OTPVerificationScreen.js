@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import KeyBoardAvoidingWrapper from "../components/KeyBoardAvoidingWrapper";
 import CodeInputField from "../components/CodeInputField";
+import { StyleSheet } from "react-native";
 import {
   StyledContainer,
   TopHalf,
@@ -142,7 +143,7 @@ const OTPVerificationScreen = ({ route }) => {
 
   return (
     <KeyBoardAvoidingWrapper>
-      <StyledContainer style={{ alignItems: "center" }}>
+      <StyledContainer style={styles.StyledContainer}>
         <TopHalf>
           <IconBG>
             <StatusBar style="dark" />
@@ -217,6 +218,16 @@ const OTPVerificationScreen = ({ route }) => {
       </StyledContainer>
     </KeyBoardAvoidingWrapper>
   );
+
+  const styles = StyleSheet.create({
+    StyledContainer: {
+      flex: 1,
+      padding: 25,
+      paddingTop: Constants.statusBarHeight + 30,
+      backgroundColor: Colors.primary,
+      alignItems: "center",
+    },
+  });
 };
 
 export default OTPVerificationScreen;

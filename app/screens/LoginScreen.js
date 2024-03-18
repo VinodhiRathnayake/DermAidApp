@@ -1,31 +1,20 @@
 import React, { useState, useContext } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
-import { View, ActivityIndicator } from "react-native";
+import {
+  View,
+  ActivityIndicator,
+  StyleSheet,
+  Image,
+  Text,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
 import { Octicons, Entypo, Fontisto } from "@expo/vector-icons";
 import axios from "axios";
+import Constants from "expo-constants";
 
-import {
-  StyledContainer,
-  InnerContainer,
-  PageLogo,
-  PageTitle,
-  SubTitle,
-  StyledFormArea,
-  LeftIcon,
-  RightIcon,
-  StyledInputLabel,
-  StyledButton,
-  ButtonText,
-  StyledTextInput,
-  Colors,
-  MsgBox,
-  Line,
-  ExtraText,
-  ExtraView,
-  TextLink,
-  TextLinkContent,
-} from "../components/styles";
+import { Colors } from "../components/styles";
 
 // Async Storage
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -85,12 +74,16 @@ const LoginScreen = ({ navigation }) => {
   };
 
   return (
-    <StyledContainer>
+    <View style={styles.StyledContainer}>
       <StatusBar style="dark" />
-      <InnerContainer>
-        <PageLogo resizeMode="cover" source={require("../assets/logo.jpg")} />
-        <PageTitle>Derm Aid</PageTitle>
-        <SubTitle>Account Login</SubTitle>
+      <View style={styles.InnerContainer}>
+        <Image
+          style={styles.PageLogo}
+          resizeMode="cover"
+          source={require("../assets/logo.jpg")}
+        />
+        <Text style={styles.PageTitle}>Derm Aid</Text>
+        <Text style={styles.SubTitle}>Account Login</Text>
 
         <Formik
           initialValues={{ email: "", password: "" }}
@@ -110,7 +103,7 @@ const LoginScreen = ({ navigation }) => {
             values,
             isSubmitting,
           }) => (
-            <StyledFormArea>
+            <View style={styles.StyledFormArea}>
               <MyTextInput
                 label="Email Address"
                 icon="mail"
@@ -134,51 +127,54 @@ const LoginScreen = ({ navigation }) => {
                 isHidden={isHidden}
                 setHidden={setHidden}
               />
-              <MsgBox type={messageType}>{message}</MsgBox>
+              <Text style={styles.MsgBox} type={messageType}>
+                {message}
+              </Text>
               {!isSubmitting && (
-                <StyledButton onPress={handleSubmit}>
-                  <ButtonText>Login</ButtonText>
-                </StyledButton>
+                <TouchableOpacity
+                  style={styles.StyledButton}
+                  onPress={handleSubmit}
+                >
+                  <Text style={styles.ButtonText}>Login</Text>
+                </TouchableOpacity>
               )}
               {isSubmitting && (
-                <StyledButton disabled={true}>
+                <TouchableOpacity style={styles.StyledButton} disabled={true}>
                   <ActivityIndicator size="large" color={Colors.primary} />
-                </StyledButton>
+                </TouchableOpacity>
               )}
-              <Line />
-              <StyledButton
-                style={{
-                  backgroundColor: "#138808",
-                  flexDirection: "row",
-                }}
+              <View style={styles.Line} />
+              <TouchableOpacity
+                style={[
+                  styles.StyledButton,
+                  { backgroundColor: "#138808", flexDirection: "row" },
+                ]}
                 onPress={handleSubmit}
               >
                 <Fontisto name="google" color={Colors.primary} size={25} />
-                <ButtonText
-                  style={{
-                    paddingLeft: 10,
-                  }}
+                <Text
+                  style={[styles.ButtonText, { paddingLeft: 10 }]}
                   google={true}
                 >
                   Sign in with Google
-                </ButtonText>
-              </StyledButton>
-              <ExtraView>
-                <ExtraText>Don't have an account?</ExtraText>
-                <TextLink
+                </Text>
+              </TouchableOpacity>
+              <View style={styles.ExtraView}>
+                <Text style={styles.ExtraText}>Don't have an account?</Text>
+                <TouchableOpacity
+                  style={[styles.TextLink, { paddingLeft: 5 }]}
                   onPress={() => {
                     navigation.navigate("SignUp");
                   }}
-                  style={{ paddingLeft: 5 }}
                 >
-                  <TextLinkContent>Signup</TextLinkContent>
-                </TextLink>
-              </ExtraView>
-            </StyledFormArea>
+                  <Text style={styles.TextLinkContent}>Signup</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
           )}
         </Formik>
-      </InnerContainer>
-    </StyledContainer>
+      </View>
+    </View>
   );
 };
 
@@ -192,22 +188,130 @@ const MyTextInput = ({
 }) => {
   return (
     <View>
-      <LeftIcon>
+      <View style={styles.LeftIcon}>
         <Octicons name={icon} size={30} color={Colors.brand} />
-      </LeftIcon>
-      <StyledInputLabel>{label}</StyledInputLabel>
-      <StyledTextInput {...props} />
+      </View>
+      <Text style={styles.StyledInputLabel}>{label}</Text>
+      <TextInput style={styles.StyledTextInput} {...props} />
       {isPassword && (
-        <RightIcon onPress={() => setHidden(!isHidden)}>
+        <View style={styles.RightIcon} onPress={() => setHidden(!isHidden)}>
           <Entypo
             name={isHidden ? "eye-with-line" : "eye"}
             size={30}
             color={Colors.darklight}
           />
-        </RightIcon>
+        </View>
       )}
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  StyledContainer: {
+    flex: 1,
+    padding: 25,
+    paddingTop: Constants.statusBarHeight + 30,
+    backgroundColor: Colors.primary,
+  },
+  InnerContainer: {
+    flex: 1,
+    width: "100%",
+    alignItems: "center",
+  },
+  PageLogo: {
+    width: 250,
+    height: 250,
+  },
+  PageTitle: {
+    fontSize: 30,
+    textAlign: "center",
+    fontWeight: "bold",
+    color: Colors.brand,
+    padding: 10,
+  },
+  SubTitle: {
+    fontSize: 18,
+    marginBottom: 5,
+    letterSpacing: 1,
+    fontWeight: "bold",
+    color: Colors.tertiary,
+  },
+  StyledFormArea: {
+    width: "90%",
+  },
+  MsgBox: {
+    textAlign: "center",
+    fontSize: 13,
+    color: (props) => (props.type === "SUCCESS" ? "green" : "red"),
+  },
+  StyledButton: {
+    padding: 15,
+    backgroundColor: Colors.brand,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 5,
+    marginVertical: 5,
+    height: 60,
+  },
+  ButtonText: {
+    color: Colors.primary,
+    fontSize: 16,
+  },
+  Line: {
+    height: 1,
+    width: "100%",
+    backgroundColor: Colors.darklight,
+    marginVertical: 10,
+  },
+  ExtraView: {
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    padding: 10,
+  },
+  ExtraText: {
+    justifyContent: "center",
+    alignItems: "center",
+    color: Colors.tertiary,
+    fontSize: 15,
+  },
+  TextLink: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  TextLinkContent: {
+    color: Colors.brand,
+    fontSize: 15,
+  },
+  LeftIcon: {
+    left: 15,
+    top: 38,
+    position: "absolute",
+    zIndex: 1,
+  },
+  RightIcon: {
+    right: 15,
+    top: 38,
+    position: "absolute",
+    zIndex: 1,
+  },
+  StyledInputLabel: {
+    color: Colors.tertiary,
+    fontSize: 13,
+    textAlign: "left",
+  },
+  StyledTextInput: {
+    backgroundColor: Colors.secondary,
+    padding: 15,
+    paddingLeft: 55,
+    paddingRight: 55,
+    borderRadius: 5,
+    fontSize: 16,
+    height: 60,
+    marginVertical: 3,
+    marginBottom: 10,
+    color: Colors.tertiary,
+  },
+});
 
 export default LoginScreen;

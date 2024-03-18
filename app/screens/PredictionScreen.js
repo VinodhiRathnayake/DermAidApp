@@ -6,7 +6,7 @@ import * as MediaLibrary from "expo-media-library";
 import Screen from "../components/Screen";
 import AppHeader from "../components/AppHeader";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import Button from "../components/Button";
+import AppButton from "../components/Button";
 import { useNavigation } from "@react-navigation/native";
 
 function PredictionScreen(props) {
@@ -68,11 +68,11 @@ function PredictionScreen(props) {
           source={{ uri: "data:image/jpg;base64," + photo.base64 }}
         />
         <View style={styles.buttons}>
-          <Button title="Scan" onPress={scanPic} color="orange" />
+          <AppButton title="Scan" onPress={scanPic} color="orange" />
           {hasMediaLibraryPermission ? (
-            <Button title="Save" onPress={savePhoto} color="orange" />
+            <AppButton title="Save" onPress={savePhoto} color="orange" />
           ) : undefined}
-          <Button
+          <AppButton
             title="Discard"
             onPress={() => setPhoto(undefined)}
             color="orange"
