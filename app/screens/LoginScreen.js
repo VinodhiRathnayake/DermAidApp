@@ -37,7 +37,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Credentials Context
 import { CredentialsContext } from "../components/CredentialsContext";
-import KeyBoardAvoidingWrapper from "../components/KeyBoardAvoidingWrapper";
+import { saveSecurely } from "../components/utils/storage";
 
 const LoginScreen = ({ navigation }) => {
   const [isHidden, setHidden] = useState(true);

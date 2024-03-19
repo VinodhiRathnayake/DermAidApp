@@ -4,7 +4,7 @@
     "slug": "DermAid",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon":"./app/assets/icon.png",
+    "icon": "./app/assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./app/assets/splash.png",
@@ -25,6 +25,9 @@
     },
     "web": {
       "favicon": "./app/assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "expo-secure-store"
+    ]
   }
 }

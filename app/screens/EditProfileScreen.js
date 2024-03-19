@@ -23,11 +23,12 @@ import {
   InnerContainer,
 } from "../components/styles";
 
-// Async Storage
-
 // Credentials Context
 import { CredentialsContext } from "../components/CredentialsContext";
+
 import Avatar from "../components/Avatar";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { saveSecurely } from "../components/utils/storage";
 
 function EditProfileScreen(props) {
   const [isHidden, setHidden] = useState(true);
@@ -90,6 +91,14 @@ function EditProfileScreen(props) {
 
       // make api call to save
       // sendToBackend();
+
+      const updatedCredentials = {
+        ...storedCredentials,
+        image,
+      };
+
+      setStoredCredentials(updatedCredentials);
+      await saveSecurely("profileDetails", updatedCredentials);
 
       setModalVisible(false);
     } catch (error) {

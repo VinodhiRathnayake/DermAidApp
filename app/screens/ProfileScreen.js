@@ -1,107 +1,129 @@
 import React, { useState, useContext } from "react";
-import { View, StyleSheet, FlatList } from "react-native";
-import ListItem from "../components/lists/ListItem";
+import { View, StyleSheet } from "react-native";
 import Screen from "../components/Screen";
-import AppHeader from "../components/AppHeader";
-import colors from "../config/colors";
-import Icon from "../components/Icon";
-import { useNavigation, useFocusEffect } from "@react-navigation/native";
-
-// Async Storage
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
+import Avatar from "../components/Avatar";
+import ProfileInfo from "../components/ProfileInfo";
+import SectionHead from "../components/SectionHead";
+import StyledText from "../components/StyledText";
+import ImageSelectionModel from "../components/ImageSelectionModal";
+import * as ImagePicker from "expo-image-picker";
 
 // Credentials Context
 import { CredentialsContext } from "../components/CredentialsContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const menuItems = [
-  {
-    title: "EDIT PROFILE",
-    icon: {
-      name: "account-edit",
-      backgroundColor: colors.primary,
-    },
-    targetScreen: "EditProfile",
-  },
-  {
-    title: "NEW PREDICTION",
-    icon: {
-      name: "stethoscope",
-      backgroundColor: colors.secondary,
-    },
-    targetScreen: "NewPrediction",
-  },
-  {
-    title: "PREDICTION RECORDS",
-    icon: {
-      name: "clipboard-list",
-      backgroundColor: colors.primary,
-    },
-    targetScreen: "PredictionRecords",
-  },
-  {
-    title: "ABOUT US",
-    icon: {
-      name: "information-variant",
-      backgroundColor: colors.secondary,
-    },
-    targetScreen: "AboutUs",
-  },
-];
-
-function ProfileScreen(props) {
-  // Context
-  const { storedCredentials, setStoredCredentials } =
-    useContext(CredentialsContext);
-  const { name, email } = storedCredentials;
-
-  const [isMenuOpen, setIsMenuOpen] = useState(true);
+function ProfileScreen() {
   const navigation = useNavigation();
+  const [modalVisible, setModalVisible] = useState(false);
+  const { setStoredCredentials, storedCredentials } =
+    useContext(CredentialsContext);
+  const [image, setImage] = useState(storedCredentials?.image);
+  const { name, email, dateOfBirth } = storedCredentials;
 
-  // Close the menu when navigating to another screen
-  const handleMenuItemPress = (targetScreen) => {
-    setIsMenuOpen(false);
-    navigation.navigate(targetScreen);
+  const uploadImage = async (mode) => {
+    try {
+      let result = {};
+
+      if (mode === "gallery") {
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
+        result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          allowsEditing: true,
+          aspect: [1, 1],
+          quality: 1,
+        });
+      } else {
+        await ImagePicker.requestCameraPermissionsAsync();
+        result = await ImagePicker.launchCameraAsync({
+          cameraType: ImagePicker.CameraType.front,
+          allowsEditing: true,
+          aspect: [1, 1],
+          quality: 1,
+        });
+      }
+
+      if (!result.canceled) {
+        // save image
+        await saveImage(result.assets[0].uri);
+      }
+    } catch (error) {
+      alert("Error uploading image: " + error.message);
+      setModalVisible(false);
+    }
   };
 
-  // Reset menu state when the screen gains focus
-  useFocusEffect(() => {
-    setIsMenuOpen(true);
-    return () => {
-      // Cleanup code here (if needed)
-    };
-  });
+  const removeImage = async () => {
+    try {
+      saveImage(null);
+    } catch ({ message }) {
+      alert(message);
+      setModalVisible(false);
+    }
+  };
+
+  const saveImage = async (image) => {
+    try {
+      setImage(image);
+
+      const updatedUserData = {
+        ...storedCredentials,
+        image,
+      };
+      AsyncStorage.setItem(
+        "dermAidCredentials",
+        JSON.stringify(updatedUserData)
+      )
+        .then(() => {
+          setStoredCredentials(updatedUserData);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      setModalVisible(false);
+    } catch (error) {
+      throw error;
+    }
+  };
 
   return (
-    <Screen onFocus={() => setIsMenuOpen(false)}>
-      <AppHeader />
+    <Screen>
       <View style={styles.container}>
-        <ListItem
-          title={name}
-          subTitle={email}
-          image={require("../assets/profile1.jpeg")}
-          style={styles.infoContainer}
-          titleStyle={styles.name}
-          imageStyle={styles.image}
-        />
-      </View>
-
-      <View style={styles.container}>
-        <FlatList
-          data={menuItems}
-          keyExtractor={(menuItem) => menuItem.title}
-          renderItem={({ item }) => (
-            <ListItem
-              title={item.title}
-              style={styles.buttons}
-              IconComponent={
-                <Icon
-                  name={item.icon.name}
-                  backgroundColor={item.icon.backgroundColor}
-                />
-              }
-              onPress={() => handleMenuItemPress(item.targetScreen)}
-            />
-          )}
+        <Avatar onButtonPress={() => setModalVisible(true)} uri={image} />
+        <StyledText big bold style={[styles.text, { marginBottom: 10 }]}>
+          {name}
+        </StyledText>
+        <SectionHead
+          option="Edit"
+          style={{ marginTop: 20 }}
+          onPress={() =>
+            navigation.navigate("ProfileEdit", {
+              ...appUser,
+            })
+          }
+        >
+          Personal Info
+        </SectionHead>
+        <View style={styles.section}>
+          <ProfileInfo label="Email" icon="email-outline">
+            <StyledText>{email}</StyledText>
+          </ProfileInfo>
+          <ProfileInfo label="Phone" icon="phone-outline">
+            <StyledText>"jehan"</StyledText>
+          </ProfileInfo>
+          <ProfileInfo label="Date of Birth" icon="calendar">
+            <StyledText>{dateOfBirth}</StyledText>
+          </ProfileInfo>
+        </View>
+        <ImageSelectionModel
+          modalVisible={modalVisible}
+          onBackPress={() => {
+            setModalVisible(false);
+          }}
+          onCameraPress={() => uploadImage()}
+          onGalleryPress={() => uploadImage("gallery")}
+          onRemovePress={() => removeImage()}
         />
       </View>
     </Screen>
@@ -110,31 +132,18 @@ function ProfileScreen(props) {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    paddingTop: 10,
+    paddingBottom: 25,
+    paddingHorizontal: 25,
   },
-  infoContainer: {
-    backgroundColor: "rgba(70, 130, 180, 0.6)",
-    paddingVertical: 20,
-    width: 380,
-    height: 180,
-    borderRadius: 25,
+  section: {
+    borderRadius: 15,
+    overflow: "hidden",
+    marginTop: 5,
+    marginBottom: 5,
   },
-  name: {
-    fontSize: 30,
-    fontWeight: "bold",
-  },
-  buttons: {
-    marginTop: 30,
-    backgroundColor: colors.white,
-    width: 300,
-    height: 70,
-    borderRadius: 28,
-  },
-  image: {
-    width: 110,
-    height: 130,
+  text: {
+    textAlign: "center",
   },
 });
 
