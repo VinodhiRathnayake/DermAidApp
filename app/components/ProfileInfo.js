@@ -15,7 +15,7 @@ const ProfileInfo = ({ children, label, style, icon }) => {
       ]}
     >
       <View style={styles.label}>
-        <MaterialCommunityIcons name={icon} size={25} color={Colors.accent} />
+        <MaterialCommunityIcons name={icon} size={25} color={Colors.brand} />
         <StyledText style={[{ color: Colors?.tertiary, marginLeft: 15 }]}>
           {label}
         </StyledText>

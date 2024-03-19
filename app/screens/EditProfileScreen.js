@@ -1,47 +1,29 @@
 import React, { useState, useContext } from "react";
-import { View, StyleSheet, ActivityIndicator } from "react-native";
+import { StyleSheet } from "react-native";
 import Screen from "../components/Screen";
 import AppHeader from "../components/AppHeader";
-import AppText from "../components/AppText";
-import colors from "../config/colors";
 import * as ImagePicker from "expo-image-picker";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import ImageSelectionModal from "../components/ImageSelectionModal";
-import { Formik } from "formik";
-import { Octicons, Entypo } from "@expo/vector-icons";
-
-import {
-  StyledFormArea,
-  LeftIcon,
-  RightIcon,
-  StyledInputLabel,
-  StyledButton,
-  ButtonText,
-  StyledTextInput,
-  Colors,
-  MsgBox,
-  InnerContainer,
-} from "../components/styles";
+import StyledTextInput from "../components/StyledTextInput";
+import StyledButton from "../components/StyledButton";
+import { useNavigation } from "@react-navigation/native";
 
 // Credentials Context
 import { CredentialsContext } from "../components/CredentialsContext";
 
 import Avatar from "../components/Avatar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { saveSecurely } from "../components/utils/storage";
 
-function EditProfileScreen(props) {
-  const [isHidden, setHidden] = useState(true);
-  const [messageType, setMessageType] = useState();
-  const [message, setMessage] = useState();
+function EditProfileScreen({ route }) {
+  const navigation = useNavigation();
 
-  const [image, setImage] = useState();
+  const [image, setImage] = useState(route.params?.image);
   const [modalVisible, setModalVisible] = useState(false);
 
   // Context
   const { storedCredentials, setStoredCredentials } =
     useContext(CredentialsContext);
-  const { name, dateOfBirth } = storedCredentials;
+  // const { name, dateOfBirth } = storedCredentials;
 
   const uploadImage = async (mode) => {
     try {
@@ -86,19 +68,22 @@ function EditProfileScreen(props) {
 
   const saveImage = async (image) => {
     try {
-      // update displayed image
       setImage(image);
 
-      // make api call to save
-      // sendToBackend();
-
-      const updatedCredentials = {
+      const updatedUserData = {
         ...storedCredentials,
         image,
       };
-
-      setStoredCredentials(updatedCredentials);
-      await saveSecurely("profileDetails", updatedCredentials);
+      AsyncStorage.setItem(
+        "dermAidCredentials",
+        JSON.stringify(updatedUserData)
+      )
+        .then(() => {
+          setStoredCredentials(updatedUserData);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
 
       setModalVisible(false);
     } catch (error) {
@@ -106,106 +91,89 @@ function EditProfileScreen(props) {
     }
   };
 
+  const [savingChanges, setSavingChanges] = useState(false);
+  const saveChanges = async () => {
+    try {
+      setSavingChanges(true);
+
+      const updatedUserData = {
+        ...storedCredentials,
+        image,
+        name,
+        email,
+        phone,
+        dateOfBirth,
+      };
+
+      AsyncStorage.setItem(
+        "dermAidCredentials",
+        JSON.stringify(updatedUserData)
+      )
+        .then(() => {
+          setStoredCredentials(updatedUserData);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      setSavingChanges(false);
+      navigation.navigate("Profile");
+    } catch ({ message }) {
+      alert(message);
+      setSavingChanges(false);
+    }
+  };
+
+  const [name, setName] = useState(route.params?.name || "");
+  const [email, setEmail] = useState(route.params?.email || "");
+  const [phone, setPhone] = useState(route.params?.phone || "");
+  const [dateOfBirth, setDateOfBirth] = useState(
+    route.params?.dateOfBirth || ""
+  );
+
   // onCameraPress={() => uploadImage()}
   return (
-    <Screen>
+    <Screen style={styles.container}>
       <AppHeader title="EDIT PROFILE" />
-      <Avatar onButtonPress={() => setModalVisible(true)} uri={image} />
-      <InnerContainer>
-        <AppText style={styles.text}>User Information</AppText>
-        <Formik
-          initialValues={{
-            name: "",
-            email: "",
-            dateOfBirth: "",
-            password: "",
-            confirmPassword: "",
-          }}
-          onSubmit={(values, { setSubmitting }) => {
-            if (
-              values.email == "" ||
-              values.password == "" ||
-              values.name == "" ||
-              values.confirmPassword == "" ||
-              values.dateOfBirth == ""
-            ) {
-              handleMessage("Please fill all the fields");
-              setSubmitting(false);
-            } else if (values.password !== values.confirmPassword) {
-              handleMessage("The passwords do not match");
-              setSubmitting(false);
-            } else {
-              handleSignUp(values, setSubmitting);
-            }
-          }}
-        >
-          {({
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            values,
-            isSubmitting,
-          }) => (
-            <StyledFormArea>
-              <MyTextInput
-                label="Full Name"
-                icon="person"
-                placeholder={name}
-                placeholderTextColor={Colors.darklight}
-                onChangeText={handleChange("name")}
-                onBlur={handleBlur("name")}
-                value={values.name}
-              />
-              <MyTextInput
-                label="Date of Birth"
-                icon="calendar"
-                placeholder={dateOfBirth}
-                placeholderTextColor={Colors.darklight}
-                onChangeText={handleChange("dateOfBirth")}
-                onBlur={handleBlur("dateOfBirth")}
-                value={values.dateOfBirth}
-              />
-              <MyTextInput
-                label="New Password"
-                icon="lock"
-                placeholder="*****"
-                placeholderTextColor={Colors.darklight}
-                onChangeText={handleChange("password")}
-                onBlur={handleBlur("password")}
-                value={values.password}
-                secureTextEntry={isHidden}
-                isPassword={true}
-                isHidden={isHidden}
-                setHidden={setHidden}
-              />
-              <MyTextInput
-                label="Confirm New Password"
-                icon="lock"
-                placeholder="*****"
-                placeholderTextColor={Colors.darklight}
-                onChangeText={handleChange("confirmPassword")}
-                onBlur={handleBlur("confirmPassword")}
-                value={values.confirmPassword}
-                secureTextEntry={isHidden}
-                isPassword={true}
-                isHidden={isHidden}
-                setHidden={setHidden}
-              />
-              <MsgBox type={messageType}>{message}</MsgBox>
-              {!isSubmitting && (
-                <StyledButton onPress={handleSubmit}>
-                  <ButtonText>Update</ButtonText>
-                </StyledButton>
-              )}
-              {isSubmitting && (
-                <StyledButton disabled={true}>
-                  <ActivityIndicator size="large" color={Colors.primary} />
-                </StyledButton>
-              )}
-            </StyledFormArea>
-          )}
-        </Formik>
-      </InnerContainer>
+      <Avatar uri={image} onButtonPress={() => setModalVisible(true)} />
+      <StyledTextInput
+        placeholder="Full Name"
+        icon="account-outline"
+        label="Full Name"
+        value={name}
+        onChangeText={setName}
+      />
+
+      <StyledTextInput
+        placeholder="jbrown@hotmail.com"
+        icon="email-outline"
+        label="Email Address"
+        keyboardType="email-address"
+        value={email}
+        onChangeText={setEmail}
+      />
+
+      <StyledTextInput
+        placeholder="+94 71 4269052"
+        icon="phone-outline"
+        label="Phone Number"
+        keyboardType="phone-pad"
+        value={phone}
+        onChangeText={setPhone}
+      />
+
+      <StyledTextInput
+        placeholder="YYYY-MM-DD"
+        icon="calendar"
+        label="Date Of Birth"
+        value={dateOfBirth}
+        onChangeText={setDateOfBirth}
+      />
+
+      <StyledButton isLoading={savingChanges} onPress={saveChanges}>
+        Save Changes
+      </StyledButton>
+
       <ImageSelectionModal
         modalVisible={modalVisible}
         onBackPress={() => {
@@ -219,95 +187,11 @@ function EditProfileScreen(props) {
   );
 }
 
-const MyTextInput = ({
-  label,
-  icon,
-  isPassword,
-  isHidden,
-  setHidden,
-  isDate,
-  showDateTimePicker,
-  ...props
-}) => {
-  return (
-    <View>
-      <LeftIcon>
-        <Octicons name={icon} size={30} color={Colors.brand} />
-      </LeftIcon>
-      <StyledInputLabel>{label}</StyledInputLabel>
-      {!isDate && <StyledTextInput {...props} />}
-      {isDate && (
-        <TouchableOpacity onPress={showDateTimePicker}>
-          <StyledTextInput {...props} />
-        </TouchableOpacity>
-      )}
-      {isPassword && (
-        <RightIcon onPress={() => setHidden(!isHidden)}>
-          <Entypo
-            name={isHidden ? "eye-with-line" : "eye"}
-            size={30}
-            color={Colors.darklight}
-          />
-        </RightIcon>
-      )}
-    </View>
-  );
-};
-
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
-    padding: 15,
-  },
-  text: {
-    marginTop: 5,
-    marginBottom: 20,
-    paddingLeft: 10,
-    fontWeight: "bold",
-    color: colors.medium,
-    fontSize: 30,
-  },
-  buttonContainer: {
-    backgroundColor: colors.orange,
-    justifyContent: "center",
-    width: 360,
-    borderRadius: 25,
-  },
-  imageContainer: {
-    width: 150,
-    height: 150,
-    borderRadius: 75,
-    backgroundColor: colors.light,
-    justifyContent: "center",
-    alignItems: "center",
-    position: "relative",
-  },
-  cameraIconContainer: {
-    position: "absolute",
-    bottom: 5,
-    right: 5,
-    backgroundColor: "rgba(255, 255, 255, 0.8)",
-    borderRadius: 15,
-    padding: 5,
-  },
-
-  image: {
-    width: 140,
-    height: 140,
-    borderRadius: 70,
-    resizeMode: "cover",
-  },
-  titleName: {
-    fontSize: 22,
-    paddingLeft: 8,
-    marginBottom: 5,
-    color: colors.light,
-  },
-  subTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    paddingLeft: 8,
-    color: colors.black,
+    paddingTop: 10,
+    paddingBottom: 25,
+    paddingHorizontal: 25,
   },
 });
 

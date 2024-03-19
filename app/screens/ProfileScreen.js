@@ -18,8 +18,7 @@ function ProfileScreen() {
   const [modalVisible, setModalVisible] = useState(false);
   const { setStoredCredentials, storedCredentials } =
     useContext(CredentialsContext);
-  const [image, setImage] = useState(storedCredentials?.image);
-  const { name, email, dateOfBirth } = storedCredentials;
+  const { name, email, dateOfBirth, phone, image } = storedCredentials;
 
   const uploadImage = async (mode) => {
     try {
@@ -98,8 +97,8 @@ function ProfileScreen() {
           option="Edit"
           style={{ marginTop: 20 }}
           onPress={() =>
-            navigation.navigate("ProfileEdit", {
-              ...appUser,
+            navigation.navigate("EditProfile", {
+              ...storedCredentials,
             })
           }
         >
@@ -110,7 +109,7 @@ function ProfileScreen() {
             <StyledText>{email}</StyledText>
           </ProfileInfo>
           <ProfileInfo label="Phone" icon="phone-outline">
-            <StyledText>"jehan"</StyledText>
+            <StyledText>{phone}</StyledText>
           </ProfileInfo>
           <ProfileInfo label="Date of Birth" icon="calendar">
             <StyledText>{dateOfBirth}</StyledText>

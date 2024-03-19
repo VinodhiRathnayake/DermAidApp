@@ -5,6 +5,7 @@ import LoginScreen from "../screens/LoginScreen";
 import SignUpScreen from "../screens/SignupScreen";
 import AppNavigator from "./AppNavigator";
 import OTPVerificationScreen from "../screens/OTPVerificationScreen";
+import EditProfileScreen from "../screens/EditProfileScreen";
 
 // Credentials Context
 import { CredentialsContext } from "../components/CredentialsContext";
@@ -29,6 +30,10 @@ const RootStack = () => {
                 <Stack.Screen
                   name="Verification"
                   component={OTPVerificationScreen}
+                />
+                <Stack.Screen
+                  name="EditProfile"
+                  component={EditProfileScreen}
                 />
               </>
             )}
