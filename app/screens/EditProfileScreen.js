@@ -13,6 +13,7 @@ import { CredentialsContext } from "../components/CredentialsContext";
 
 import Avatar from "../components/Avatar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import KeyboardAvoidingContainer from "../components/KeyBoardAvoidingWrapper";
 
 function EditProfileScreen({ route }) {
   const navigation = useNavigation();
@@ -117,7 +118,7 @@ function EditProfileScreen({ route }) {
         });
 
       setSavingChanges(false);
-      navigation.navigate("ProfileScreen");
+      navigation.navigate("Profile");
     } catch ({ message }) {
       alert(message);
       setSavingChanges(false);
@@ -134,55 +135,57 @@ function EditProfileScreen({ route }) {
   // onCameraPress={() => uploadImage()}
   return (
     <Screen style={styles.container}>
-      <AppHeader title="EDIT PROFILE" />
-      <Avatar uri={image} onButtonPress={() => setModalVisible(true)} />
-      <StyledTextInput
-        placeholder="Full Name"
-        icon="account-outline"
-        label="Full Name"
-        value={name}
-        onChangeText={setName}
-      />
+      <KeyboardAvoidingContainer>
+        <AppHeader title="EDIT PROFILE" />
+        <Avatar uri={image} onButtonPress={() => setModalVisible(true)} />
+        <StyledTextInput
+          placeholder="Full Name"
+          icon="account-outline"
+          label="Full Name"
+          value={name}
+          onChangeText={setName}
+        />
 
-      <StyledTextInput
-        placeholder="jbrown@hotmail.com"
-        icon="email-outline"
-        label="Email Address"
-        keyboardType="email-address"
-        value={email}
-        onChangeText={setEmail}
-      />
+        <StyledTextInput
+          placeholder="jbrown@hotmail.com"
+          icon="email-outline"
+          label="Email Address"
+          keyboardType="email-address"
+          value={email}
+          onChangeText={setEmail}
+        />
 
-      <StyledTextInput
-        placeholder="+94 71 4269052"
-        icon="phone-outline"
-        label="Phone Number"
-        keyboardType="phone-pad"
-        value={phone}
-        onChangeText={setPhone}
-      />
+        <StyledTextInput
+          placeholder="+94 71 4269052"
+          icon="phone-outline"
+          label="Phone Number"
+          keyboardType="phone-pad"
+          value={phone}
+          onChangeText={setPhone}
+        />
 
-      <StyledTextInput
-        placeholder="YYYY-MM-DD"
-        icon="calendar"
-        label="Date Of Birth"
-        value={dateOfBirth}
-        onChangeText={setDateOfBirth}
-      />
+        <StyledTextInput
+          placeholder="YYYY-MM-DD"
+          icon="calendar"
+          label="Date Of Birth"
+          value={dateOfBirth}
+          onChangeText={setDateOfBirth}
+        />
 
-      <StyledButton isLoading={savingChanges} onPress={saveChanges}>
-        Save Changes
-      </StyledButton>
+        <StyledButton isLoading={savingChanges} onPress={saveChanges}>
+          Save Changes
+        </StyledButton>
 
-      <ImageSelectionModal
-        modalVisible={modalVisible}
-        onBackPress={() => {
-          setModalVisible(false);
-        }}
-        onCameraPress={() => uploadImage()}
-        onGalleryPress={() => uploadImage("gallery")}
-        onRemovePress={() => removeImage()}
-      />
+        <ImageSelectionModal
+          modalVisible={modalVisible}
+          onBackPress={() => {
+            setModalVisible(false);
+          }}
+          onCameraPress={() => uploadImage()}
+          onGalleryPress={() => uploadImage("gallery")}
+          onRemovePress={() => removeImage()}
+        />
+      </KeyboardAvoidingContainer>
     </Screen>
   );
 }

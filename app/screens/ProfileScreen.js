@@ -12,6 +12,7 @@ import * as ImagePicker from "expo-image-picker";
 // Credentials Context
 import { CredentialsContext } from "../components/CredentialsContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import KeyBoardAvoidingWrapper from "../components/KeyBoardAvoidingWrapper";
 
 function ProfileScreen() {
   const navigation = useNavigation();
@@ -88,7 +89,7 @@ function ProfileScreen() {
 
   return (
     <Screen>
-      <View style={styles.container}>
+      <KeyBoardAvoidingWrapper style={styles.container}>
         <Avatar onButtonPress={() => setModalVisible(true)} uri={image} />
         <StyledText big bold style={[styles.text, { marginBottom: 10 }]}>
           {name}
@@ -124,7 +125,7 @@ function ProfileScreen() {
           onGalleryPress={() => uploadImage("gallery")}
           onRemovePress={() => removeImage()}
         />
-      </View>
+      </KeyBoardAvoidingWrapper>
     </Screen>
   );
 }

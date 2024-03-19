@@ -52,7 +52,7 @@ const AppNavigator = () => {
       />
 
       <Tab.Screen
-        name="ProfileScreen"
+        name="Profile"
         component={ProfileScreen}
         options={{
           tabBarIcon: ({ color, size, focused }) => (

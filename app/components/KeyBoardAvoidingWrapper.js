@@ -1,22 +1,31 @@
-import React from "react";
 import {
+  SafeAreaView,
   KeyboardAvoidingView,
   ScrollView,
-  TouchableWithoutFeedback,
-  Keyboard,
+  Platform,
 } from "react-native";
+import { useHeaderHeight } from "@react-navigation/elements";
 import { Colors } from "./styles";
 
-const KeyBoardAvoidingWrapper = ({ children }) => {
+const KeyboardAvoidingContainer = ({ children, backgroundColor, style }) => {
+  const headerHeight = useHeaderHeight();
+
   return (
-    <KeyboardAvoidingView style={{ flex: 1, backgroundColor: Colors.primary }}>
-      <ScrollView>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <SafeAreaView style={{ flex: 1 }}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        keyboardVerticalOffset={headerHeight}
+      >
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={[style]}
+        >
           {children}
-        </TouchableWithoutFeedback>
-      </ScrollView>
-    </KeyboardAvoidingView>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
-export default KeyBoardAvoidingWrapper;
+export default KeyboardAvoidingContainer;

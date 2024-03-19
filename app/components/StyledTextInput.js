@@ -9,33 +9,17 @@ import { Colors } from "./styles";
 const onIOS = Platform.OS == "ios";
 
 const StyledTextInput = ({ label, icon, style, multiline, ...props }) => {
-  const [inputBackgroundColor, setInputBackgroundColor] = useState(
-    Colors.secondary
-  );
-
-  const customOnBlur = () => {
-    props?.onBlur;
-    setInputBackgroundColor(Colors.secondary);
-  };
-
-  const customOnFocus = () => {
-    props?.onFocus;
-    setInputBackgroundColor(Colors.highlight);
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.leftIcon}>
         <MaterialCommunityIcons name={icon} size={30} color={Colors.brand} />
       </View>
 
-      <StyledText small>{label} </StyledText>
+      <StyledText>{label} </StyledText>
 
       <TextInput
         placeholderTextColor={Colors.placeholder}
         {...props}
-        onBlur={customOnBlur}
-        onFocus={customOnFocus}
         multiline={multiline}
         numberOfLines={multiline && 5}
         style={[
@@ -45,7 +29,7 @@ const StyledTextInput = ({ label, icon, style, multiline, ...props }) => {
           {
             color: Colors.tint,
             borderColor: Colors.gray,
-            backgroundColor: inputBackgroundColor,
+            backgroundColor: Colors.primary,
             paddingRight: 15,
           },
           style,
