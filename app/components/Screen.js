@@ -11,9 +11,7 @@ function Screen({ children, style }) {
       style={[styles.screen, style]}
     >
       <SafeAreaView style={[styles.screen, style]}>
-        <ScrollView>
         <View style={[styles.view, style]}>{children}</View>
-        </ScrollView>
       </SafeAreaView>
     </LinearGradient>
   );

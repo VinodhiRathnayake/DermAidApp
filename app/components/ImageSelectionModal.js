@@ -40,7 +40,7 @@ const UploadModal = ({
                 <MaterialCommunityIcons
                   name="camera-outline"
                   size={30}
-                  color={Colors.accent}
+                  color={Colors.brand}
                 />
                 <StyledText small>Camera</StyledText>
               </TouchableOpacity>
@@ -52,7 +52,7 @@ const UploadModal = ({
                 <MaterialCommunityIcons
                   name="image-outline"
                   size={30}
-                  color={Colors.accent}
+                  color={Colors.brand}
                 />
                 <StyledText small>Gallery</StyledText>
               </TouchableOpacity>

@@ -1,15 +1,12 @@
 import React, { useState, useContext } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, ActivityIndicator } from "react-native";
 import Screen from "../components/Screen";
 import AppHeader from "../components/AppHeader";
 import AppText from "../components/AppText";
 import colors from "../config/colors";
 import * as ImagePicker from "expo-image-picker";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ImageSelectionModal from "../components/ImageSelectionModal";
-import placeholder from "../assets/profile1.jpeg";
-import { Image } from "react-native";
 import { Formik } from "formik";
 import { Octicons, Entypo } from "@expo/vector-icons";
 
@@ -27,7 +24,6 @@ import {
 } from "../components/styles";
 
 // Async Storage
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Credentials Context
 import { CredentialsContext } from "../components/CredentialsContext";
@@ -38,7 +34,6 @@ function EditProfileScreen(props) {
   const [messageType, setMessageType] = useState();
   const [message, setMessage] = useState();
 
-  const [imageUri, setImageUri] = useState(null);
   const [image, setImage] = useState();
   const [modalVisible, setModalVisible] = useState(false);
 

@@ -32,7 +32,7 @@ const Avatar = ({
             <MaterialCommunityIcons
               name="camera-outline"
               size={30}
-              color={Colors.accent}
+              color={Colors.brand}
             />
           </TouchableOpacity>
         )}
