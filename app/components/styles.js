@@ -19,6 +19,8 @@ export const Colors = {
   green: "#10b981",
   red: "#ef4444",
   gray: "#6b7280",
+  accent: "#ca8a04",
+  tint: "#111827",
   lightGreen: `rgba(16, 185, 129, 0.1)`,
 };
 

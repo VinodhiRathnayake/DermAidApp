@@ -1,47 +1,115 @@
-import React from 'react';
-import { View, Modal, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import colors from '../config/colors';
+import {
+  StyleSheet,
+  Pressable,
+  View,
+  Modal,
+  ActivityIndicator,
+  TouchableOpacity,
+} from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-const ImageSelectionModal = ({ visible, onSelectOption, onCancel }) => {
+// custom
+import { Colors } from "./styles";
+// components
+import StyledText from "./StyledText";
+
+const UploadModal = ({
+  modalVisible,
+  onBackPress,
+  onCameraPress,
+  onGalleryPress,
+  onRemovePress,
+  isLoading = false,
+}) => {
   return (
-    <Modal visible={visible} animationType="slide" transparent={true}>
-      <View style={styles.modalContainer}>
-        <View style={styles.modalContent}>
-          <TouchableOpacity onPress={() => onSelectOption('camera')}>
-            <Text style={styles.modalOption}>Camera</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => onSelectOption('gallery')}>
-            <Text style={styles.modalOption}>Gallery</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={onCancel}>
-            <Text style={styles.modalOption}>Cancel</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+    <Modal animationType="slide" visible={modalVisible} transparent={true}>
+      <Pressable style={styles.container} onPress={onBackPress}>
+        {isLoading && <ActivityIndicator size={70} color={Colors.tertiary} />}
+
+        {!isLoading && (
+          <View style={[styles.modalView, { backgroundColor: Colors.primary }]}>
+            <StyledText big style={{ marginBottom: 10 }}>
+              Profile Photo
+            </StyledText>
+
+            <View style={styles.decisionRow}>
+              <TouchableOpacity
+                style={styles.optionBtn}
+                onPress={onCameraPress}
+              >
+                <MaterialCommunityIcons
+                  name="camera-outline"
+                  size={30}
+                  color={Colors.accent}
+                />
+                <StyledText small>Camera</StyledText>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.optionBtn}
+                onPress={onGalleryPress}
+              >
+                <MaterialCommunityIcons
+                  name="image-outline"
+                  size={30}
+                  color={Colors.accent}
+                />
+                <StyledText small>Gallery</StyledText>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.optionBtn}
+                onPress={onRemovePress}
+              >
+                <MaterialCommunityIcons
+                  name="trash-can-outline"
+                  size={30}
+                  color={Colors.tertiary}
+                />
+                <StyledText small>Remove</StyledText>
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
+      </Pressable>
     </Modal>
   );
 };
 
 const styles = StyleSheet.create({
-  modalContainer: {
+  container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    padding: 25,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.7)",
   },
-  modalContent: {
-    backgroundColor: colors.white,
+  modalView: {
+    borderRadius: 15,
     padding: 20,
-    borderRadius: 10,
-    width: '80%',
+    paddingBottom: 30,
+    alignItems: "center",
+    elevation: 5,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    width: "100%",
   },
-  modalOption: {
-    fontSize: 18,
-    paddingVertical: 10,
-    textAlign: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: colors.light,
+  decisionRow: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "100%",
+    paddingTop: 15,
+  },
+  optionBtn: {
+    backgroundColor: Colors.secondary,
+    borderRadius: 15,
+    padding: 10,
+    paddingHorizontal: 15,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 
-export default ImageSelectionModal;
+export default UploadModal;

@@ -8,7 +8,7 @@ import * as ImagePicker from "expo-image-picker";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ImageSelectionModal from "../components/ImageSelectionModal";
-import placeholder from "../assets/logo.jpg";
+import placeholder from "../assets/profile1.jpeg";
 import { Image } from "react-native";
 import { Formik } from "formik";
 import { Octicons, Entypo } from "@expo/vector-icons";
@@ -31,6 +31,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Credentials Context
 import { CredentialsContext } from "../components/CredentialsContext";
+import Avatar from "../components/Avatar";
 
 function EditProfileScreen(props) {
   const [isHidden, setHidden] = useState(true);
@@ -45,10 +46,6 @@ function EditProfileScreen(props) {
   const { storedCredentials, setStoredCredentials } =
     useContext(CredentialsContext);
   const { name, dateOfBirth } = storedCredentials;
-
-  const handleChangeImage = (uri) => {
-    setImageUri(uri);
-  };
 
   const uploadImage = async (mode) => {
     try {
@@ -73,21 +70,12 @@ function EditProfileScreen(props) {
       }
 
       if (!result.canceled) {
+        // save image
         await saveImage(result.assets[0].uri);
-        setModalVisible(false);
       }
     } catch (error) {
-      alert("Error uploading image:" + error.message);
+      alert("Error uploading image: " + error.message);
       setModalVisible(false);
-    }
-  };
-
-  const saveImage = async (image) => {
-    try {
-      setImage(image);
-      setModalVisible(false);
-    } catch (error) {
-      throw error;
     }
   };
 
@@ -100,29 +88,25 @@ function EditProfileScreen(props) {
     }
   };
 
+  const saveImage = async (image) => {
+    try {
+      // update displayed image
+      setImage(image);
+
+      // make api call to save
+      // sendToBackend();
+
+      setModalVisible(false);
+    } catch (error) {
+      throw error;
+    }
+  };
+
   // onCameraPress={() => uploadImage()}
   return (
     <Screen>
       <AppHeader title="EDIT PROFILE" />
-      <View style={styles.container}>
-        <TouchableOpacity onPress={() => setModalVisible(true)}>
-          <View style={styles.imageContainer}>
-            {imageUri ? (
-              <Image source={{ uri: imageUri }} style={styles.image} />
-            ) : (
-              <Image source={placeholder} style={styles.image} />
-            )}
-            <View style={styles.cameraIconContainer}>
-              <MaterialCommunityIcons
-                name="camera"
-                size={30}
-                color="black"
-                style={styles.cameraIcon}
-              />
-            </View>
-          </View>
-        </TouchableOpacity>
-      </View>
+      <Avatar onButtonPress={() => setModalVisible(true)} uri={image} />
       <InnerContainer>
         <AppText style={styles.text}>User Information</AppText>
         <Formik
@@ -219,11 +203,13 @@ function EditProfileScreen(props) {
         </Formik>
       </InnerContainer>
       <ImageSelectionModal
-        visible={modalVisible}
-        onSelectOption={uploadImage}
-        onCancel={() => removeImage()}
+        modalVisible={modalVisible}
+        onBackPress={() => {
+          setModalVisible(false);
+        }}
         onCameraPress={() => uploadImage()}
         onGalleryPress={() => uploadImage("gallery")}
+        onRemovePress={() => removeImage()}
       />
     </Screen>
   );
@@ -305,6 +291,7 @@ const styles = StyleSheet.create({
     width: 140,
     height: 140,
     borderRadius: 70,
+    resizeMode: "cover",
   },
   titleName: {
     fontSize: 22,
