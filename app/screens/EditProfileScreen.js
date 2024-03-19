@@ -117,7 +117,7 @@ function EditProfileScreen({ route }) {
         });
 
       setSavingChanges(false);
-      navigation.navigate("Profile");
+      navigation.navigate("ProfileScreen");
     } catch ({ message }) {
       alert(message);
       setSavingChanges(false);

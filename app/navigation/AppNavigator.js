@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import WelcomeScreen from "../screens/WelcomeScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import PredictionScreen from "../screens/PredictionScreen";
 import PredictionRecordsScreen from "../screens/PredictionRecordsScreen";
 import AboutUs from "../screens/AboutUs";
 import MenuNavigator from "./MenuNavigator";
-import { Text } from "react-native";
-import Menu from "../components/Menu";
 
 const Tab = createBottomTabNavigator();
 
@@ -55,7 +52,7 @@ const AppNavigator = () => {
       />
 
       <Tab.Screen
-        name="Profile"
+        name="ProfileScreen"
         component={ProfileScreen}
         options={{
           tabBarIcon: ({ color, size, focused }) => (

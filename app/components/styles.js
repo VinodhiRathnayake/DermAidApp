@@ -22,6 +22,7 @@ export const Colors = {
   accent: "#ca8a04",
   tint: "#111827",
   lightGreen: `rgba(16, 185, 129, 0.1)`,
+  highlight: "#eab308" + "33",
 };
 
 export const StyledContainer = styled.View`
