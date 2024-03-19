@@ -1,6 +1,13 @@
 import styled from "styled-components";
 import Constants from "expo-constants";
-import { Text, View, Image, TextInput, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  SafeAreaView,
+} from "react-native";
 
 //colors
 export const Colors = {
@@ -15,7 +22,13 @@ export const Colors = {
   lightGreen: `rgba(16, 185, 129, 0.1)`,
 };
 
-export const StyledContainer = styled.View``;
+export const StyledContainer = styled.View`
+  flex: 1;
+  padding: 25px;
+  padding-top: Constants.statusBarHeight;
+  background-color: ${Colors.primary};
+  align-items: "center";
+`;
 // otp screen
 export const TopHalf = styled.View`
   flex: 1;

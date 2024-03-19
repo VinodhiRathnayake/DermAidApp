@@ -5,23 +5,39 @@ import {
   View,
   ActivityIndicator,
   StyleSheet,
-  Image,
   Text,
-  TouchableOpacity,
-  TextInput,
   ScrollView,
 } from "react-native";
 import { Octicons, Entypo, Fontisto } from "@expo/vector-icons";
 import axios from "axios";
 import Constants from "expo-constants";
 
-import { Colors } from "../components/styles";
-
+import {
+  StyledContainer,
+  InnerContainer,
+  PageLogo,
+  PageTitle,
+  SubTitle,
+  StyledFormArea,
+  LeftIcon,
+  RightIcon,
+  StyledInputLabel,
+  StyledButton,
+  ButtonText,
+  StyledTextInput,
+  Colors,
+  MsgBox,
+  ExtraText,
+  ExtraView,
+  TextLink,
+  TextLinkContent,
+} from "../components/styles";
 // Async Storage
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Credentials Context
 import { CredentialsContext } from "../components/CredentialsContext";
+import KeyBoardAvoidingWrapper from "../components/KeyBoardAvoidingWrapper";
 
 const LoginScreen = ({ navigation }) => {
   const [isHidden, setHidden] = useState(true);
@@ -76,107 +92,92 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <ScrollView>
-    <View style={styles.StyledContainer}>
-      <StatusBar style="dark" />
-      <View style={styles.InnerContainer}>
-        <Image
-          style={styles.PageLogo}
-          resizeMode="cover"
-          source={require("../assets/logo.jpg")}
-        />
-        <Text style={styles.PageTitle}>Derm Aid</Text>
-        <Text style={styles.SubTitle}>Account Login</Text>
+      <StyledContainer>
+        <StatusBar style="dark" />
+        <InnerContainer>
+          <PageLogo resizeMode="cover" source={require("../assets/logo.jpg")} />
+          <PageTitle>Derm Aid</PageTitle>
+          <SubTitle>Account Login</SubTitle>
 
-        <Formik
-          initialValues={{ email: "", password: "" }}
-          onSubmit={(values, { setSubmitting }) => {
-            if (values.email == "" || values.password == "") {
-              handleMessage("Please fill all the fields");
-              setSubmitting(false);
-            } else {
-              handleLogin(values, setSubmitting);
-            }
-          }}
-        >
-          {({
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            values,
-            isSubmitting,
-          }) => (
-            <View style={styles.StyledFormArea}>
-              <MyTextInput
-                label="Email Address"
-                icon="mail"
-                placeholder="user@example.com"
-                placeholderTextColor={Colors.darklight}
-                onChangeText={handleChange("email")}
-                onBlur={handleBlur("email")}
-                value={values.email}
-                keyboardType="email-address"
-              />
-              <MyTextInput
-                label="Password"
-                icon="lock"
-                placeholder="*****"
-                placeholderTextColor={Colors.darklight}
-                onChangeText={handleChange("password")}
-                onBlur={handleBlur("password")}
-                value={values.password}
-                secureTextEntry={isHidden}
-                isPassword={true}
-                isHidden={isHidden}
-                setHidden={setHidden}
-              />
-              <Text style={styles.MsgBox} type={messageType}>
-                {message}
-              </Text>
-              {!isSubmitting && (
-                <TouchableOpacity
-                  style={styles.StyledButton}
+          <Formik
+            initialValues={{ email: "", password: "" }}
+            onSubmit={(values, { setSubmitting }) => {
+              if (values.email == "" || values.password == "") {
+                handleMessage("Please fill all the fields");
+                setSubmitting(false);
+              } else {
+                handleLogin(values, setSubmitting);
+              }
+            }}
+          >
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              isSubmitting,
+            }) => (
+              <StyledFormArea>
+                <MyTextInput
+                  label="Email Address"
+                  icon="mail"
+                  placeholder="user@example.com"
+                  placeholderTextColor={Colors.darklight}
+                  onChangeText={handleChange("email")}
+                  onBlur={handleBlur("email")}
+                  value={values.email}
+                  keyboardType="email-address"
+                />
+                <MyTextInput
+                  label="Password"
+                  icon="lock"
+                  placeholder="*****"
+                  placeholderTextColor={Colors.darklight}
+                  onChangeText={handleChange("password")}
+                  onBlur={handleBlur("password")}
+                  value={values.password}
+                  secureTextEntry={isHidden}
+                  isPassword={true}
+                  isHidden={isHidden}
+                  setHidden={setHidden}
+                />
+                <MsgBox type={messageType}>{message}</MsgBox>
+                {!isSubmitting && (
+                  <StyledButton onPress={handleSubmit}>
+                    <Text style={styles.ButtonText}>Login</Text>
+                  </StyledButton>
+                )}
+                {isSubmitting && (
+                  <StyledButton disabled={true}>
+                    <ActivityIndicator size="large" color={Colors.primary} />
+                  </StyledButton>
+                )}
+                <View style={styles.Line} />
+                <StyledButton
+                  style={{ backgroundColor: "#138808", flexDirection: "row" }}
                   onPress={handleSubmit}
                 >
-                  <Text style={styles.ButtonText}>Login</Text>
-                </TouchableOpacity>
-              )}
-              {isSubmitting && (
-                <TouchableOpacity style={styles.StyledButton} disabled={true}>
-                  <ActivityIndicator size="large" color={Colors.primary} />
-                </TouchableOpacity>
-              )}
-              <View style={styles.Line} />
-              <TouchableOpacity
-                style={[
-                  styles.StyledButton,
-                  { backgroundColor: "#138808", flexDirection: "row" },
-                ]}
-                onPress={handleSubmit}
-              >
-                <Fontisto name="google" color={Colors.primary} size={25} />
-                <Text
-                  style={[styles.ButtonText, { paddingLeft: 10 }]}
-                  google={true}
-                >
-                  Sign in with Google
-                </Text>
-              </TouchableOpacity>
-              <View style={styles.ExtraView}>
-                <Text style={styles.ExtraText}>Don't have an account?</Text>
-                <TouchableOpacity
-                  style={[styles.TextLink, { paddingLeft: 5 }]}
-                  onPress={() => {
-                    navigation.navigate("SignUp");
-                  }}
-                >
-                  <Text style={styles.TextLinkContent}>Signup</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          )}
-        </Formik>
-      </View>
-    </View>
+                  <Fontisto name="google" color={Colors.primary} size={25} />
+                  <ButtonText style={{ paddingLeft: 10 }} google={true}>
+                    Sign in with Google
+                  </ButtonText>
+                </StyledButton>
+                <ExtraView>
+                  <ExtraText>Don't have an account?</ExtraText>
+                  <TextLink
+                    style={{ paddingLeft: 5 }}
+                    onPress={() => {
+                      navigation.navigate("SignUp");
+                    }}
+                  >
+                    <TextLinkContent>Signup</TextLinkContent>
+                  </TextLink>
+                </ExtraView>
+              </StyledFormArea>
+            )}
+          </Formik>
+        </InnerContainer>
+      </StyledContainer>
     </ScrollView>
   );
 };
@@ -191,19 +192,22 @@ const MyTextInput = ({
 }) => {
   return (
     <View>
-      <View style={styles.LeftIcon}>
+      <LeftIcon>
         <Octicons name={icon} size={30} color={Colors.brand} />
-      </View>
-      <Text style={styles.StyledInputLabel}>{label}</Text>
-      <TextInput style={styles.StyledTextInput} {...props} />
+      </LeftIcon>
+      <StyledInputLabel>{label}</StyledInputLabel>
+      <StyledTextInput {...props} />
       {isPassword && (
-        <View style={styles.RightIcon} onPress={() => setHidden(!isHidden)}>
+        <RightIcon
+          style={styles.RightIcon}
+          onPress={() => setHidden(!isHidden)}
+        >
           <Entypo
             name={isHidden ? "eye-with-line" : "eye"}
             size={30}
             color={Colors.darklight}
           />
-        </View>
+        </RightIcon>
       )}
     </View>
   );

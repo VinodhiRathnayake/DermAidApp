@@ -143,93 +143,87 @@ const OTPVerificationScreen = ({ route }) => {
 
   return (
     <ScrollView>
-    <KeyBoardAvoidingWrapper>
-      <StyledContainer style={styles.StyledContainer}>
-        <TopHalf>
-          <IconBG>
-            <StatusBar style="dark" />
-            <Octicons name="lock" size={125} color={Colors.brand} />
-          </IconBG>
-        </TopHalf>
-        <BottomHalf>
-          <PageTitle style={{ fontSize: 25 }}>Account Verification</PageTitle>
-          <InfoText>
-            Please enter the 4 digit code sent to
-            <EmphasizeText>{email}</EmphasizeText>
-          </InfoText>
-          <CodeInputField
-            setPinReady={setPinReady}
-            code={code}
-            setCode={setCode}
-            maxLength={MAX_CODE_LENGTH}
+      <KeyBoardAvoidingWrapper>
+        <StyledContainer>
+          <TopHalf>
+            <IconBG>
+              <StatusBar style="dark" />
+              <Octicons name="lock" size={125} color={Colors.brand} />
+            </IconBG>
+          </TopHalf>
+          <BottomHalf>
+            <PageTitle style={{ fontSize: 25 }}>Account Verification</PageTitle>
+            <InfoText>
+              Please enter the 4 digit code sent to
+              <EmphasizeText>{email}</EmphasizeText>
+            </InfoText>
+            <CodeInputField
+              setPinReady={setPinReady}
+              code={code}
+              setCode={setCode}
+              maxLength={MAX_CODE_LENGTH}
+            />
+
+            {!verifying && pinReady && (
+              <StyledButton
+                style={{ backgroundColor: Colors.green, flexDirection: "row" }}
+                onPress={submitOTPVerification}
+              >
+                <ButtonText>Verify</ButtonText>
+                <Ionicons
+                  name="checkmark-circle"
+                  size={25}
+                  color={Colors.primary}
+                />
+              </StyledButton>
+            )}
+
+            {!verifying && !pinReady && (
+              <StyledButton
+                disable={true}
+                style={{
+                  backgroundColor: Colors.lightGreen,
+                  flexDirection: "row",
+                }}
+              >
+                <ButtonText style={{ color: Colors.gray }}>Verify</ButtonText>
+                <Ionicons
+                  name="checkmark-circle"
+                  size={25}
+                  color={Colors.gray}
+                />
+              </StyledButton>
+            )}
+
+            {verifying && (
+              <StyledButton
+                disabled={true}
+                style={{ backgroundColor: Colors.green, flexDirection: "row" }}
+                onPress={submitOTPVerification}
+              >
+                <ActivityIndicator size="large" color={Colors.primary} />
+              </StyledButton>
+            )}
+            <ResendTimer
+              activeResend={activeResend}
+              resendingEmail={resendingEmail}
+              resendStatus={resendStatus}
+              timeLeft={timeLeft}
+              targetTime={targetTime}
+              resendEmail={resendEmail}
+            />
+          </BottomHalf>
+          <VerificationModal
+            successful={verificationSuccessful}
+            setModalVisible={setModalVisible}
+            modalVisible={modalVisible}
+            requestMessage={requestMessage}
+            persistLoginAfterOTPVerification={persistLoginAfterOTPVerification}
           />
-
-          {!verifying && pinReady && (
-            <StyledButton
-              style={{ backgroundColor: Colors.green, flexDirection: "row" }}
-              onPress={submitOTPVerification}
-            >
-              <ButtonText>Verify</ButtonText>
-              <Ionicons
-                name="checkmark-circle"
-                size={25}
-                color={Colors.primary}
-              />
-            </StyledButton>
-          )}
-
-          {!verifying && !pinReady && (
-            <StyledButton
-              disable={true}
-              style={{
-                backgroundColor: Colors.lightGreen,
-                flexDirection: "row",
-              }}
-            >
-              <ButtonText style={{ color: Colors.gray }}>Verify</ButtonText>
-              <Ionicons name="checkmark-circle" size={25} color={Colors.gray} />
-            </StyledButton>
-          )}
-
-          {verifying && (
-            <StyledButton
-              disabled={true}
-              style={{ backgroundColor: Colors.green, flexDirection: "row" }}
-              onPress={submitOTPVerification}
-            >
-              <ActivityIndicator size="large" color={Colors.primary} />
-            </StyledButton>
-          )}
-          <ResendTimer
-            activeResend={activeResend}
-            resendingEmail={resendingEmail}
-            resendStatus={resendStatus}
-            timeLeft={timeLeft}
-            targetTime={targetTime}
-            resendEmail={resendEmail}
-          />
-        </BottomHalf>
-        <VerificationModal
-          successful={verificationSuccessful}
-          setModalVisible={setModalVisible}
-          modalVisible={modalVisible}
-          requestMessage={requestMessage}
-          persistLoginAfterOTPVerification={persistLoginAfterOTPVerification}
-        />
-      </StyledContainer>
-    </KeyBoardAvoidingWrapper>
+        </StyledContainer>
+      </KeyBoardAvoidingWrapper>
     </ScrollView>
   );
-
-  const styles = StyleSheet.create({
-    StyledContainer: {
-      flex: 1,
-      padding: 25,
-      paddingTop: Constants.statusBarHeight + 30,
-      backgroundColor: Colors.primary,
-      alignItems: "center",
-    },
-  });
 };
 
 export default OTPVerificationScreen;
