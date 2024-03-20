@@ -46,11 +46,11 @@ const SignUpScreen = ({ navigation }) => {
   const [message, setMessage] = useState();
   const [messageType, setMessageType] = useState();
 
-// Context for handling credentials
+  // Context for handling credentials
   const { storedCredentials, setStoredCredentials } =
     useContext(CredentialsContext);
 
-    // Function to handle sign-up process
+  // Function to handle sign-up process
   const handleSignUp = async (credentials, setSubmitting) => {
     handleMessage(null);
     const url = `${baseAPIURL}/user/signup`;
@@ -70,6 +70,7 @@ const SignUpScreen = ({ navigation }) => {
             ({ email, name, dateOfBirth, phone, _id, image } = credentials)
           );
           navigation.navigate("Verification", { ...data });
+          console.log({ ...data });
         }
         setSubmitting(false);
       })
@@ -113,7 +114,7 @@ const SignUpScreen = ({ navigation }) => {
       <InnerContainer>
         <PageTitle>Derm Aid</PageTitle>
         <SubTitle>Account Signup</SubTitle>
-{/* Formik form for sign-up */}
+        {/* Formik form for sign-up */}
         <Formik
           initialValues={{
             name: "",
@@ -148,7 +149,7 @@ const SignUpScreen = ({ navigation }) => {
             isSubmitting,
           }) => (
             <StyledFormArea>
-                {/* Input fields */}
+              {/* Input fields */}
               <MyTextInput
                 label="Full Name"
                 icon="person"
@@ -210,7 +211,7 @@ const SignUpScreen = ({ navigation }) => {
                   <ButtonText>SignUp</ButtonText>
                 </StyledButton>
               )}
-                {/* Loading indicator while submitting */}
+              {/* Loading indicator while submitting */}
               {isSubmitting && (
                 <StyledButton disabled={true}>
                   <ActivityIndicator size="large" color={Colors.primary} />

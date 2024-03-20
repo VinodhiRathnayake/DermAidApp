@@ -65,6 +65,7 @@ const LoginScreen = ({ navigation }) => {
           handleMessage(message, status);
         } else {
           persistLogin({ ...data[0] }, message, "SUCCESS");
+          console.log({ ...data[0] });
         }
         setSubmitting(false);
       })
