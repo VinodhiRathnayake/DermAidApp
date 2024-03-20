@@ -92,7 +92,7 @@ function ProfileScreen() {
 
   return (
     <Screen>
-       {/* Wrapper for keyboard avoiding behavior */}
+      {/* Wrapper for keyboard avoiding behavior */}
       <KeyBoardAvoidingWrapper style={styles.container}>
         {/* Avatar component with profile picture */}
         <Avatar onButtonPress={() => setModalVisible(true)} uri={image} />
@@ -116,13 +116,13 @@ function ProfileScreen() {
             <StyledText>{email}</StyledText>
           </ProfileInfo>
           <ProfileInfo label="Phone" icon="phone-outline">
-            <StyledText>{userID}</StyledText>
+            <StyledText>{phone}</StyledText>
           </ProfileInfo>
           <ProfileInfo label="Date of Birth" icon="calendar">
             <StyledText>{dateOfBirth}</StyledText>
           </ProfileInfo>
         </View>
-         {/* Image selection modal for changing profile picture */}
+        {/* Image selection modal for changing profile picture */}
         <ImageSelectionModel
           modalVisible={modalVisible}
           onBackPress={() => {
