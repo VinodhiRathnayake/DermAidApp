@@ -19,7 +19,7 @@ function ProfileScreen() {
   const [modalVisible, setModalVisible] = useState(false);
   const { setStoredCredentials, storedCredentials } =
     useContext(CredentialsContext);
-  const { name, email, dateOfBirth, phone, image } = storedCredentials;
+  const { name, email, dateOfBirth, phone, image, userID } = storedCredentials;
 
   const uploadImage = async (mode) => {
     try {
@@ -110,7 +110,7 @@ function ProfileScreen() {
             <StyledText>{email}</StyledText>
           </ProfileInfo>
           <ProfileInfo label="Phone" icon="phone-outline">
-            <StyledText>{phone}</StyledText>
+            <StyledText>{userID}</StyledText>
           </ProfileInfo>
           <ProfileInfo label="Date of Birth" icon="calendar">
             <StyledText>{dateOfBirth}</StyledText>
