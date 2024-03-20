@@ -30,7 +30,8 @@ export const StyledContainer = styled.View`
   padding: 25px;
   padding-top: Constants.statusBarHeight;
   background-color: ${Colors.primary};
-  align-items: "center";
+  align-items: center;
+  justify-content: center;
 `;
 // otp screen
 export const TopHalf = styled.View`
