@@ -1,8 +1,6 @@
 //import statements
 import React, { useState, useEffect, useContext } from "react";
-import KeyBoardAvoidingWrapper from "../components/KeyBoardAvoidingWrapper";
 import CodeInputField from "../components/CodeInputField";
-import { ScrollView, StyleSheet } from "react-native";
 import {
   StyledContainer,
   TopHalf,
@@ -59,7 +57,7 @@ const OTPVerificationScreen = ({ route }) => {
 
   const { email, userID } = route?.params;
 
-   // Function to trigger resend timer
+  // Function to trigger resend timer
   const triggerTimer = (targetTimeInSeconds = 30) => {
     setTargetTime(targetTimeInSeconds);
     setActiveResend(false);
@@ -136,7 +134,7 @@ const OTPVerificationScreen = ({ route }) => {
   const { storedCredentials, setStoredCredentials } =
     useContext(CredentialsContext);
 
-     // Function to persist user login after OTP verification
+  // Function to persist user login after OTP verification
   const persistLoginAfterOTPVerification = async () => {
     try {
       const tempUser = await AsyncStorage.getItem("tempUser");
@@ -171,7 +169,7 @@ const OTPVerificationScreen = ({ route }) => {
           maxLength={MAX_CODE_LENGTH}
         />
 
-  {/* Verification button */}
+        {/* Verification button */}
         {!verifying && pinReady && (
           <StyledButton
             style={{ backgroundColor: Colors.green, flexDirection: "row" }}
@@ -199,7 +197,7 @@ const OTPVerificationScreen = ({ route }) => {
           </StyledButton>
         )}
 
-{/* Verification button with loading indicator */}
+        {/* Verification button with loading indicator */}
         {verifying && (
           <StyledButton
             disabled={true}
