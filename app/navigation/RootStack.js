@@ -1,6 +1,6 @@
+//Import statements
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
 import LoginScreen from "../screens/LoginScreen";
 import SignUpScreen from "../screens/SignupScreen";
 import AppNavigator from "./AppNavigator";
@@ -13,6 +13,8 @@ import { CredentialsContext } from "../components/CredentialsContext";
 
 const Stack = createNativeStackNavigator();
 
+
+// Component for handling the root navigation stack of the application.
 const RootStack = () => {
   return (
     <CredentialsContext.Consumer>

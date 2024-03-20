@@ -1,3 +1,4 @@
+//Import statements
 import React, { useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -9,9 +10,11 @@ import MenuNavigator from "./MenuNavigator";
 
 const Tab = createBottomTabNavigator();
 
+// Component for rendering the bottom tab navigation in the app.
 const AppNavigator = () => {
   const [activeTab, setActiveTab] = useState("Home");
 
+  // Function to handle tab change.
   const handleTabChange = (tabName) => {
     setActiveTab(tabName);
   };

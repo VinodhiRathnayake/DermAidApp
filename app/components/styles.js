@@ -25,6 +25,7 @@ export const Colors = {
   highlight: "#eab308" + "33",
 };
 
+// Define styled components
 export const StyledContainer = styled.View`
   flex: 1;
   padding: 25px;

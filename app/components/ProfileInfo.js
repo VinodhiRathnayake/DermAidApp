@@ -1,3 +1,4 @@
+//Import statements
 import { StyleSheet, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -7,6 +8,7 @@ import StyledText from "./StyledText";
 
 const ProfileInfo = ({ children, label, style, icon }) => {
   return (
+    // View container for profile information
     <View
       style={[
         { backgroundColor: Colors?.secondary },
@@ -14,8 +16,11 @@ const ProfileInfo = ({ children, label, style, icon }) => {
         style,
       ]}
     >
+      {/* View container for label and icon */}
       <View style={styles.label}>
+        {/* Icon for the profile information */}
         <MaterialCommunityIcons name={icon} size={25} color={Colors.brand} />
+        {/* Label for the profile information */}
         <StyledText style={[{ color: Colors?.tertiary, marginLeft: 15 }]}>
           {label}
         </StyledText>
@@ -25,6 +30,7 @@ const ProfileInfo = ({ children, label, style, icon }) => {
   );
 };
 
+// Styles for the ProfileInfo component
 const styles = StyleSheet.create({
   profileInfo: {
     flexDirection: "row",

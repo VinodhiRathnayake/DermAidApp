@@ -1,3 +1,4 @@
+//Import statements
 import { Text } from "react-native";
 import { Colors } from "./styles";
 const StyledText = ({ children, small, big, bold, style, ...props }) => {
@@ -18,4 +19,5 @@ const StyledText = ({ children, small, big, bold, style, ...props }) => {
   );
 };
 
+// Exporting the StyledText component as default
 export default StyledText;

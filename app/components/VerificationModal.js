@@ -1,3 +1,4 @@
+//Import statements
 import React from "react";
 import { StatusBar } from "expo-status-bar";
 import { Modal } from "react-native";
@@ -21,6 +22,7 @@ const VerificationModal = ({
   requestMessage,
   persistLoginAfterOTPVerification,
 }) => {
+  // Handles the button press event to close the modal.
   const buttonHandler = () => {
     if (successful) {
       persistLoginAfterOTPVerification();
@@ -43,6 +45,7 @@ const VerificationModal = ({
   );
 };
 
+// SuccessContent component displays content for successful verification.
 const SuccessContent = ({ buttonHandler }) => {
   return (
     <ModalView>
@@ -74,6 +77,7 @@ const SuccessContent = ({ buttonHandler }) => {
   );
 };
 
+// FailContent component displays content for failed verification.
 const FailContent = ({ buttonHandler, errorMsg }) => {
   return (
     <ModalView>

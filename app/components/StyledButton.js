@@ -1,7 +1,9 @@
+//Import statements
 import { StyleSheet, TouchableOpacity, ActivityIndicator } from "react-native";
 import StyledText from "./StyledText";
 import { Colors } from "./styles";
 
+// StyledButton component definition
 const StyledButton = ({
   children,
   style,
@@ -24,6 +26,7 @@ const StyledButton = ({
       disabled={disabled || isLoading}
       {...props}
     >
+      {/* Display either children or ActivityIndicator*/}
       <StyledText style={textStyle}>
         {isLoading ? (
           <ActivityIndicator size="small" color={Colors.tint} />
@@ -35,6 +38,7 @@ const StyledButton = ({
   );
 };
 
+// Styles for the StyledButton component
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
