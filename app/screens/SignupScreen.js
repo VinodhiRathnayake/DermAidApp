@@ -38,7 +38,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 // Credentials Context
 import { CredentialsContext } from "../components/CredentialsContext";
 import { baseAPIURL } from "../components/shared";
-import { saveSecurely } from "../components/utils/storage";
 
 const SignUpScreen = ({ navigation }) => {
   const [isHidden, setHidden] = useState(true);
@@ -62,8 +61,9 @@ const SignUpScreen = ({ navigation }) => {
         if (status !== "PENDING") {
           handleMessage(message, status);
         } else {
-          saveSecurely("profileDetails", { ...data });
-          temporaryUserPersist(({ email, name, dateOfBirth } = credentials));
+          temporaryUserPersist(
+            ({ email, name, dateOfBirth, phone, _id, image } = credentials)
+          );
           navigation.navigate("Verification", { ...data });
         }
         setSubmitting(false);
