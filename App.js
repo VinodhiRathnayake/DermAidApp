@@ -58,8 +58,8 @@ export default function App() {
     <CredentialsContext.Provider
       value={{ storedCredentials, setStoredCredentials }}
     >
-      {/* <RootStack /> */}
-      <AboutUs/>
+      <RootStack />
+  
     </CredentialsContext.Provider>
   );
 }
