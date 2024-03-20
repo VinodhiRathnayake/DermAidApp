@@ -1,20 +1,19 @@
-import React, { useState } from "react";
+//Import statements
+import React from "react";
 import {
   View,
   StyleSheet,
   Text,
-  TouchableOpacity,
   SafeAreaView,
 } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useNavigation, useFocusEffect } from "@react-navigation/native";
-import AppText from "./AppText";
-import Menu from "./Menu";
 
+// AppHeader component definition
 function AppHeader({ title }) {
   return (
     <SafeAreaView>
+      {/* Container for the header title */}
       <View style={styles.titleContainer}>
+        {/* Header title text */}
         <Text style={styles.headerTitle}>{title}</Text>
       </View>
     </SafeAreaView>
@@ -22,18 +21,11 @@ function AppHeader({ title }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-  },
-
-  redText: {
-    color: "red",
-  },
-
+ // Style for the title container
   titleContainer: {
     flexDirection: "row",
-    // marginBottom:15,
   },
+   // Style for the header title
   headerTitle: {
     flex: 1,
     fontSize: 20,
@@ -45,4 +37,5 @@ const styles = StyleSheet.create({
   },
 });
 
+// Exporting the AppHeader component as default
 export default AppHeader;

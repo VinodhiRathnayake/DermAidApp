@@ -1,8 +1,10 @@
+//Import statements
 import { StyleSheet, TouchableOpacity, Image, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Colors } from "./styles";
-
 import placeholder from "../assets/profile1.jpeg";
+
+// Avatar component definition
 const Avatar = ({
   uri,
   style,
@@ -13,11 +15,13 @@ const Avatar = ({
   ...props
 }) => {
   return (
+    // Main container view
     <View
       style={[styles.container, { marginBottom: aviOnly ? 0 : 15 }, style]}
       {...props}
     >
       <TouchableOpacity onPress={onPress}>
+        {/* Avatar image */}
         <Image
           source={uri ? { uri } : placeholder}
           style={[
@@ -26,7 +30,7 @@ const Avatar = ({
             imgStyle,
           ]}
         />
-
+ {/* Edit button */}
         {!aviOnly && (
           <TouchableOpacity style={styles.editButton} onPress={onButtonPress}>
             <MaterialCommunityIcons
@@ -41,6 +45,7 @@ const Avatar = ({
   );
 };
 
+// Styles for the Avatar component
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
