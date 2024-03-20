@@ -1,3 +1,4 @@
+//Import statements
 import { DefaultTheme } from "@react-navigation/native";
 import colors from "../config/colors";
 

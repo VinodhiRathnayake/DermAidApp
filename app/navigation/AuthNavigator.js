@@ -1,6 +1,6 @@
+//import statements
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-
 import SigninDetailsScreen from "../screens/SigninDetailsScreen";
 import SignupDetailsScreen from "../screens/SignupDetailsScreen";
 import SignupScreen from "../screens/SignupScreen";
@@ -8,6 +8,7 @@ import SigninScreen from "../screens/SigninScreen";
 
 const Stack = createStackNavigator();
 
+//Component for handling the authentication navigation flow.
 const AuthNavigator = () => (
   <Stack.Navigator>
     <Stack.Screen

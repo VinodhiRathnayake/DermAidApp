@@ -1,6 +1,6 @@
+//Import statement
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-
 import WelcomeScreen from "../screens/WelcomeScreen";
 import EditProfileScreen from "../screens/EditProfileScreen";
 import PredictionScreen from "../screens/PredictionScreen";
@@ -10,6 +10,7 @@ import ResultScreen from "../screens/ResultScreen";
 
 const Stack = createStackNavigator();
 
+//Menu navigator component
 const MenuNavigator = () => (
   <Stack.Navigator>
     <Stack.Screen

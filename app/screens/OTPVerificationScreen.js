@@ -1,3 +1,4 @@
+//import statements
 import React, { useState, useEffect, useContext } from "react";
 import KeyBoardAvoidingWrapper from "../components/KeyBoardAvoidingWrapper";
 import CodeInputField from "../components/CodeInputField";
@@ -54,8 +55,11 @@ const OTPVerificationScreen = ({ route }) => {
 
   let resendTimerInterval;
 
+  // Destructure email and userID from navigation route parameters
+
   const { email, userID } = route?.params;
 
+   // Function to trigger resend timer
   const triggerTimer = (targetTimeInSeconds = 30) => {
     setTargetTime(targetTimeInSeconds);
     setActiveResend(false);
@@ -63,6 +67,7 @@ const OTPVerificationScreen = ({ route }) => {
     resendTimerInterval = setInterval(() => calculateTimeLeft(finalTime), 1000);
   };
 
+  // Function to calculate remaining time for resend
   const calculateTimeLeft = (finalTime) => {
     const difference = finalTime - +new Date();
     if (difference >= 0) {
@@ -74,6 +79,7 @@ const OTPVerificationScreen = ({ route }) => {
     }
   };
 
+  // Trigger resend timer on component mount
   useEffect(() => {
     triggerTimer();
 
@@ -82,6 +88,7 @@ const OTPVerificationScreen = ({ route }) => {
     };
   }, []);
 
+  // Function to resend email verification
   const resendEmail = async () => {
     setResendingEmail(true);
     const url = `${baseAPIURL}/user/resendOTP`;
@@ -101,6 +108,7 @@ const OTPVerificationScreen = ({ route }) => {
     }, 5000);
   };
 
+  // Function to submit OTP verification
   const submitOTPVerification = async () => {
     try {
       setVerifying(true);
@@ -128,6 +136,7 @@ const OTPVerificationScreen = ({ route }) => {
   const { storedCredentials, setStoredCredentials } =
     useContext(CredentialsContext);
 
+     // Function to persist user login after OTP verification
   const persistLoginAfterOTPVerification = async () => {
     try {
       const tempUser = await AsyncStorage.getItem("tempUser");
@@ -162,6 +171,7 @@ const OTPVerificationScreen = ({ route }) => {
           maxLength={MAX_CODE_LENGTH}
         />
 
+  {/* Verification button */}
         {!verifying && pinReady && (
           <StyledButton
             style={{ backgroundColor: Colors.green, flexDirection: "row" }}
@@ -189,6 +199,7 @@ const OTPVerificationScreen = ({ route }) => {
           </StyledButton>
         )}
 
+{/* Verification button with loading indicator */}
         {verifying && (
           <StyledButton
             disabled={true}

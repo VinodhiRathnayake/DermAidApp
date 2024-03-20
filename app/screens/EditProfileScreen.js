@@ -1,3 +1,4 @@
+//import statements
 import React, { useState, useContext } from "react";
 import { StyleSheet } from "react-native";
 import Screen from "../components/Screen";
@@ -26,6 +27,8 @@ function EditProfileScreen({ route }) {
     useContext(CredentialsContext);
   // const { name, dateOfBirth } = storedCredentials;
 
+
+  //Function to upload an image from the device's gallery or camera.
   const uploadImage = async (mode) => {
     try {
       let result = {};
@@ -58,6 +61,8 @@ function EditProfileScreen({ route }) {
     }
   };
 
+  //Function to remove the user's profile image.
+
   const removeImage = async () => {
     try {
       saveImage(null);
@@ -67,6 +72,7 @@ function EditProfileScreen({ route }) {
     }
   };
 
+  //Function to save the user's profile image.
   const saveImage = async (image) => {
     try {
       setImage(image);
@@ -93,6 +99,8 @@ function EditProfileScreen({ route }) {
   };
 
   const [savingChanges, setSavingChanges] = useState(false);
+
+  //Function to save the changes made to the user's profile.
   const saveChanges = async () => {
     try {
       setSavingChanges(true);
@@ -189,6 +197,8 @@ function EditProfileScreen({ route }) {
     </Screen>
   );
 }
+
+//styles for edit profile screen
 
 const styles = StyleSheet.create({
   container: {

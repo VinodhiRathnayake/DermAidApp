@@ -1,3 +1,4 @@
+//import statements
 import React, { useContext } from "react";
 import { View, StyleSheet, Text, Image } from "react-native";
 import Screen from "../components/Screen";
@@ -25,6 +26,7 @@ function WelcomeScreen() {
     useContext(CredentialsContext);
   const { name, email } = storedCredentials;
 
+  // Function to clear stored login credentials
   const clearLogin = () => {
     AsyncStorage.removeItem("dermAidCredentials")
       .then(() => {
@@ -53,6 +55,7 @@ function WelcomeScreen() {
   );
 }
 
+//styling welcome screen
 const styles = StyleSheet.create({
   container: {
     flex: 1,

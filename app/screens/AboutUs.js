@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Text, Image } from 'react-native';
+//Importing statements
+import React from 'react';
+import { View, StyleSheet, Text } from 'react-native';
 import Screen from '../components/Screen';
 import AppText from '../components/AppText';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AppHeader from '../components/AppHeader';
-import ImageInput from '../components/ImageInput';
 
 
+//displays information about the DermAid app and its developers.
 function AboutUs(props) {
 
   return (
@@ -45,6 +46,7 @@ function AboutUs(props) {
   );
 }
 
+//styles for about us page
 const styles = StyleSheet.create({
   container:{
     padding:18,
@@ -78,7 +80,6 @@ const styles = StyleSheet.create({
   nameText: {
     fontWeight: 'bold', 
     textAlign: 'center', 
-    // lineHeight: 10,
     marginBottom:5,
     fontSize: 18,
   },

@@ -1,11 +1,10 @@
+//import statements
 import React, { useState } from "react";
-import { View, StyleSheet, FlatList } from "react-native";
+import { StyleSheet, FlatList } from "react-native";
 import Screen from "../components/Screen";
 import AppHeader from "../components/AppHeader";
 import ListItem from "../components/lists/ListItem";
 import ListItemDeleteAction from "../components/lists/ListItemDeleteAction";
-import ListItemSeparator from "../components/lists/ListItemSeparator";
-import colors from "../config/colors";
 
 const initialMessages = [
   {
@@ -47,9 +46,12 @@ const initialMessages = [
 ];
 
 function PredictionRecordsScreen(props) {
+  // State for prediction records
   const [messages, setMessages] = useState(initialMessages);
+  // State for refreshing
   const [refreshing, setRefreshing] = useState(false);
 
+  // Function to handle message deletion
   const handleDelete = (message) => {
     // Delete the message from messages
     setMessages(messages.filter((m) => m.id !== message.id));
@@ -58,6 +60,7 @@ function PredictionRecordsScreen(props) {
   return (
     <Screen>
       <AppHeader title="PREDICTION RECORDS" />
+      {/* List of prediction records */}
       <FlatList
         data={messages}
         keyExtractor={(message) => message.id.toString()}
@@ -70,6 +73,8 @@ function PredictionRecordsScreen(props) {
             imageStyle={styles.image}
             style={styles.infoContainer}
             // onPress={() => console.log("Message selected", item)}
+
+            // Delete action for list item
             renderRightActions={() => (
               <ListItemDeleteAction onPress={() => handleDelete(item)} />
             )}
@@ -80,6 +85,7 @@ function PredictionRecordsScreen(props) {
   );
 }
 
+//styling 
 const styles = StyleSheet.create({
   container: {},
   infoContainer: {

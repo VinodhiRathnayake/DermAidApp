@@ -1,3 +1,4 @@
+//import statements
 import React from "react";
 import { View, StyleSheet, Image } from "react-native";
 import AppHeader from "../components/AppHeader";
@@ -5,12 +6,14 @@ import Screen from "../components/Screen";
 import AppText from "../components/AppText";
 import AppButton from "../components/Button";
 
+//renders the result of a diagnosis.
 function ResultScreen(props) {
   return (
     <Screen style={styles.container}>
       <AppHeader title="RESULT" />
       <Image source={require("../assets/logo.jpg")} style={styles.image} />
 
+{/* Disease information */}
       <AppText>Disease: HIVES</AppText>
 
       <AppText>Date: 20-12-2023</AppText>
@@ -28,10 +31,10 @@ function ResultScreen(props) {
   );
 }
 
+//styling results screen
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    // justifyContent: 'center',
   },
   image: {
     marginTop: 20,

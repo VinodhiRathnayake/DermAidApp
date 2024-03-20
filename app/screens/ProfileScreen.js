@@ -21,6 +21,7 @@ function ProfileScreen() {
     useContext(CredentialsContext);
   const { name, email, dateOfBirth, phone, image, userID } = storedCredentials;
 
+  //Function to upload image from camera or gallery.
   const uploadImage = async (mode) => {
     try {
       let result = {};
@@ -53,6 +54,7 @@ function ProfileScreen() {
     }
   };
 
+  //Function to remove user's profile picture.
   const removeImage = async () => {
     try {
       saveImage(null);
@@ -62,6 +64,7 @@ function ProfileScreen() {
     }
   };
 
+  //Function to save user's profile picture.
   const saveImage = async (image) => {
     try {
       setImage(image);
@@ -89,11 +92,14 @@ function ProfileScreen() {
 
   return (
     <Screen>
+       {/* Wrapper for keyboard avoiding behavior */}
       <KeyBoardAvoidingWrapper style={styles.container}>
+        {/* Avatar component with profile picture */}
         <Avatar onButtonPress={() => setModalVisible(true)} uri={image} />
         <StyledText big bold style={[styles.text, { marginBottom: 10 }]}>
           {name}
         </StyledText>
+        {/* Section header for personal information */}
         <SectionHead
           option="Edit"
           style={{ marginTop: 20 }}
@@ -116,6 +122,7 @@ function ProfileScreen() {
             <StyledText>{dateOfBirth}</StyledText>
           </ProfileInfo>
         </View>
+         {/* Image selection modal for changing profile picture */}
         <ImageSelectionModel
           modalVisible={modalVisible}
           onBackPress={() => {
@@ -130,6 +137,7 @@ function ProfileScreen() {
   );
 }
 
+//styling profile screen
 const styles = StyleSheet.create({
   container: {
     paddingTop: 10,

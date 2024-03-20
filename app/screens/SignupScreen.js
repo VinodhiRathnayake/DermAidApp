@@ -1,3 +1,4 @@
+//import statements
 import React, { useState, useContext } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
@@ -40,18 +41,21 @@ import { CredentialsContext } from "../components/CredentialsContext";
 import { baseAPIURL } from "../components/shared";
 
 const SignUpScreen = ({ navigation }) => {
+  // State for password visibility
   const [isHidden, setHidden] = useState(true);
   const [message, setMessage] = useState();
   const [messageType, setMessageType] = useState();
 
-  // Context
+// Context for handling credentials
   const { storedCredentials, setStoredCredentials } =
     useContext(CredentialsContext);
 
+    // Function to handle sign-up process
   const handleSignUp = async (credentials, setSubmitting) => {
     handleMessage(null);
     const url = `${baseAPIURL}/user/signup`;
 
+    // POST request to sign-up API endpoint
     axios
       .post(url, credentials)
       .then((response) => {
@@ -61,6 +65,7 @@ const SignUpScreen = ({ navigation }) => {
         if (status !== "PENDING") {
           handleMessage(message, status);
         } else {
+          // Persist temporary user data and navigate to verification screen if sign-up is pending
           temporaryUserPersist(
             ({ email, name, dateOfBirth, phone, _id, image } = credentials)
           );
@@ -75,6 +80,7 @@ const SignUpScreen = ({ navigation }) => {
       });
   };
 
+  // Function to persist temporary user data
   const temporaryUserPersist = async (credentials) => {
     try {
       await AsyncStorage.setItem("tempUser", JSON.stringify(credentials));
@@ -83,6 +89,7 @@ const SignUpScreen = ({ navigation }) => {
     }
   };
 
+  // Function to handle messages
   const handleMessage = (message, type = "FAILED") => {
     setMessage(message);
     setMessageType(type);
@@ -106,7 +113,7 @@ const SignUpScreen = ({ navigation }) => {
       <InnerContainer>
         <PageTitle>Derm Aid</PageTitle>
         <SubTitle>Account Signup</SubTitle>
-
+{/* Formik form for sign-up */}
         <Formik
           initialValues={{
             name: "",
@@ -141,6 +148,7 @@ const SignUpScreen = ({ navigation }) => {
             isSubmitting,
           }) => (
             <StyledFormArea>
+                {/* Input fields */}
               <MyTextInput
                 label="Full Name"
                 icon="person"
@@ -195,18 +203,21 @@ const SignUpScreen = ({ navigation }) => {
                 isHidden={isHidden}
                 setHidden={setHidden}
               />
+              {/* Display message box for validation messages */}
               <MsgBox type={messageType}>{message}</MsgBox>
               {!isSubmitting && (
                 <StyledButton onPress={handleSubmit}>
                   <ButtonText>SignUp</ButtonText>
                 </StyledButton>
               )}
+                {/* Loading indicator while submitting */}
               {isSubmitting && (
                 <StyledButton disabled={true}>
                   <ActivityIndicator size="large" color={Colors.primary} />
                 </StyledButton>
               )}
               <Line />
+              {/* Link to login screen */}
               <ExtraView>
                 <ExtraText>Already have an account?</ExtraText>
                 <TextLink
@@ -226,6 +237,7 @@ const SignUpScreen = ({ navigation }) => {
   );
 };
 
+// Custom text input component with icons
 const MyTextInput = ({
   label,
   icon,
@@ -261,6 +273,7 @@ const MyTextInput = ({
   );
 };
 
+// Styles
 const styles = StyleSheet.create({
   StyledContainer: {
     flex: 1,

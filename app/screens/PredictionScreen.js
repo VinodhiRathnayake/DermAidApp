@@ -1,3 +1,4 @@
+//import statements
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { useEffect, useRef, useState } from "react";
@@ -9,6 +10,8 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AppButton from "../components/Button";
 import { useNavigation } from "@react-navigation/native";
 
+
+//displays the camera view for taking a picture 
 function PredictionScreen(props) {
   let cameraRef = useRef();
   const [hasCameraPermission, setHasCameraPermission] = useState();
@@ -16,6 +19,7 @@ function PredictionScreen(props) {
   const [photo, setPhoto] = useState();
   const navigation = useNavigation();
 
+  // Request camera and media library permissions
   useEffect(() => {
     (async () => {
       const cameraPermission = await Camera.requestCameraPermissionsAsync();
@@ -26,6 +30,7 @@ function PredictionScreen(props) {
     })();
   }, []);
 
+  // Render camera view based on permissions
   if (hasCameraPermission === undefined) {
     return <Text>Requesting permissions...</Text>;
   } else if (!hasCameraPermission) {
@@ -36,6 +41,7 @@ function PredictionScreen(props) {
     );
   }
 
+   // Function to take a picture with the camera
   let takePic = async () => {
     let options = {
       quality: 1,
@@ -47,6 +53,7 @@ function PredictionScreen(props) {
     setPhoto(newPhoto);
   };
 
+  // Render captured photo with options
   if (photo) {
     let scanPic = () => {
       // Navigate to result screen after scanning
@@ -82,6 +89,7 @@ function PredictionScreen(props) {
     );
   }
 
+  // Render camera view for capturing a new photo
   return (
     <Screen style={styles.container}>
       <AppHeader title="NEW PREDICTION" />
@@ -101,10 +109,10 @@ function PredictionScreen(props) {
   );
 }
 
+//styles for prediction screen 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // alignItems: 'center',
     justifyContent: "center",
   },
   buttonContainer: {

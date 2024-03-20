@@ -1,3 +1,4 @@
+//import statements
 import React, { useState, useContext } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
@@ -48,6 +49,7 @@ const LoginScreen = ({ navigation }) => {
   const { storedCredentials, setStoredCredentials } =
     useContext(CredentialsContext);
 
+    //Function to handle login process.
   const handleLogin = (credentials, setSubmitting) => {
     handleMessage(null);
     const url =
@@ -73,11 +75,13 @@ const LoginScreen = ({ navigation }) => {
       });
   };
 
+  //Function to display messages.
   const handleMessage = (message, type = "FAILED") => {
     setMessage(message);
     setMessageType(type);
   };
 
+  //Function to persist user login.
   const persistLogin = (credentials, message, status) => {
     AsyncStorage.setItem("dermAidCredentials", JSON.stringify(credentials))
       .then(() => {
@@ -99,6 +103,7 @@ const LoginScreen = ({ navigation }) => {
           <PageTitle>Derm Aid</PageTitle>
           <SubTitle>Account Login</SubTitle>
 
+ {/* Formik component for form handling */}
           <Formik
             initialValues={{ email: "", password: "" }}
             onSubmit={(values, { setSubmitting }) => {
@@ -118,6 +123,7 @@ const LoginScreen = ({ navigation }) => {
               isSubmitting,
             }) => (
               <StyledFormArea>
+                 {/* Email input field */}
                 <MyTextInput
                   label="Email Address"
                   icon="mail"
@@ -128,6 +134,7 @@ const LoginScreen = ({ navigation }) => {
                   value={values.email}
                   keyboardType="email-address"
                 />
+                {/* Password input field */}
                 <MyTextInput
                   label="Password"
                   icon="lock"
@@ -147,12 +154,15 @@ const LoginScreen = ({ navigation }) => {
                     <Text style={styles.ButtonText}>Login</Text>
                   </StyledButton>
                 )}
+                 {/* Loading indicator while submitting */}
                 {isSubmitting && (
                   <StyledButton disabled={true}>
                     <ActivityIndicator size="large" color={Colors.primary} />
                   </StyledButton>
                 )}
+                {/* Line separator */}
                 <View style={styles.Line} />
+                 {/* Button for signing in with Google */}
                 <StyledButton
                   style={{ backgroundColor: "#138808", flexDirection: "row" }}
                   onPress={handleSubmit}
@@ -162,6 +172,7 @@ const LoginScreen = ({ navigation }) => {
                     Sign in with Google
                   </ButtonText>
                 </StyledButton>
+                 {/* Extra view for navigating to signup screen */}
                 <ExtraView>
                   <ExtraText>Don't have an account?</ExtraText>
                   <TextLink
@@ -213,6 +224,7 @@ const MyTextInput = ({
   );
 };
 
+//styling for login screen
 const styles = StyleSheet.create({
   StyledContainer: {
     flex: 1,
