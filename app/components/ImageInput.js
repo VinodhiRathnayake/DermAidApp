@@ -1,3 +1,4 @@
+//Import statements
 import React, { useEffect } from "react";
 import {
   View,
@@ -12,15 +13,18 @@ import * as ImagePicker from "expo-image-picker";
 import colors from "../config/colors";
 
 function ImageInput({ imageUri, onChangeImage }) {
+  // Requesting permission to access the device's image library
   useEffect(() => {
     requestPermission();
   }, []);
 
+  // Function to request permission for accessing the device's image library
   const requestPermission = async () => {
     const { granted } = await ImagePicker.requestCameraRollPermissionsAsync();
     if (!granted) alert("You need to enable permission to access the library.");
   };
 
+  // Handler function for press events on the image input
   const handlePress = () => {
     if (!imageUri) selectImage();
     else
@@ -30,6 +34,7 @@ function ImageInput({ imageUri, onChangeImage }) {
       ]);
   };
 
+  // Function to select an image from the device's image library
   const selectImage = async () => {
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
@@ -43,8 +48,11 @@ function ImageInput({ imageUri, onChangeImage }) {
   };
 
   return (
+    // TouchableWithoutFeedback wrapper for handling press events
     <TouchableWithoutFeedback onPress={handlePress}>
+       {/* Container for displaying the image or camera icon */}
       <View style={styles.container}>
+         {/* Display camera icon if no image is selected */}
         {!imageUri && (
           <MaterialCommunityIcons
             color={colors.medium}
@@ -52,12 +60,14 @@ function ImageInput({ imageUri, onChangeImage }) {
             size={40}
           />
         )}
+         {/* Display selected image */}
         {imageUri && <Image source={{ uri: imageUri }} style={styles.image} />}
       </View>
     </TouchableWithoutFeedback>
   );
 }
 
+// Styles for the ImageInput component
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
@@ -75,4 +85,5 @@ const styles = StyleSheet.create({
   },
 });
 
+// Exporting the ImageInput component as default
 export default ImageInput;

@@ -13,6 +13,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 // Credentials Context
 import { CredentialsContext } from "./app/components/CredentialsContext";
 import ProfileScreen from "./app/screens/ProfileScreen";
+import AboutUs from "./app/screens/AboutUs";
 
 export default function App() {
   const [appReady, setAppReady] = useState(false);
@@ -57,7 +58,8 @@ export default function App() {
     <CredentialsContext.Provider
       value={{ storedCredentials, setStoredCredentials }}
     >
-      <RootStack />
+      {/* <RootStack /> */}
+      <AboutUs/>
     </CredentialsContext.Provider>
   );
 }

@@ -1,3 +1,4 @@
+//Import statements
 import {
   StyleSheet,
   Pressable,
@@ -13,6 +14,7 @@ import { Colors } from "./styles";
 // components
 import StyledText from "./StyledText";
 
+// UploadModal component definition
 const UploadModal = ({
   modalVisible,
   onBackPress,
@@ -22,16 +24,21 @@ const UploadModal = ({
   isLoading = false,
 }) => {
   return (
+     // Modal for displaying upload options
     <Modal animationType="slide" visible={modalVisible} transparent={true}>
+      {/* Pressable container to handle backdrop press */}
       <Pressable style={styles.container} onPress={onBackPress}>
+         {/* Activity indicator for showing loading */}
         {isLoading && <ActivityIndicator size={70} color={Colors.tertiary} />}
 
+{/* Modal content */}
         {!isLoading && (
           <View style={[styles.modalView, { backgroundColor: Colors.primary }]}>
             <StyledText big style={{ marginBottom: 10 }}>
               Profile Photo
             </StyledText>
 
+ {/* Options row */}
             <View style={styles.decisionRow}>
               <TouchableOpacity
                 style={styles.optionBtn}
@@ -45,6 +52,7 @@ const UploadModal = ({
                 <StyledText small>Camera</StyledText>
               </TouchableOpacity>
 
+ {/* Gallery option */}
               <TouchableOpacity
                 style={styles.optionBtn}
                 onPress={onGalleryPress}
@@ -57,6 +65,7 @@ const UploadModal = ({
                 <StyledText small>Gallery</StyledText>
               </TouchableOpacity>
 
+ {/* Remove option */}
               <TouchableOpacity
                 style={styles.optionBtn}
                 onPress={onRemovePress}
@@ -76,6 +85,7 @@ const UploadModal = ({
   );
 };
 
+// Styles for the UploadModal component
 const styles = StyleSheet.create({
   container: {
     flex: 1,
