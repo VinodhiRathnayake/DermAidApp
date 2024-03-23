@@ -59,7 +59,6 @@ export default function App() {
       value={{ storedCredentials, setStoredCredentials }}
     >
       <RootStack />
-  
     </CredentialsContext.Provider>
   );
 }

@@ -155,16 +155,7 @@ const LoginScreen = ({ navigation }) => {
               )}
               {/* Line separator */}
               <View style={styles.Line} />
-              {/* Button for signing in with Google */}
-              <StyledButton
-                style={{ backgroundColor: "#138808", flexDirection: "row" }}
-                onPress={handleSubmit}
-              >
-                <Fontisto name="google" color={Colors.primary} size={25} />
-                <ButtonText style={{ paddingLeft: 10 }} google={true}>
-                  Sign in with Google
-                </ButtonText>
-              </StyledButton>
+
               {/* Extra view for navigating to signup screen */}
               <ExtraView>
                 <ExtraText>Don't have an account?</ExtraText>
