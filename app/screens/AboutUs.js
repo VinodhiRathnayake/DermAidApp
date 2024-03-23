@@ -21,7 +21,7 @@ function AboutUs(props) {
 
     <AppText style={styles.text}>
     Derm< Text style={styles.redText}>Aid</Text> app has the potential to revolutionize the diagnosis and management of skin
-    diseases. By providing a more accessible, affordable, and non-invasive alternaive to traditional
+    diseases. By providing a more accessible, affordable, and non-invasive alternative to traditional
     methods, the app could help to improve access to dermatology care for people in
     underserved areas and those with limited financial resources. The app could also help
     to detect skin diseases at an earlier stage when they are more likely to be treatable.
