@@ -15,6 +15,7 @@ import { CredentialsContext } from "../components/CredentialsContext";
 import Avatar from "../components/Avatar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import KeyboardAvoidingContainer from "../components/KeyBoardAvoidingWrapper";
+import axios from "axios";
 
 function EditProfileScreen({ route }) {
   const navigation = useNavigation();
@@ -26,7 +27,6 @@ function EditProfileScreen({ route }) {
   const { storedCredentials, setStoredCredentials } =
     useContext(CredentialsContext);
   // const { name, dateOfBirth } = storedCredentials;
-
 
   //Function to upload an image from the device's gallery or camera.
   const uploadImage = async (mode) => {
