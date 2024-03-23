@@ -37,7 +37,7 @@ function AboutUs(props) {
 </View>
 <View style={styles.contactContainer}>
 <MaterialCommunityIcons name="email" color="black" size={23} style={styles.icon}/>
-<Text style={styles.email}>supportdermaid@gmail.com</Text>
+<Text style={styles.email}>jehan.20220786@iit.ac.lk</Text>
 </View>
 
 
@@ -64,12 +64,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-   marginTop:30,
+   marginTop:15,
   },
   icon: {
     marginRight: 12, 
   },
   email: {
+
     fontSize: 15,
   },
 
