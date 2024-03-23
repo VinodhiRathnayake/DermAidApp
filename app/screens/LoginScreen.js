@@ -2,13 +2,7 @@
 import React, { useState, useContext } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
-import {
-  View,
-  ActivityIndicator,
-  StyleSheet,
-  Text,
-  ScrollView,
-} from "react-native";
+import { View, ActivityIndicator, StyleSheet, Text } from "react-native";
 import { Octicons, Entypo, Fontisto } from "@expo/vector-icons";
 import axios from "axios";
 import Constants from "expo-constants";
@@ -38,7 +32,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Credentials Context
 import { CredentialsContext } from "../components/CredentialsContext";
-import { saveSecurely } from "../components/utils/storage";
 
 const LoginScreen = ({ navigation }) => {
   const [isHidden, setHidden] = useState(true);
@@ -96,104 +89,99 @@ const LoginScreen = ({ navigation }) => {
   };
 
   return (
-    <ScrollView>
-      <StyledContainer>
-        <StatusBar style="dark" />
-        <InnerContainer>
-          <PageLogo
-            resizeMode="cover"
-            source={require("../assets/logo1.png")}
-          />
-          <PageTitle>Derm Aid</PageTitle>
-          <SubTitle>Account Login</SubTitle>
+    <StyledContainer>
+      <StatusBar style="dark" />
+      <InnerContainer>
+        <PageLogo resizeMode="cover" source={require("../assets/logo1.png")} />
+        <PageTitle>Derm Aid</PageTitle>
+        <SubTitle>Account Login</SubTitle>
 
-          {/* Formik component for form handling */}
-          <Formik
-            initialValues={{ email: "", password: "" }}
-            onSubmit={(values, { setSubmitting }) => {
-              if (values.email == "" || values.password == "") {
-                handleMessage("Please fill all the fields");
-                setSubmitting(false);
-              } else {
-                handleLogin(values, setSubmitting);
-              }
-            }}
-          >
-            {({
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              values,
-              isSubmitting,
-            }) => (
-              <StyledFormArea>
-                {/* Email input field */}
-                <MyTextInput
-                  label="Email Address"
-                  icon="mail"
-                  placeholder="user@example.com"
-                  placeholderTextColor={Colors.darklight}
-                  onChangeText={handleChange("email")}
-                  onBlur={handleBlur("email")}
-                  value={values.email}
-                  keyboardType="email-address"
-                />
-                {/* Password input field */}
-                <MyTextInput
-                  label="Password"
-                  icon="lock"
-                  placeholder="*****"
-                  placeholderTextColor={Colors.darklight}
-                  onChangeText={handleChange("password")}
-                  onBlur={handleBlur("password")}
-                  value={values.password}
-                  secureTextEntry={isHidden}
-                  isPassword={true}
-                  isHidden={isHidden}
-                  setHidden={setHidden}
-                />
-                <MsgBox type={messageType}>{message}</MsgBox>
-                {!isSubmitting && (
-                  <StyledButton onPress={handleSubmit}>
-                    <Text style={styles.ButtonText}>Login</Text>
-                  </StyledButton>
-                )}
-                {/* Loading indicator while submitting */}
-                {isSubmitting && (
-                  <StyledButton disabled={true}>
-                    <ActivityIndicator size="large" color={Colors.primary} />
-                  </StyledButton>
-                )}
-                {/* Line separator */}
-                <View style={styles.Line} />
-                {/* Button for signing in with Google */}
-                <StyledButton
-                  style={{ backgroundColor: "#138808", flexDirection: "row" }}
-                  onPress={handleSubmit}
-                >
-                  <Fontisto name="google" color={Colors.primary} size={25} />
-                  <ButtonText style={{ paddingLeft: 10 }} google={true}>
-                    Sign in with Google
-                  </ButtonText>
+        {/* Formik component for form handling */}
+        <Formik
+          initialValues={{ email: "", password: "" }}
+          onSubmit={(values, { setSubmitting }) => {
+            if (values.email == "" || values.password == "") {
+              handleMessage("Please fill all the fields");
+              setSubmitting(false);
+            } else {
+              handleLogin(values, setSubmitting);
+            }
+          }}
+        >
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            isSubmitting,
+          }) => (
+            <StyledFormArea>
+              {/* Email input field */}
+              <MyTextInput
+                label="Email Address"
+                icon="mail"
+                placeholder="user@example.com"
+                placeholderTextColor={Colors.darklight}
+                onChangeText={handleChange("email")}
+                onBlur={handleBlur("email")}
+                value={values.email}
+                keyboardType="email-address"
+              />
+              {/* Password input field */}
+              <MyTextInput
+                label="Password"
+                icon="lock"
+                placeholder="*****"
+                placeholderTextColor={Colors.darklight}
+                onChangeText={handleChange("password")}
+                onBlur={handleBlur("password")}
+                value={values.password}
+                secureTextEntry={isHidden}
+                isPassword={true}
+                isHidden={isHidden}
+                setHidden={setHidden}
+              />
+              <MsgBox type={messageType}>{message}</MsgBox>
+              {!isSubmitting && (
+                <StyledButton onPress={handleSubmit}>
+                  <Text style={styles.ButtonText}>Login</Text>
                 </StyledButton>
-                {/* Extra view for navigating to signup screen */}
-                <ExtraView>
-                  <ExtraText>Don't have an account?</ExtraText>
-                  <TextLink
-                    style={{ paddingLeft: 5 }}
-                    onPress={() => {
-                      navigation.navigate("SignUp");
-                    }}
-                  >
-                    <TextLinkContent>Signup</TextLinkContent>
-                  </TextLink>
-                </ExtraView>
-              </StyledFormArea>
-            )}
-          </Formik>
-        </InnerContainer>
-      </StyledContainer>
-    </ScrollView>
+              )}
+              {/* Loading indicator while submitting */}
+              {isSubmitting && (
+                <StyledButton disabled={true}>
+                  <ActivityIndicator size="large" color={Colors.primary} />
+                </StyledButton>
+              )}
+              {/* Line separator */}
+              <View style={styles.Line} />
+              {/* Button for signing in with Google */}
+              <StyledButton
+                style={{ backgroundColor: "#138808", flexDirection: "row" }}
+                onPress={handleSubmit}
+              >
+                <Fontisto name="google" color={Colors.primary} size={25} />
+                <ButtonText style={{ paddingLeft: 10 }} google={true}>
+                  Sign in with Google
+                </ButtonText>
+              </StyledButton>
+              {/* Extra view for navigating to signup screen */}
+              <ExtraView>
+                <ExtraText>Don't have an account?</ExtraText>
+                <TextLink
+                  style={{ paddingLeft: 5 }}
+                  onPress={() => {
+                    navigation.navigate("SignUp");
+                  }}
+                >
+                  <TextLinkContent>Signup</TextLinkContent>
+                </TextLink>
+              </ExtraView>
+            </StyledFormArea>
+          )}
+        </Formik>
+      </InnerContainer>
+    </StyledContainer>
   );
 };
 
