@@ -49,7 +49,7 @@ const LoginScreen = ({ navigation }) => {
   const { storedCredentials, setStoredCredentials } =
     useContext(CredentialsContext);
 
-    //Function to handle login process.
+  //Function to handle login process.
   const handleLogin = (credentials, setSubmitting) => {
     handleMessage(null);
     const url =
@@ -65,6 +65,7 @@ const LoginScreen = ({ navigation }) => {
           handleMessage(message, status);
         } else {
           persistLogin({ ...data[0] }, message, "SUCCESS");
+          console.log({ ...data[0] });
         }
         setSubmitting(false);
       })
@@ -99,11 +100,14 @@ const LoginScreen = ({ navigation }) => {
       <StyledContainer>
         <StatusBar style="dark" />
         <InnerContainer>
-          <PageLogo resizeMode="cover" source={require("../assets/logo.jpg")} />
+          <PageLogo
+            resizeMode="cover"
+            source={require("../assets/logo1.png")}
+          />
           <PageTitle>Derm Aid</PageTitle>
           <SubTitle>Account Login</SubTitle>
 
- {/* Formik component for form handling */}
+          {/* Formik component for form handling */}
           <Formik
             initialValues={{ email: "", password: "" }}
             onSubmit={(values, { setSubmitting }) => {
@@ -123,7 +127,7 @@ const LoginScreen = ({ navigation }) => {
               isSubmitting,
             }) => (
               <StyledFormArea>
-                 {/* Email input field */}
+                {/* Email input field */}
                 <MyTextInput
                   label="Email Address"
                   icon="mail"
@@ -154,7 +158,7 @@ const LoginScreen = ({ navigation }) => {
                     <Text style={styles.ButtonText}>Login</Text>
                   </StyledButton>
                 )}
-                 {/* Loading indicator while submitting */}
+                {/* Loading indicator while submitting */}
                 {isSubmitting && (
                   <StyledButton disabled={true}>
                     <ActivityIndicator size="large" color={Colors.primary} />
@@ -162,7 +166,7 @@ const LoginScreen = ({ navigation }) => {
                 )}
                 {/* Line separator */}
                 <View style={styles.Line} />
-                 {/* Button for signing in with Google */}
+                {/* Button for signing in with Google */}
                 <StyledButton
                   style={{ backgroundColor: "#138808", flexDirection: "row" }}
                   onPress={handleSubmit}
@@ -172,7 +176,7 @@ const LoginScreen = ({ navigation }) => {
                     Sign in with Google
                   </ButtonText>
                 </StyledButton>
-                 {/* Extra view for navigating to signup screen */}
+                {/* Extra view for navigating to signup screen */}
                 <ExtraView>
                   <ExtraText>Don't have an account?</ExtraText>
                   <TextLink

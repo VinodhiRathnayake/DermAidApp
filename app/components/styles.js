@@ -27,6 +27,7 @@ export const Colors = {
 
 // Define styled components
 export const StyledContainer = styled.View`
+  height: 100%;
   flex: 1;
   padding: 25px;
   padding-top: Constants.statusBarHeight;

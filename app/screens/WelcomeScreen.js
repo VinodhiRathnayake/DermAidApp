@@ -39,7 +39,7 @@ function WelcomeScreen() {
     <Screen>
       <View style={styles.container}>
         <Text style={styles.welcomeText}>Your Skin Journey Starts Here!</Text>
-        <Image style={[styles.image]} source={require("../assets/logo.jpg")} />
+        <Image style={[styles.image]} source={require("../assets/logo2.png")} />
         <WelcomeContainer>
           <PageTitle>Welcome {name}</PageTitle>
           <SubTitle>{email}</SubTitle>
