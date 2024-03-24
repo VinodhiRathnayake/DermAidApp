@@ -7,59 +7,58 @@ import ListItemDeleteAction from "../components/lists/ListItemDeleteAction";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function PredictionRecordsScreen(props) {
-  const [diagnosisMap, setDiagnosisMap] = useState([]); // Use an array initially
+  // State for prediction records (using a Map)
+  const [diagnosisMap, setDiagnosisMap] = useState(new Map());
+  // State for refreshing
   const [refreshing, setRefreshing] = useState(false);
 
+  // Function to handle message deletion
+  const handleDelete = (message) => {
+    // Update the map by deleting the item with the matching ID
+    setDiagnosisMap(
+      new Map([...diagnosisMap].filter(([key]) => key !== message.id))
+    ); // Preserve existing data
+  };
+
   useEffect(() => {
+    // Retrieve data from Async Storage on component mount
     const getData = async () => {
       try {
         const storedData = await AsyncStorage.getItem("diagnosisData");
         if (storedData) {
           const parsedData = JSON.parse(storedData);
-          // Check if data is an array before setting state
-          if (Array.isArray(parsedData)) {
-            setDiagnosisMap(parsedData);
-          } else {
-            console.warn("Invalid data format in AsyncStorage");
-          }
+          setDiagnosisMap(new Map(parsedData)); // Convert back to a Map
         }
       } catch (error) {
         console.error("Error retrieving data:", error);
-      } finally {
-        setRefreshing(false); // Stop refreshing after data is retrieved
       }
     };
 
     getData();
   }, []);
 
-  const handleDelete = async (item) => {
-    try {
-      // Update local state immediately
-      setDiagnosisMap(diagnosisMap.filter((record) => record.id !== item.id));
-
-      await AsyncStorage.removeItem("diagnosisData");
-      console.log("Item removed from storage successfully");
-    } catch (error) {
-      console.error("Error removing item from storage:", error);
-      // Handle deletion failure (optional)
-    }
-  };
-
   return (
     <Screen>
       <AppHeader title="PREDICTION RECORDS" />
+      {/* Render predictions from Map */}
       <FlatList
-        data={diagnosisMap}
+        data={Array.from(diagnosisMap.values())} // Convert values to an array
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <ListItem
-            title={`Disease: ${item.predictedLabel}`}
+            title={`Disease: ${item.predictedLabel}`} // Use retrieved label
             subTitle={`Date: ${item.dateString}`}
             subTitle2={`Time: ${item.timeString}`}
-            image={item.photo && { uri: `data:image/jpg;base64,${item.photo}` }}
+            image={
+              item.photo && {
+                uri: `data:image/jpg;base64,${item.photo}`, // Use retrieved photo
+              }
+            }
             imageStyle={styles.image}
             style={styles.infoContainer}
+            // onPress={() => console.log("Message selected", item)}
+
+            // Delete action for list item
             renderRightActions={() => (
               <ListItemDeleteAction onPress={() => handleDelete(item)} />
             )}

@@ -1,5 +1,5 @@
 //import statements
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Image, Linking } from "react-native";
 import AppHeader from "../components/AppHeader";
 import Screen from "../components/Screen";
@@ -39,7 +39,6 @@ function ResultScreen() {
   };
 
   const [diagnosisMap, setDiagnosisMap] = useState(new Map()); // Use a Map
-
   const handleSave = async () => {
     const dataToSave = {
       predictedLabel,
@@ -53,14 +52,33 @@ function ResultScreen() {
       const diagnosisId = Math.random().toString(36).substring(2, 15);
 
       // Add data to the map with a unique key
-      setDiagnosisMap(new Map(diagnosisMap).set(diagnosisId, dataToSave));
+      setDiagnosisMap(new Map(diagnosisMap).set(diagnosisId, dataToSave)); // Preserve existing data
 
-      // Save the map directly
-      await AsyncStorage.setItem("diagnosisData", JSON.stringify(diagnosisMap));
+      // Save the map as a JSON string (Maps aren't directly supported)
+      await AsyncStorage.setItem(
+        "diagnosisData",
+        JSON.stringify(Array.from(diagnosisMap.entries()))
+      );
     } catch (error) {
       console.error("Error saving data:", error);
     }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const storedData = await AsyncStorage.getItem("diagnosisData");
+        if (storedData) {
+          const parsedData = JSON.parse(storedData);
+          setDiagnosisMap(new Map(parsedData)); // Convert back to a Map
+        }
+      } catch (error) {
+        console.error("Error retrieving data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <Screen style={styles.container}>
@@ -81,15 +99,15 @@ function ResultScreen() {
           onPress={findDiseaseURL}
           title="Learn More About the Disease.."
           color="orange"
-        ></AppButton>
-        <AppButton title="SAVE" color="orange" onPress={handleSave}></AppButton>
+        />
+        <AppButton title="SAVE" color="orange" onPress={handleSave} />
         <AppButton
           title="DON'T SAVE"
           color="orange"
           onPress={() => {
             navigation.goBack();
           }}
-        ></AppButton>
+        />
       </View>
     </Screen>
   );
