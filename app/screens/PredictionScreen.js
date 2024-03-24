@@ -9,6 +9,7 @@ import AppHeader from "../components/AppHeader";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AppButton from "../components/Button";
 import { useNavigation } from "@react-navigation/native";
+import * as ImagePicker from "expo-image-picker";
 
 //displays the camera view for taking a picture
 function PredictionScreen(props) {
@@ -52,6 +53,30 @@ function PredictionScreen(props) {
     setPhoto(newPhoto);
   };
 
+  const openGallery = async () => {
+    await ImagePicker.requestMediaLibraryPermissionsAsync();
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      // Get both uri and base64 data for displaying the image
+      const response = await fetch(result.assets[0].uri);
+      const blob = await response.blob();
+      const reader = new FileReader();
+      reader.readAsDataURL(blob);
+      reader.onloadend = () => {
+        setPhoto({
+          uri: result.assets[0].uri,
+          base64: reader.result.split(",")[1],
+        });
+      };
+    }
+  };
+
   // Render captured photo with options
   if (photo) {
     let scanPic = async () => {
@@ -89,7 +114,7 @@ function PredictionScreen(props) {
         const predictedLabel = predictionData.result;
 
         // Navigate to result screen and pass the predicted label
-        navigation.navigate("Result", { predictedLabel });
+        navigation.navigate("Result", { predictedLabel, photo });
         setPhoto(undefined); // Reset photo state
       } catch (error) {
         alert("Error:", error.message);
@@ -107,7 +132,7 @@ function PredictionScreen(props) {
         <AppHeader />
         <Image
           style={styles.preview}
-          source={{ uri: "data:image/jpg;base64," + photo.base64 }}
+          source={{ uri: photo?.uri }} // Use photo?.uri for optional chaining
         />
         <View style={styles.buttons}>
           <AppButton title="Scan" onPress={scanPic} color="orange" />
@@ -129,9 +154,14 @@ function PredictionScreen(props) {
     <Screen style={styles.container}>
       <AppHeader title="NEW PREDICTION" />
       <Camera style={styles.container} ref={cameraRef}>
-        <View style={styles.buttonContainer}>
+        <View style={styles.buttonContainerLeft}>
           <TouchableOpacity onPress={takePic}>
             <MaterialCommunityIcons name="camera" size={35} />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.buttonContainerRight}>
+          <TouchableOpacity onPress={openGallery}>
+            <MaterialCommunityIcons name="view-gallery" size={35} />
           </TouchableOpacity>
         </View>
         <StatusBar
@@ -150,13 +180,23 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
   },
-  buttonContainer: {
+  buttonContainerLeft: {
     backgroundColor: "#fff",
     position: "absolute",
     bottom: 20,
     alignSelf: "center",
     padding: 10,
     borderRadius: 50,
+    left: 60,
+  },
+  buttonContainerRight: {
+    backgroundColor: "#fff",
+    position: "absolute",
+    bottom: 20,
+    alignSelf: "center",
+    padding: 10,
+    borderRadius: 50,
+    right: 60,
   },
   buttons: {
     paddingVertical: -50, // Adjust the vertical padding to reduce the height
