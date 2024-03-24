@@ -63,7 +63,7 @@ const LoginScreen = ({ navigation }) => {
         setSubmitting(false);
       })
       .catch((err) => {
-        console.log(err.JSON());
+        console.log(err);
         setSubmitting(false);
         handleMessage("An error occured. Check your internet connection");
       });
