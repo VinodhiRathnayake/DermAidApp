@@ -7,9 +7,11 @@ import AppText from "../components/AppText";
 import AppButton from "../components/Button";
 import { useRoute } from "@react-navigation/native";
 import diseaseURLs from "../components/utils/diseaseURLs";
+import { useNavigation } from "@react-navigation/native";
 
 //renders the result of a diagnosis.
-function ResultScreen(props) {
+function ResultScreen() {
+  const navigation = useNavigation();
   const route = useRoute();
   const { predictedLabel, photo } = route.params; // Handle missing params
 
@@ -56,7 +58,13 @@ function ResultScreen(props) {
           color="orange"
         ></AppButton>
         <AppButton title="SAVE" color="orange"></AppButton>
-        <AppButton title="DON'T SAVE" color="orange"></AppButton>
+        <AppButton
+          title="DON'T SAVE"
+          color="orange"
+          onPress={() => {
+            navigation.goBack();
+          }}
+        ></AppButton>
       </View>
     </Screen>
   );
