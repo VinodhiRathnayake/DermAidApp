@@ -38,7 +38,6 @@ function ResultScreen() {
     }
   };
 
-  const [isSaved, setIsSaved] = useState(false);
   const [diagnosisMap, setDiagnosisMap] = useState(new Map()); // Use a Map
 
   const handleSave = async () => {
@@ -54,14 +53,10 @@ function ResultScreen() {
       const diagnosisId = Math.random().toString(36).substring(2, 15);
 
       // Add data to the map with a unique key
-      setDiagnosisMap(new Map(diagnosisMap).set(diagnosisId, dataToSave)); // Preserve existing data
+      setDiagnosisMap(new Map(diagnosisMap).set(diagnosisId, dataToSave));
 
-      // Save the map as a JSON string (Maps aren't directly supported)
-      await AsyncStorage.setItem(
-        "diagnosisData",
-        JSON.stringify(Array.from(diagnosisMap.entries()))
-      );
-      setIsSaved(true); // Update save state
+      // Save the map directly
+      await AsyncStorage.setItem("diagnosisData", JSON.stringify(diagnosisMap));
     } catch (error) {
       console.error("Error saving data:", error);
     }
