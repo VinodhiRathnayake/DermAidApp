@@ -1,75 +1,59 @@
-//import statements
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, FlatList } from "react-native";
 import Screen from "../components/Screen";
 import AppHeader from "../components/AppHeader";
 import ListItem from "../components/lists/ListItem";
 import ListItemDeleteAction from "../components/lists/ListItemDeleteAction";
-
-const initialMessages = [
-  {
-    id: 1,
-    title: "ECZEMA",
-    description: "20-12-2023",
-    time: "9.40 pm",
-
-    image: require("../assets/logo.jpg"),
-  },
-  {
-    id: 2,
-    title: "HIVES",
-    description: "20-12-2023",
-    time: "9.40 pm",
-    image: require("../assets/logo.jpg"),
-  },
-  {
-    id: 3,
-    title: "aaa",
-    description: "20-12-2023",
-    time: "9.40 pm",
-    image: require("../assets/logo.jpg"),
-  },
-  {
-    id: 4,
-    title: "Skin",
-    description: "20-12-2023",
-    time: "9.40 pm",
-    image: require("../assets/logo.jpg"),
-  },
-  {
-    id: 5,
-    title: "Pox",
-    description: "20-12-2023",
-    time: "9.40 pm",
-    image: require("../assets/logo.jpg"),
-  },
-];
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function PredictionRecordsScreen(props) {
-  // State for prediction records
-  const [messages, setMessages] = useState(initialMessages);
+  // State for prediction records (using a Map)
+  const [diagnosisMap, setDiagnosisMap] = useState(new Map());
   // State for refreshing
   const [refreshing, setRefreshing] = useState(false);
 
   // Function to handle message deletion
   const handleDelete = (message) => {
-    // Delete the message from messages
-    setMessages(messages.filter((m) => m.id !== message.id));
+    // Update the map by deleting the item with the matching ID
+    setDiagnosisMap(
+      new Map([...diagnosisMap].filter(([key]) => key !== message.id))
+    ); // Preserve existing data
   };
+
+  useEffect(() => {
+    // Retrieve data from Async Storage on component mount
+    const getData = async () => {
+      try {
+        const storedData = await AsyncStorage.getItem("diagnosisData");
+        if (storedData) {
+          const parsedData = JSON.parse(storedData);
+          setDiagnosisMap(new Map(parsedData)); // Convert back to a Map
+        }
+      } catch (error) {
+        console.error("Error retrieving data:", error);
+      }
+    };
+
+    getData();
+  }, []);
 
   return (
     <Screen>
       <AppHeader title="PREDICTION RECORDS" />
-      {/* List of prediction records */}
+      {/* Render predictions from Map */}
       <FlatList
-        data={messages}
-        keyExtractor={(message) => message.id.toString()}
+        data={Array.from(diagnosisMap.values())}
+        key={(item) => item.id} // Convert values to an array
         renderItem={({ item }) => (
           <ListItem
-            title={`Disease: ${item.title}`}
-            subTitle={`Date: ${item.description}`}
-            subTitle2={`Time: ${item.time}`}
-            image={item.image}
+            title={`Disease: ${item.predictedLabel}`} // Use retrieved label
+            subTitle={`Date: ${item.dateString}`}
+            subTitle2={`Time: ${item.timeString}`}
+            image={
+              item.photo && {
+                uri: `data:image/jpg;base64,${item.photo}`, // Use retrieved photo
+              }
+            }
             imageStyle={styles.image}
             style={styles.infoContainer}
             // onPress={() => console.log("Message selected", item)}
@@ -80,12 +64,13 @@ function PredictionRecordsScreen(props) {
             )}
           />
         )}
+        refreshing={refreshing}
       />
     </Screen>
   );
 }
 
-//styling 
+// Styling (unchanged)
 const styles = StyleSheet.create({
   container: {},
   infoContainer: {

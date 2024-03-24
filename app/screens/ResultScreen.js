@@ -1,5 +1,5 @@
 //import statements
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, Image, Linking } from "react-native";
 import AppHeader from "../components/AppHeader";
 import Screen from "../components/Screen";
@@ -8,15 +8,10 @@ import AppButton from "../components/Button";
 import { useRoute } from "@react-navigation/native";
 import diseaseURLs from "../components/utils/diseaseURLs";
 import { useNavigation } from "@react-navigation/native";
-// Credentials Context
-import { CredentialsContext } from "../components/CredentialsContext";
-import { useContext } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //renders the result of a diagnosis.
 function ResultScreen() {
-  const { storedCredentials, setStoredCredentials } =
-    useContext(CredentialsContext);
-  const { userID } = storedCredentials;
   const navigation = useNavigation();
   const route = useRoute();
   const { predictedLabel, photo } = route.params; // Handle missing params
@@ -43,6 +38,35 @@ function ResultScreen() {
     }
   };
 
+  const [isSaved, setIsSaved] = useState(false);
+  const [diagnosisMap, setDiagnosisMap] = useState(new Map()); // Use a Map
+
+  const handleSave = async () => {
+    const dataToSave = {
+      predictedLabel,
+      dateString,
+      timeString,
+      photo: photo.base64,
+    };
+
+    try {
+      // Generate a unique identifier for the diagnosis (optional)
+      const diagnosisId = Math.random().toString(36).substring(2, 15);
+
+      // Add data to the map with a unique key
+      setDiagnosisMap(new Map(diagnosisMap).set(diagnosisId, dataToSave)); // Preserve existing data
+
+      // Save the map as a JSON string (Maps aren't directly supported)
+      await AsyncStorage.setItem(
+        "diagnosisData",
+        JSON.stringify(Array.from(diagnosisMap.entries()))
+      );
+      setIsSaved(true); // Update save state
+    } catch (error) {
+      console.error("Error saving data:", error);
+    }
+  };
+
   return (
     <Screen style={styles.container}>
       <AppHeader title="RESULT" />
@@ -63,7 +87,7 @@ function ResultScreen() {
           title="Learn More About the Disease.."
           color="orange"
         ></AppButton>
-        <AppButton title="SAVE" color="orange"></AppButton>
+        <AppButton title="SAVE" color="orange" onPress={handleSave}></AppButton>
         <AppButton
           title="DON'T SAVE"
           color="orange"
