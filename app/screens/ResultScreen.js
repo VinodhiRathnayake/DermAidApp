@@ -8,9 +8,15 @@ import AppButton from "../components/Button";
 import { useRoute } from "@react-navigation/native";
 import diseaseURLs from "../components/utils/diseaseURLs";
 import { useNavigation } from "@react-navigation/native";
+// Credentials Context
+import { CredentialsContext } from "../components/CredentialsContext";
+import { useContext } from "react";
 
 //renders the result of a diagnosis.
 function ResultScreen() {
+  const { storedCredentials, setStoredCredentials } =
+    useContext(CredentialsContext);
+  const { userID } = storedCredentials;
   const navigation = useNavigation();
   const route = useRoute();
   const { predictedLabel, photo } = route.params; // Handle missing params
