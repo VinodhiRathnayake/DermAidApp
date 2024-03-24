@@ -10,8 +10,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AppButton from "../components/Button";
 import { useNavigation } from "@react-navigation/native";
 
-
-//displays the camera view for taking a picture 
+//displays the camera view for taking a picture
 function PredictionScreen(props) {
   let cameraRef = useRef();
   const [hasCameraPermission, setHasCameraPermission] = useState();
@@ -41,7 +40,7 @@ function PredictionScreen(props) {
     );
   }
 
-   // Function to take a picture with the camera
+  // Function to take a picture with the camera
   let takePic = async () => {
     let options = {
       quality: 1,
@@ -55,10 +54,46 @@ function PredictionScreen(props) {
 
   // Render captured photo with options
   if (photo) {
-    let scanPic = () => {
-      // Navigate to result screen after scanning
-      navigation.navigate("Result");
-      setPhoto(undefined);
+    let scanPic = async () => {
+      // Check if photo is available
+      if (!photo) {
+        alert("Please take a picture first!");
+        return;
+      }
+
+      // Prepare the image data for sending
+      const base64Data = photo.base64;
+      const imageData = { image: `data:image/jpeg;base64,${base64Data}` };
+
+      // Define your Heroku app's prediction endpoint URL (replace with your actual URL)
+      const PREDICTION_URL =
+        "https://deploying-mlmodel-to-heroku55-8974242e09eb.herokuapp.com/predict";
+
+      try {
+        // Send a POST request with the image data
+        const response = await fetch(PREDICTION_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(imageData),
+        });
+
+        // Check for successful response
+        if (!response.ok) {
+          throw new Error("Failed to get prediction. Try again.");
+        }
+
+        // Parse the response data
+        const predictionData = await response.json();
+        const predictedLabel = predictionData.result;
+
+        // Navigate to result screen and pass the predicted label
+        navigation.navigate("Result", { predictedLabel });
+        setPhoto(undefined); // Reset photo state
+      } catch (error) {
+        alert("Error:", error.message);
+      }
     };
 
     let savePhoto = () => {
@@ -109,7 +144,7 @@ function PredictionScreen(props) {
   );
 }
 
-//styles for prediction screen 
+//styles for prediction screen
 const styles = StyleSheet.create({
   container: {
     flex: 1,

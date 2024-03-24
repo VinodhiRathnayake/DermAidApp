@@ -5,19 +5,31 @@ import AppHeader from "../components/AppHeader";
 import Screen from "../components/Screen";
 import AppText from "../components/AppText";
 import AppButton from "../components/Button";
+import { useRoute } from "@react-navigation/native";
 
 //renders the result of a diagnosis.
 function ResultScreen(props) {
+  const route = useRoute();
+  const { predictedLabel, photo } = route.params; // Handle missing params
+
+  // Extract date and time (assuming these are available from somewhere)
+  const currentDate = new Date();
+  const dateString = currentDate.toLocaleDateString();
+  const timeString = currentDate.toLocaleTimeString();
+
   return (
     <Screen style={styles.container}>
       <AppHeader title="RESULT" />
-      <Image source={require("../assets/logo.jpg")} style={styles.image} />
+      {photo && ( // Conditionally render image if available
+        <Image
+          source={{ uri: "data:image/jpg;base64," + photo.base64 }}
+          style={styles.image}
+        />
+      )}
 
-{/* Disease information */}
-      <AppText>Disease: HIVES</AppText>
-
-      <AppText>Date: 20-12-2023</AppText>
-      <AppText>Time: 9.40pm</AppText>
+      <AppText>Disease: {predictedLabel}</AppText>
+      <AppText>Date: {dateString}</AppText>
+      <AppText>Time: {timeString}</AppText>
 
       <View style={styles.buttonContainer}>
         <AppButton
