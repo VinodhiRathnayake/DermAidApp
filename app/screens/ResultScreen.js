@@ -1,11 +1,12 @@
 //import statements
 import React from "react";
-import { View, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image, Linking } from "react-native";
 import AppHeader from "../components/AppHeader";
 import Screen from "../components/Screen";
 import AppText from "../components/AppText";
 import AppButton from "../components/Button";
 import { useRoute } from "@react-navigation/native";
+import diseaseURLs from "../components/utils/diseaseURLs";
 
 //renders the result of a diagnosis.
 function ResultScreen(props) {
@@ -16,6 +17,23 @@ function ResultScreen(props) {
   const currentDate = new Date();
   const dateString = currentDate.toLocaleDateString();
   const timeString = currentDate.toLocaleTimeString();
+
+  const findDiseaseURL = () => {
+    // Find the matching URL from diseaseURLs based on predictedLabel
+    const matchingURL = diseaseURLs.find(
+      (disease) => disease.label === predictedLabel
+    );
+    if (matchingURL) {
+      const { url } = matchingURL;
+
+      Linking.canOpenURL(url).then(() => {
+        Linking.openURL(url);
+      });
+    } else {
+      // Handle the case where no matching URL is found
+      console.warn("No URL found for disease:", predictedLabel);
+    }
+  };
 
   return (
     <Screen style={styles.container}>
@@ -33,6 +51,7 @@ function ResultScreen(props) {
 
       <View style={styles.buttonContainer}>
         <AppButton
+          onPress={findDiseaseURL}
           title="Learn More About the Disease.."
           color="orange"
         ></AppButton>
