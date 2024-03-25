@@ -26,7 +26,7 @@ const ResendTimer = ({
       <InlineGroup>
         <InfoText>Didn't receive the email? </InfoText>
 
-{/* Conditional rendering for resend link */}
+        {/* Conditional rendering for resend link */}
         {!resendingEmail && (
           <TextLink
             style={{ opacity: !activeResend && 0.5 }}
@@ -42,7 +42,7 @@ const ResendTimer = ({
           </TextLink>
         )}
 
- {/* Displaying activity indicator during resend */}
+        {/* Displaying activity indicator during resend */}
         {resendingEmail && (
           <TextLink disabled>
             <TextLinkContent>

@@ -1,13 +1,5 @@
 import styled from "styled-components";
 import Constants from "expo-constants";
-import {
-  Text,
-  View,
-  Image,
-  TextInput,
-  TouchableOpacity,
-  SafeAreaView,
-} from "react-native";
 
 //colors
 export const Colors = {

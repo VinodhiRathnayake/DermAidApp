@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { View, StyleSheet } from "react-native";
 import Screen from "../components/Screen";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import Avatar from "../components/Avatar";
 import ProfileInfo from "../components/ProfileInfo";
 import SectionHead from "../components/SectionHead";
@@ -16,6 +16,8 @@ import KeyBoardAvoidingWrapper from "../components/KeyBoardAvoidingWrapper";
 
 function ProfileScreen() {
   const navigation = useNavigation();
+  const route = useRoute();
+  const [proImage, setProImage] = useState(route.params?.image);
   const [modalVisible, setModalVisible] = useState(false);
   const { setStoredCredentials, storedCredentials } =
     useContext(CredentialsContext);
@@ -67,11 +69,11 @@ function ProfileScreen() {
   //Function to save user's profile picture.
   const saveImage = async (image) => {
     try {
-      setImage(image);
+      setProImage(image);
 
       const updatedUserData = {
         ...storedCredentials,
-        image,
+        image: proImage,
       };
       AsyncStorage.setItem(
         "dermAidCredentials",

@@ -3,7 +3,7 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import colors from "../config/colors";
 
-function Button({ title, onPress, color, style, children }) {
+function Button({ title, onPress, color, children }) {
   return (
     // Touchable opacity for button press
     <TouchableOpacity
@@ -36,7 +36,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginLeft: 6,
     fontWeight: "bold",
-
   },
   buttonContent: {
     flexDirection: "row",

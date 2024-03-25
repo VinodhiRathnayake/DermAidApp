@@ -1,11 +1,6 @@
 //Import statements
 import React from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-  SafeAreaView,
-} from "react-native";
+import { View, StyleSheet, Text, SafeAreaView } from "react-native";
 
 // AppHeader component definition
 function AppHeader({ title }) {
@@ -21,11 +16,11 @@ function AppHeader({ title }) {
 }
 
 const styles = StyleSheet.create({
- // Style for the title container
+  // Style for the title container
   titleContainer: {
     flexDirection: "row",
   },
-   // Style for the header title
+  // Style for the header title
   headerTitle: {
     flex: 1,
     fontSize: 20,

@@ -20,7 +20,7 @@ const KeyboardAvoidingContainer = ({ children, backgroundColor, style }) => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={headerHeight}
       >
-         {/* ScrollView to handle content scrolling */}
+        {/* ScrollView to handle content scrolling */}
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={[style]}

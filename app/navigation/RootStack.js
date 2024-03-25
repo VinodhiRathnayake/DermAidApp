@@ -13,7 +13,6 @@ import { CredentialsContext } from "../components/CredentialsContext";
 
 const Stack = createNativeStackNavigator();
 
-
 // Component for handling the root navigation stack of the application.
 const RootStack = () => {
   return (

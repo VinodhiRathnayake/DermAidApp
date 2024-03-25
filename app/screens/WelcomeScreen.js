@@ -1,6 +1,6 @@
 //import statements
 import React, { useContext } from "react";
-import { View, StyleSheet, Text, Image } from "react-native";
+import { View, StyleSheet, Text, Image, ScrollView } from "react-native";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
 
@@ -37,20 +37,25 @@ function WelcomeScreen() {
 
   return (
     <Screen>
-      <View style={styles.container}>
-        <Text style={styles.welcomeText}>Your Skin Journey Starts Here!</Text>
-        <Image style={[styles.image]} source={require("../assets/logo2.png")} />
-        <WelcomeContainer>
-          <PageTitle>Welcome {name}</PageTitle>
-          <SubTitle>{email}</SubTitle>
-          <StyledFormArea>
-            <Line />
-            <StyledButton onPress={clearLogin}>
-              <ButtonText>Logout</ButtonText>
-            </StyledButton>
-          </StyledFormArea>
-        </WelcomeContainer>
-      </View>
+      <ScrollView>
+        <View style={styles.container}>
+          <Text style={styles.welcomeText}>Your Skin Journey Starts Here!</Text>
+          <Image
+            style={[styles.image]}
+            source={require("../assets/logo2.png")}
+          />
+          <WelcomeContainer>
+            <PageTitle>Welcome {name}</PageTitle>
+            <SubTitle>{email}</SubTitle>
+            <StyledFormArea>
+              <Line />
+              <StyledButton onPress={clearLogin}>
+                <ButtonText>Logout</ButtonText>
+              </StyledButton>
+            </StyledFormArea>
+          </WelcomeContainer>
+        </View>
+      </ScrollView>
     </Screen>
   );
 }

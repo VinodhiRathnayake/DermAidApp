@@ -30,7 +30,7 @@ const Avatar = ({
             imgStyle,
           ]}
         />
- {/* Edit button */}
+        {/* Edit button */}
         {!aviOnly && (
           <TouchableOpacity style={styles.editButton} onPress={onButtonPress}>
             <MaterialCommunityIcons

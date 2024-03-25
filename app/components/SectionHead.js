@@ -5,9 +5,9 @@ import StyledText from "../components/StyledText";
 
 const SectionHead = ({ children, option, style, onPress }) => {
   return (
-    //View container for section header 
+    //View container for section header
     <View style={[styles.sectionHead, style]}>
-       {/* Main section header text */}
+      {/* Main section header text */}
       <StyledText bold style={styles.headText}>
         {children}
       </StyledText>

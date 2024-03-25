@@ -3,7 +3,7 @@ import React, { useState, useContext } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
 import { View, ActivityIndicator, StyleSheet, Text } from "react-native";
-import { Octicons, Entypo, Fontisto } from "@expo/vector-icons";
+import { Octicons, Entypo } from "@expo/vector-icons";
 import axios from "axios";
 import Constants from "expo-constants";
 
@@ -18,7 +18,6 @@ import {
   RightIcon,
   StyledInputLabel,
   StyledButton,
-  ButtonText,
   StyledTextInput,
   Colors,
   MsgBox,
